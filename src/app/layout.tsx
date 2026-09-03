@@ -19,12 +19,12 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Avenza Consulting — Core Banking & Temenos Transformation Partner",
+  title: "Timely Core Banking Transformations | Avenza Consulting Services",
   description:
     "Avenza Consulting accelerates core banking, Temenos, payments, digital, cloud and AI transformation for banks worldwide — proven methodologies, accelerators, and global delivery expertise.",
   metadataBase: new URL("https://www.avenza-consulting.com"),
   openGraph: {
-    title: "Avenza Consulting — Core Banking & Temenos Transformation Partner",
+    title: "Timely Core Banking Transformations | Avenza Consulting Services",
     description:
       "Accelerating core banking, Temenos, payments, cloud and AI transformation for banks worldwide.",
     url: "https://www.avenza-consulting.com",

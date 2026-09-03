@@ -30,6 +30,15 @@ export const leadership = [
   },
 ] as const;
 
+export const clientLogos = [
+  { id: "al-baraka", name: "al Baraka", src: "/clients/al-baraka.png" },
+  { id: "bdo", name: "BDO", src: "/clients/bdo.png" },
+  { id: "cognizant", name: "Cognizant", src: "/clients/cognizant.png" },
+  { id: "eastwest", name: "EastWest", src: "/clients/eastwest.png" },
+  { id: "hdbank", name: "HDBank", src: "/clients/hdbank.png" },
+  { id: "rabobank", name: "Rabobank", src: "/clients/rabobank.png" },
+] as const;
+
 export const trf = {
   eyebrow: "TRF'26 APAC",
   bannerText: "We're excited to be a Silver Sponsor at the Temenos",

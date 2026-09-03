@@ -1,0 +1,71 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
+export function Counter({
+  value,
+  suffix = "",
+  duration = 1.6,
+}: {
+  value: number;
+  suffix?: string;
+  duration?: number;
+}) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [inView, setInView] = useState(false);
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    if (inView) return;
+    const el = ref.current;
+    if (!el) return;
+
+    const rect = el.getBoundingClientRect();
+    if ((rect.top < window.innerHeight && rect.bottom > 0) || document.hidden) {
+      setInView(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "0px 0px -60px 0px" }
+    );
+    observer.observe(el);
+
+    const onVisibilityChange = () => {
+      if (document.hidden) setInView(true);
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+    };
+  }, [inView]);
+
+  useEffect(() => {
+    if (!inView) return;
+    let raf: number;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const progress = Math.min((now - start) / (duration * 1000), 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplay(Math.round(eased * value));
+      if (progress < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [inView, value, duration]);
+
+  return (
+    <span ref={ref} className="tabular-nums">
+      {display}
+      {suffix}
+    </span>
+  );
+}

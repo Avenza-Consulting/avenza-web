@@ -1,26 +1,205 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-ink: #06070a;
+  --color-ink-soft: #0c0f16;
+  --color-surface: #10131b;
+  --color-surface-raised: #161a24;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.16);
+
+  --color-paper: #f6f5f2;
+  --color-paper-raised: #ffffff;
+
+  --color-amber: #ff8a2b;
+  --color-amber-soft: #ffb066;
+  --color-cyan: #34e0d9;
+  --color-violet: #7c6cff;
+  --color-azure: #3d8bff;
+
+  --color-text-primary: #f4f5f7;
+  --color-text-muted: #9aa2b1;
+  --color-text-dim: #626b7a;
+
+  /* Always-dark text for content sitting on a fixed-brightness accent
+     background (amber/azure buttons, badges) — unlike --color-ink,
+     this must NOT flip in light mode, since the accent background it
+     pairs with doesn't flip either. */
+  --color-on-accent: #06070a;
+
+  --font-display: var(--font-manrope);
+  --font-body: var(--font-inter);
+
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+
+  color-scheme: dark;
+}
+
+/*
+ * Light theme.
+ *
+ * Dark is the site's default regardless of system preference — light
+ * mode only activates when the user explicitly picks it (ThemeToggle
+ * sets data-theme="light" and persists the choice to localStorage;
+ * ThemeScript re-applies it before paint on later visits). There is
+ * intentionally no `prefers-color-scheme` fallback here.
+ *
+ * Most of this site's components style "light content on a dark
+ * surface" using Tailwind's built-in `white` color at various
+ * opacities (text-white, border-white/10, bg-white/5, ...). Tailwind
+ * v4 compiles those to `color-mix(in oklab, var(--color-white) N%, …)`,
+ * so redefining `--color-white` here — alongside the semantic tokens
+ * above — re-themes every one of those utilities without touching
+ * component markup. `--color-black` is left alone: the two places
+ * that use it are modal scrims, which should stay dark in both themes.
+ */
+:root[data-theme="light"] {
+  --color-white: #0a0a0a;
+
+  --color-ink: #f6f5f2;
+  --color-ink-soft: #ffffff;
+  --color-surface: #ffffff;
+  --color-surface-raised: #ffffff;
+  --color-border: rgba(10, 10, 10, 0.09);
+  --color-border-strong: rgba(10, 10, 10, 0.18);
+
+  --color-text-primary: #14151a;
+  --color-text-muted: #565d6b;
+  --color-text-dim: #8a919e;
+
+  color-scheme: light;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ink: var(--color-ink);
+  --color-ink-soft: var(--color-ink-soft);
+  --color-surface: var(--color-surface);
+  --color-surface-raised: var(--color-surface-raised);
+  --color-border: var(--color-border);
+  --color-border-strong: var(--color-border-strong);
+  --color-paper: var(--color-paper);
+  --color-paper-raised: var(--color-paper-raised);
+  --color-amber: var(--color-amber);
+  --color-amber-soft: var(--color-amber-soft);
+  --color-cyan: var(--color-cyan);
+  --color-violet: var(--color-violet);
+  --color-azure: var(--color-azure);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-muted: var(--color-text-muted);
+  --color-text-dim: var(--color-text-dim);
+  --color-on-accent: var(--color-on-accent);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html {
+  scroll-behavior: smooth;
+}
+
+[id] {
+  scroll-margin-top: 96px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-ink);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+}
+
+::selection {
+  background: var(--color-amber);
+  color: #06070a;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.text-gradient-amber {
+  background: linear-gradient(90deg, #ffb066 0%, #ff8a2b 50%, #ff6a3d 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-cool {
+  background: linear-gradient(90deg, #7c6cff 0%, #3d8bff 50%, #34e0d9 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(color-mix(in oklab, var(--color-white) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, var(--color-white) 5%, transparent) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+.glass {
+  background: color-mix(in oklab, var(--color-surface) 60%, transparent);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid var(--color-border);
+}
+
+/*
+ * The TRF banner keeps a fixed dark gradient background in both
+ * themes, so its text/controls are pinned to literal white values
+ * (inline styles) instead of the theme-tracked `white` family — see
+ * TrfBanner.tsx. This hover state can't be set inline.
+ */
+.trf-dismiss:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@keyframes drift {
+  0% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(2%, -3%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.9; }
+}
+
+@keyframes dash-flow {
+  to { stroke-dashoffset: -200; }
+}
+
+.animate-drift {
+  animation: drift 18s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3.2s ease-in-out infinite;
+}
+
+.animate-dash-flow {
+  stroke-dasharray: 6 10;
+  animation: dash-flow 6s linear infinite;
 }

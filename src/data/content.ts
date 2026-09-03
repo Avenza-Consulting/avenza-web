@@ -4,8 +4,30 @@ export const nav = [
   { label: "Solutions", href: "/#solutions" },
   { label: "Expertise", href: "/#why-avenza" },
   { label: "Insights", href: "/#insights" },
+  { label: "Leadership", href: "/leadership" },
   { label: "Careers", href: "/careers" },
   { label: "Contact", href: "/contact" },
+] as const;
+
+export const leadership = [
+  {
+    id: "mahesh-dutt-kolar",
+    name: "Mahesh Dutt Kolar",
+    title: "Chief Executive Officer",
+    photo: "/leadership-mahesh-dutt-kolar.png",
+  },
+  {
+    id: "ratnadeep-mukherjee",
+    name: "Ratnadeep Mukherjee",
+    title: "Co-Founder & Chief Revenue Officer",
+    photo: "/leadership-ratnadeep-mukherjee.png",
+  },
+  {
+    id: "gopinath-chandran",
+    name: "Gopinath Chandran",
+    title: "Chief Operating Officer",
+    photo: "/leadership-gopinath-chandran.png",
+  },
 ] as const;
 
 export const trf = {

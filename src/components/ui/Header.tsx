@@ -40,13 +40,24 @@ export function Header() {
 
   const activeHref = useMemo(() => {
     if (pathname !== "/") {
-      // Careers/Contact are real routes — match by exact pathname.
+      // Leadership/Careers/Contact are real routes — match by exact pathname.
       const match = nav.find((item) => item.href === pathname);
       return match?.href ?? null;
     }
     if (activeSectionId) return `/#${activeSectionId}`;
     return "/";
   }, [pathname, activeSectionId]);
+
+  // Next.js <Link> is a no-op when the target URL matches the current one,
+  // so clicking "Home" while already on "/" doesn't scroll anywhere on its
+  // own — do it explicitly.
+  const handleHomeClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      setMobileOpen(false);
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50">
@@ -71,6 +82,7 @@ export function Header() {
                   <Link
                     href={item.href}
                     aria-current={isActive ? "page" : undefined}
+                    onClick={item.href === "/" ? handleHomeClick : undefined}
                     className={`group relative text-sm font-medium transition-colors ${
                       isActive ? "text-white" : "text-text-muted hover:text-white"
                     }`}
@@ -144,6 +156,7 @@ export function Header() {
                     <Link
                       href={item.href}
                       aria-current={isActive ? "page" : undefined}
+                      onClick={item.href === "/" ? handleHomeClick : undefined}
                       className={`block rounded-lg px-3 py-3 text-base font-medium transition-colors ${
                         isActive
                           ? "bg-amber/10 text-amber-soft"

@@ -28,6 +28,7 @@ export function Capabilities() {
 
   const active = capabilities[index];
   const accent = groupAccent[active.group];
+  const autoAdvanceIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -60,14 +61,27 @@ export function Capabilities() {
       setDirection(1);
       setIndex((current) => (current + 1) % capabilities.length);
     }, SLIDE_MS);
-    return () => clearInterval(id);
+    autoAdvanceIntervalRef.current = id;
+    return () => {
+      clearInterval(id);
+      if (autoAdvanceIntervalRef.current === id) autoAdvanceIntervalRef.current = null;
+    };
   }, [paused, inView]);
 
-  const goTo = (nextIndex: number, dir: number) => {
-    setDirection(dir);
-    setIndex((nextIndex + capabilities.length) % capabilities.length);
+  // Marks the interaction as "just happened" so the mouseleave/auto-advance
+  // effects know to stay paused, then schedules the resume. Also clears the
+  // auto-advance interval synchronously — setPaused(true) alone only stops
+  // the *next* effect run from creating a new interval, but a tick already
+  // queued by the still-running interval can fire in the same batch as this
+  // click's setIndex call, compounding into a double-advance. Clearing it
+  // here closes that race.
+  const markInteracted = () => {
+    if (autoAdvanceIntervalRef.current !== null) {
+      clearInterval(autoAdvanceIntervalRef.current);
+      autoAdvanceIntervalRef.current = null;
+    }
     setPaused(true);
-    // goTo only ever runs from click handlers, never during render — this
+    // Only ever runs from click handlers, never during render — this
     // Date.now() call is safe despite the lint rule's static check.
     // eslint-disable-next-line react-hooks/purity
     interactedUntilRef.current = Date.now() + RESUME_AFTER_INTERACTION_MS;
@@ -75,6 +89,26 @@ export function Capabilities() {
     resumeTimeoutRef.current = setTimeout(() => {
       if (!hoveredRef.current) setPaused(false);
     }, RESUME_AFTER_INTERACTION_MS);
+  };
+
+  // Jump to an absolute slide (progress segments, group pills). dir only
+  // controls the slide-in direction, so it's fine if it's occasionally off
+  // by a sign on a rapid double-click — the index itself is always exact.
+  const goTo = (nextIndex: number, dir: number) => {
+    markInteracted();
+    setDirection(dir);
+    setIndex((nextIndex + capabilities.length) % capabilities.length);
+  };
+
+  // Step relative to whatever the current slide actually is at the moment
+  // the update applies, not whatever `index` this closure captured when the
+  // button was rendered — otherwise two rapid clicks (or a click racing the
+  // auto-advance timer) can both compute the same target and the visible
+  // position skips or repeats a slide.
+  const step = (delta: 1 | -1) => {
+    markInteracted();
+    setDirection(delta);
+    setIndex((current) => (current + delta + capabilities.length) % capabilities.length);
   };
 
   useEffect(() => {
@@ -170,47 +204,49 @@ export function Capabilities() {
             ))}
           </div>
 
-          <div className="relative mt-6 min-h-[380px] overflow-hidden rounded-3xl border border-white/10 bg-surface sm:min-h-[320px]">
-            <AnimatePresence initial={false}>
+          <div className="relative mt-6 overflow-hidden rounded-3xl border border-white/10 bg-surface">
+            <AnimatePresence initial={false} mode="popLayout">
               <motion.div
                 key={active.id}
                 initial={{ opacity: 0, x: direction > 0 ? 60 : -60 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: direction > 0 ? -60 : 60 }}
+                exit={{ opacity: 0, x: direction > 0 ? -60 : 60, position: "absolute" }}
                 transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute inset-0 grid grid-cols-1 gap-8 p-8 sm:grid-cols-5 sm:p-12"
+                className="grid grid-cols-1 gap-6 p-8 sm:grid-cols-[auto_1fr] sm:gap-10 sm:p-12"
               >
-                <div className="sm:col-span-2">
+                <div className="flex items-center gap-4 sm:flex-col sm:items-start sm:gap-0">
                   <span
-                    className="inline-flex h-16 w-16 items-center justify-center rounded-2xl"
+                    className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl sm:h-16 sm:w-16"
                     style={{ background: `color-mix(in oklab, ${accent.color} 16%, transparent)`, color: accent.color }}
                   >
-                    <CapabilityIcon id={active.id} className="h-7 w-7" />
+                    <CapabilityIcon id={active.id} className="h-6 w-6 sm:h-7 sm:w-7" />
                   </span>
-                  <p className={`mt-6 text-xs font-bold uppercase tracking-widest ${accent.text}`}>
-                    {capabilityGroups.find((g) => g.id === active.group)?.label}
-                  </p>
-                  <span className="mt-2 block font-display text-6xl font-extrabold text-white/10">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
+                  <div className="sm:mt-6">
+                    <p className={`text-xs font-bold uppercase tracking-widest ${accent.text}`}>
+                      {capabilityGroups.find((g) => g.id === active.group)?.label}
+                    </p>
+                    <span className="mt-2 hidden font-display text-6xl font-extrabold text-white/10 sm:block">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                  </div>
                 </div>
 
-                <div className="flex flex-col justify-center sm:col-span-3">
+                <div className="flex flex-col justify-center">
                   <h3 className="font-display text-2xl font-bold leading-snug text-white sm:text-3xl">
                     {active.title}
                   </h3>
-                  <p className="mt-4 max-w-lg text-base leading-relaxed text-text-muted">
+                  <p className="mt-4 text-base leading-relaxed text-text-muted">
                     {active.body}
                   </p>
                 </div>
               </motion.div>
             </AnimatePresence>
 
-            <div className="absolute inset-x-0 bottom-0 flex items-center justify-between px-6 pb-6 sm:px-12">
+            <div className="relative flex items-center justify-between border-t border-white/10 px-6 py-4 sm:px-12">
               <div className="flex gap-2">
                 <button
                   type="button"
-                  onClick={() => goTo(index - 1, -1)}
+                  onClick={() => step(-1)}
                   aria-label="Previous capability"
                   className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-text-muted transition-colors hover:border-white/30 hover:text-white"
                 >
@@ -220,7 +256,7 @@ export function Capabilities() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => goTo(index + 1, 1)}
+                  onClick={() => step(1)}
                   aria-label="Next capability"
                   className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-text-muted transition-colors hover:border-white/30 hover:text-white"
                 >

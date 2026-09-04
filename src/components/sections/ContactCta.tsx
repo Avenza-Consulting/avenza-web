@@ -1,7 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
-import { clientLogos } from "@/data/content";
+import { LogoGrid } from "@/components/ui/LogoGrid";
 
 export function ContactCta() {
   return (
@@ -35,30 +34,16 @@ export function ContactCta() {
             </Link>
           </div>
         </Reveal>
-
-        <Reveal delay={0.1} duration={0.5} distance={12} className="mt-14">
-          <p className="text-xs font-semibold uppercase tracking-widest text-text-dim">
-            Trusted by leading banks and technology partners
-          </p>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
-            {clientLogos.map((client) => (
-              <div
-                key={client.id}
-                className="flex h-20 w-40 items-center justify-center rounded-xl border p-3 shadow-md transition-transform duration-200 hover:scale-105 sm:h-24 sm:w-48"
-                style={{ background: "#ffffff", borderColor: "rgba(10, 10, 10, 0.1)" }}
-              >
-                <Image
-                  src={client.src}
-                  alt={client.name}
-                  width={200}
-                  height={133}
-                  className="h-full w-full object-contain"
-                />
-              </div>
-            ))}
-          </div>
-        </Reveal>
       </div>
+
+      <Reveal delay={0.1} duration={0.5} distance={12} className="relative mt-14">
+        <p className="text-center text-xs font-semibold uppercase tracking-widest text-text-dim">
+          Trusted by leading banks and technology partners
+        </p>
+        <div className="mx-auto mt-6 max-w-[1280px] px-4 sm:px-6 lg:px-8">
+          <LogoGrid />
+        </div>
+      </Reveal>
     </section>
   );
 }

@@ -6,9 +6,9 @@ export const nav = [
       { label: "Capabilities", href: "/#capabilities" },
       { label: "Solutions", href: "/#solutions" },
       { label: "Expertise", href: "/#why-avenza" },
-      { label: "Accelerators", href: "/accelerators" },
     ],
   },
+  { label: "Accelerators", href: "/accelerators" },
   { label: "Insights", href: "/#insights" },
   {
     label: "Careers",

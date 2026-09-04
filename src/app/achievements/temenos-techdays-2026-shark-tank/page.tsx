@@ -8,6 +8,20 @@ import { achievement } from "@/data/content";
 export const metadata: Metadata = {
   title: "Avenza wins Shark Tank at Temenos TechDays '26 | Avenza Consulting",
   description: achievement.summary,
+  openGraph: {
+    title: "Avenza wins Shark Tank at Temenos TechDays '26",
+    description: achievement.summary,
+    url: "https://www.avenza-consulting.com/achievements/temenos-techdays-2026-shark-tank",
+    siteName: "Avenza Consulting",
+    type: "article",
+    images: [{ url: achievement.photo, width: 1206, height: 805, alt: achievement.title }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Avenza wins Shark Tank at Temenos TechDays '26",
+    description: achievement.summary,
+    images: [achievement.photo],
+  },
 };
 
 export default function AchievementPage() {
@@ -18,12 +32,12 @@ export default function AchievementPage() {
           <Reveal>
             <Link
               href="/"
-              className="text-sm font-semibold text-text-muted transition-colors hover:text-amber-soft"
+              className="text-sm font-semibold text-text-muted transition-colors hover:text-amber-soft-text"
             >
               &larr; Back to home
             </Link>
 
-            <span className="mt-8 block text-xs font-semibold uppercase tracking-widest text-amber-soft">
+            <span className="mt-8 block text-xs font-semibold uppercase tracking-widest text-amber-soft-text">
               {achievement.eyebrow}
             </span>
             <h1 className="mt-4 font-display text-3xl font-bold leading-tight text-white sm:text-5xl">
@@ -69,12 +83,18 @@ export default function AchievementPage() {
             </p>
           </Reveal>
 
-          <Reveal delay={0.2} className="mt-10">
+          <Reveal delay={0.2} className="mt-10 flex flex-wrap items-center gap-4">
             <Link
               href="/contact"
               className="inline-flex items-center gap-2 rounded-full bg-amber px-8 py-3.5 text-sm font-semibold text-on-accent transition-transform duration-200 hover:scale-[1.03]"
             >
               Start a Conversation
+            </Link>
+            <Link
+              href="/life-at-avenza"
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 px-8 py-3.5 text-sm font-semibold text-white transition-colors hover:border-amber/50 hover:text-amber-soft-text"
+            >
+              See More of Life at Avenza
             </Link>
           </Reveal>
         </div>

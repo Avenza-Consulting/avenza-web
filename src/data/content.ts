@@ -356,22 +356,30 @@ export const jobs = [
     id: "senior-developer",
     title: "Senior Developer",
     blurb: "We are seeking an experienced Senior Developer.",
+    datePosted: "2026-08-01",
+    employmentType: "FULL_TIME",
   },
   {
     id: "sr-product-specialist",
     title: "Sr. Product Specialist",
     blurb: "We are seeking an experienced Sr. Product Specialist.",
+    datePosted: "2026-08-01",
+    employmentType: "FULL_TIME",
   },
   {
     id: "pre-sales-lead",
     title: "Pre-Sales Lead",
     blurb:
       "Avenza is seeking an experienced Pre-Sales solutioning lead with 18+ years of experience to join our core team.",
+    datePosted: "2026-08-01",
+    employmentType: "FULL_TIME",
   },
   {
     id: "lead-product-consultant",
     title: "Lead Product Consultant",
     blurb: "We are seeking an experienced Lead Product Consultant.",
+    datePosted: "2026-08-01",
+    employmentType: "FULL_TIME",
   },
 ] as const;
 

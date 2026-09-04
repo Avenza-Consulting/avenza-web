@@ -17,7 +17,7 @@ export function ContactForm() {
       />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <span className="text-xs font-semibold uppercase tracking-widest text-amber-soft">
+          <span className="text-xs font-semibold uppercase tracking-widest text-amber-soft-text">
             Contact
           </span>
           <h1 className="mt-4 font-display text-4xl font-extrabold leading-tight text-white sm:text-5xl">
@@ -46,7 +46,7 @@ export function ContactForm() {
                   </h3>
                   <a
                     href={`mailto:${contactInfo.email}`}
-                    className="mt-3 block text-base font-medium text-amber-soft transition-colors hover:text-amber"
+                    className="mt-3 block text-base font-medium text-amber-soft-text transition-colors hover:text-amber"
                   >
                     {contactInfo.email}
                   </a>
@@ -55,7 +55,7 @@ export function ContactForm() {
               <div className="mt-10 flex gap-3">
                 <a
                   href="/careers"
-                  className="rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:border-amber/50 hover:text-amber-soft"
+                  className="rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:border-amber/50 hover:text-amber-soft-text"
                 >
                   Careers CTA
                 </a>

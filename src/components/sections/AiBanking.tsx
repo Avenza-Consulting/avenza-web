@@ -14,7 +14,7 @@ export function AiBanking() {
       />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <span className="text-xs font-semibold uppercase tracking-widest text-cyan">
+          <span className="text-xs font-semibold uppercase tracking-widest text-cyan-text">
             AI + Banking
           </span>
           <h2 className="mt-4 font-display text-3xl font-bold leading-tight text-white sm:text-4xl">

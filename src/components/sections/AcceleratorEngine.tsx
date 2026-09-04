@@ -10,7 +10,7 @@ export function AcceleratorEngine() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
           <Reveal>
-            <span className="text-xs font-semibold uppercase tracking-widest text-violet">
+            <span className="text-xs font-semibold uppercase tracking-widest text-violet-text">
               Avenza Accelerators
             </span>
             <h2 className="mt-4 font-display text-3xl font-bold leading-tight text-white sm:text-4xl">
@@ -25,7 +25,7 @@ export function AcceleratorEngine() {
               {acceleratorEngine.map((item, i) => (
                 <Reveal key={item} delay={i * 0.06} as="span">
                   <li className="flex items-start gap-3 text-sm text-text-muted">
-                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-violet/15 text-violet">
+                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-violet/15 text-violet-text">
                       <svg width="10" height="8" viewBox="0 0 10 8" fill="none" aria-hidden="true">
                         <path d="M1 4L3.5 6.5L9 1" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>

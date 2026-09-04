@@ -9,11 +9,35 @@ import { capabilities, capabilityGroups } from "@/data/content";
 const SLIDE_MS = 4500;
 const RESUME_AFTER_INTERACTION_MS = 9000;
 
-const groupAccent: Record<string, { color: string; text: string; ring: string; glow: string }> = {
-  "core-platform": { color: "#ff8a2b", text: "text-amber-soft", ring: "ring-amber/40", glow: "#ff8a2b" },
-  "payments-compliance": { color: "#3d8bff", text: "text-azure", ring: "ring-azure/40", glow: "#3d8bff" },
-  modernization: { color: "#7c6cff", text: "text-violet", ring: "ring-violet/40", glow: "#7c6cff" },
-  "delivery-support": { color: "#34e0d9", text: "text-cyan", ring: "ring-cyan/40", glow: "#34e0d9" },
+const groupAccent: Record<string, { color: string; textColor: string; text: string; ring: string; glow: string }> = {
+  "core-platform": {
+    color: "#ff8a2b",
+    textColor: "var(--color-amber-soft-text)",
+    text: "text-amber-soft-text",
+    ring: "ring-amber/40",
+    glow: "#ff8a2b",
+  },
+  "payments-compliance": {
+    color: "#3d8bff",
+    textColor: "var(--color-azure-text)",
+    text: "text-azure-text",
+    ring: "ring-azure/40",
+    glow: "#3d8bff",
+  },
+  modernization: {
+    color: "#7c6cff",
+    textColor: "var(--color-violet-text)",
+    text: "text-violet-text",
+    ring: "ring-violet/40",
+    glow: "#7c6cff",
+  },
+  "delivery-support": {
+    color: "#34e0d9",
+    textColor: "var(--color-cyan-text)",
+    text: "text-cyan-text",
+    ring: "ring-cyan/40",
+    glow: "#34e0d9",
+  },
 };
 
 export function Capabilities() {
@@ -140,7 +164,7 @@ export function Capabilities() {
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="max-w-2xl">
-          <span className="text-xs font-semibold uppercase tracking-widest text-amber-soft">
+          <span className="text-xs font-semibold uppercase tracking-widest text-amber-soft-text">
             Core Capabilities
           </span>
           <h2 className="mt-4 font-display text-3xl font-bold leading-tight text-white sm:text-4xl">
@@ -217,7 +241,7 @@ export function Capabilities() {
                 <div className="flex items-center gap-4 sm:flex-col sm:items-start sm:gap-0">
                   <span
                     className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl sm:h-16 sm:w-16"
-                    style={{ background: `color-mix(in oklab, ${accent.color} 16%, transparent)`, color: accent.color }}
+                    style={{ background: `color-mix(in oklab, ${accent.color} 16%, transparent)`, color: accent.textColor }}
                   >
                     <CapabilityIcon id={active.id} className="h-6 w-6 sm:h-7 sm:w-7" />
                   </span>

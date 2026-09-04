@@ -11,7 +11,7 @@ export function AcceleratorsHero() {
       />
       <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
         <Reveal>
-          <span className="text-xs font-semibold uppercase tracking-widest text-amber-soft">
+          <span className="text-xs font-semibold uppercase tracking-widest text-amber-soft-text">
             Accelerator Lab &middot; Our IP
           </span>
           <h1 className="mt-4 font-display text-4xl font-extrabold leading-tight text-white sm:text-5xl">

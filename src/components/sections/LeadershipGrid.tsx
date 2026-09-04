@@ -30,7 +30,7 @@ export function LeadershipGrid() {
                 </div>
                 <div className="p-6">
                   <h3 className="font-display text-lg font-bold text-white">{person.name}</h3>
-                  <p className="mt-1 text-sm font-medium text-amber-soft">{person.title}</p>
+                  <p className="mt-1 text-sm font-medium text-amber-soft-text">{person.title}</p>
                 </div>
               </div>
             </Reveal>

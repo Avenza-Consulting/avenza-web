@@ -8,6 +8,20 @@ export const metadata: Metadata = {
   title: "Accelerators | Avenza Consulting",
   description:
     "Proprietary accelerators built from real programmes — reusable frameworks, templates and tooling that take the effort and risk out of core banking transformation.",
+  openGraph: {
+    title: "Accelerators | Avenza Consulting",
+    description:
+      "Proprietary accelerators built from real programmes — reusable frameworks, templates and tooling that take the effort and risk out of core banking transformation.",
+    url: "https://www.avenza-consulting.com/accelerators",
+    siteName: "Avenza Consulting",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Accelerators | Avenza Consulting",
+    description:
+      "Proprietary accelerators built from real programmes — reusable frameworks, templates and tooling that take the effort and risk out of core banking transformation.",
+  },
 };
 
 export default function AcceleratorsPage() {

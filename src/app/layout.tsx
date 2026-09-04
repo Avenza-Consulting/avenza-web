@@ -4,7 +4,27 @@ import { ThemeScript } from "@/components/ui/ThemeScript";
 import { TrfBanner } from "@/components/ui/TrfBanner";
 import { Header } from "@/components/ui/Header";
 import { Footer } from "@/components/ui/Footer";
+import { JsonLd } from "@/components/ui/JsonLd";
+import { contactInfo } from "@/data/content";
 import "./globals.css";
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Avenza Consulting Services",
+  url: "https://www.avenza-consulting.com",
+  description:
+    "Avenza Consulting accelerates core banking, Temenos, payments, digital, cloud and AI transformation for banks worldwide.",
+  email: contactInfo.email,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "43/B, 1st Main Road, Sarakki Industrial Layout, 3rd Phase, JP Nagar",
+    addressLocality: "Bengaluru",
+    postalCode: "560078",
+    addressCountry: "IN",
+  },
+  sameAs: ["https://www.linkedin.com/company/avenza-consulting-services/"],
+};
 
 const inter = Inter({
   variable: "--font-inter",
@@ -31,6 +51,12 @@ export const metadata: Metadata = {
     siteName: "Avenza Consulting",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Timely Core Banking Transformations | Avenza Consulting Services",
+    description:
+      "Accelerating core banking, Temenos, payments, cloud and AI transformation for banks worldwide.",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -42,6 +68,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <head>
         <ThemeScript />
+        <JsonLd data={organizationSchema} />
       </head>
       <body className="min-h-full flex flex-col bg-ink text-text-primary">
         <a

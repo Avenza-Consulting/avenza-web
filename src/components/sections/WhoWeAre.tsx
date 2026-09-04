@@ -8,7 +8,7 @@ export function WhoWeAre() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-12">
           <Reveal>
-            <span className="text-xs font-semibold uppercase tracking-widest text-amber-soft">
+            <span className="text-xs font-semibold uppercase tracking-widest text-amber-soft-text">
               Who We Are
             </span>
             <h2 className="mt-4 font-display text-3xl font-bold leading-tight text-white sm:text-4xl">

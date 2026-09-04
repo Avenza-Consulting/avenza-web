@@ -7,7 +7,7 @@ export function Insights() {
     <section id="insights" className="relative border-t border-white/5 bg-ink py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="max-w-2xl">
-          <span className="text-xs font-semibold uppercase tracking-widest text-violet">
+          <span className="text-xs font-semibold uppercase tracking-widest text-violet-text">
             Thought Leadership
           </span>
           <h2 className="mt-4 font-display text-3xl font-bold leading-tight text-white sm:text-4xl">
@@ -31,7 +31,7 @@ export function Insights() {
                   </div>
                 </div>
                 <div className="flex flex-1 flex-col p-6">
-                  <span className="text-xs font-semibold uppercase tracking-wide text-cyan">
+                  <span className="text-xs font-semibold uppercase tracking-wide text-cyan-text">
                     {post.tag}
                   </span>
                   <h3 className="mt-3 font-display text-lg font-bold leading-snug text-white">

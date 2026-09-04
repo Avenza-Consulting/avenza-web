@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { Lightbox } from "@/components/ui/Lightbox";
 import { celebrationPhotos, sportsPhotos, offsitePhotos } from "@/data/content";
@@ -9,7 +10,6 @@ import { celebrationPhotos, sportsPhotos, offsitePhotos } from "@/data/content";
 type Photo = { id: string; src: string; alt: string };
 
 const placeholderTiles = [
-  { id: "learning", label: "Learning Sessions", color: "#7c6cff" },
   { id: "festivals", label: "Festival Get-Togethers", color: "#ffb066" },
 ] as const;
 
@@ -66,7 +66,7 @@ export function LifeGallery() {
     <section className="relative border-t border-white/5 bg-ink-soft py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="max-w-2xl">
-          <span className="text-xs font-semibold uppercase tracking-widest text-amber-soft">
+          <span className="text-xs font-semibold uppercase tracking-widest text-amber-soft-text">
             Moments Worth Sharing
           </span>
           <h2 className="mt-4 font-display text-3xl font-bold leading-tight text-white sm:text-4xl">
@@ -75,14 +75,24 @@ export function LifeGallery() {
         </Reveal>
 
         <div className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-          <Reveal className="col-span-2 row-span-2 aspect-square overflow-hidden rounded-2xl border border-white/10 sm:aspect-auto">
-            <Image
-              src="/achievement-techdays-2026.jpg"
-              alt="Avenza team celebrating the Shark Tank win at Temenos TechDays 2026"
-              width={1206}
-              height={805}
-              className="h-full w-full object-cover"
-            />
+          <Reveal className="group relative col-span-2 row-span-2 aspect-square overflow-hidden rounded-2xl border border-white/10 sm:aspect-auto">
+            <Link href="/achievements/temenos-techdays-2026-shark-tank" className="block h-full w-full">
+              <Image
+                src="/achievement-techdays-2026.jpg"
+                alt="Avenza team celebrating the Shark Tank win at Temenos TechDays 2026"
+                width={1206}
+                height={805}
+                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+              <span className="absolute inset-x-0 bottom-0 flex items-end justify-between bg-gradient-to-t from-black/70 to-transparent p-4">
+                <span className="text-xs font-semibold uppercase tracking-wide text-white">
+                  Shark Tank Win &middot; TechDays &apos;26
+                </span>
+                <span className="rounded-full bg-black/50 px-2.5 py-1 text-[10px] font-bold text-white">
+                  Read the story &rarr;
+                </span>
+              </span>
+            </Link>
           </Reveal>
 
           <Reveal delay={0.06} className="aspect-square overflow-hidden rounded-2xl">

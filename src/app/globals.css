@@ -17,6 +17,16 @@
   --color-violet: #7c6cff;
   --color-azure: #3d8bff;
 
+  /* Text-only variants of the accent colors above — identical to the
+     base tokens in dark mode, overridden separately (darker) in light
+     mode so accent-colored TEXT stays legible without affecting any
+     component that uses the base token as a solid background fill. */
+  --color-amber-text: var(--color-amber);
+  --color-amber-soft-text: var(--color-amber-soft);
+  --color-cyan-text: var(--color-cyan);
+  --color-violet-text: var(--color-violet);
+  --color-azure-text: var(--color-azure);
+
   --color-text-primary: #f4f5f7;
   --color-text-muted: #9aa2b1;
   --color-text-dim: #626b7a;
@@ -67,6 +77,21 @@
   --color-text-muted: #565d6b;
   --color-text-dim: #8a919e;
 
+  /* Dark-mode accent colors (amber, amber-soft, cyan, violet, azure) are
+     tuned for legibility as TEXT on near-black surfaces, and fail WCAG
+     contrast as text against the light theme's paper background. But
+     --color-amber (etc.) is also used as a solid CTA button fill, which
+     should keep its bright brand color in both themes — so darkening it
+     here would dull every button's fill along with fixing the text.
+     These "-text" tokens exist so accent-colored TEXT (eyebrow labels,
+     links) can opt into a legible variant per theme without touching
+     anything that uses the base token as a background fill. */
+  --color-amber-text: #a8560c;
+  --color-amber-soft-text: #a8570d;
+  --color-cyan-text: #0d7d78;
+  --color-violet-text: #5445d6;
+  --color-azure-text: #1f63d1;
+
   color-scheme: light;
 }
 
@@ -84,6 +109,11 @@
   --color-cyan: var(--color-cyan);
   --color-violet: var(--color-violet);
   --color-azure: var(--color-azure);
+  --color-amber-text: var(--color-amber-text);
+  --color-amber-soft-text: var(--color-amber-soft-text);
+  --color-cyan-text: var(--color-cyan-text);
+  --color-violet-text: var(--color-violet-text);
+  --color-azure-text: var(--color-azure-text);
   --color-text-primary: var(--color-text-primary);
   --color-text-muted: var(--color-text-muted);
   --color-text-dim: var(--color-text-dim);

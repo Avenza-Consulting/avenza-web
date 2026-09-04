@@ -12,7 +12,7 @@ export function Journey() {
     <section className="relative border-t border-white/5 bg-ink py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="max-w-2xl">
-          <span className="text-xs font-semibold uppercase tracking-widest text-cyan">
+          <span className="text-xs font-semibold uppercase tracking-widest text-cyan-text">
             Transformation Journey
           </span>
           <h2 className="mt-4 font-display text-3xl font-bold leading-tight text-white sm:text-4xl">
@@ -77,7 +77,7 @@ export function Journey() {
             {journey.map((step, i) => (
               <div key={step} className="relative">
                 <Reveal delay={i * 0.05} className="relative z-10 flex items-center gap-4">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-amber/40 bg-ink-soft font-display text-xs font-bold text-amber-soft">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-amber/40 bg-ink-soft font-display text-xs font-bold text-amber-soft-text">
                     {i + 1}
                   </div>
                   <span className="font-medium text-white">{step}</span>

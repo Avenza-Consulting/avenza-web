@@ -6,7 +6,7 @@ export function DeliveryModels() {
     <section className="relative border-t border-white/5 bg-ink py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="max-w-2xl">
-          <span className="text-xs font-semibold uppercase tracking-widest text-amber-soft">
+          <span className="text-xs font-semibold uppercase tracking-widest text-amber-soft-text">
             Delivery Models
           </span>
           <h2 className="mt-4 font-display text-3xl font-bold leading-tight text-white sm:text-4xl">

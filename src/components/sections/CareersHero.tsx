@@ -12,7 +12,7 @@ export function CareersHero() {
       />
       <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
         <Reveal>
-          <span className="text-xs font-semibold uppercase tracking-widest text-amber-soft">Careers</span>
+          <span className="text-xs font-semibold uppercase tracking-widest text-amber-soft-text">Careers</span>
           <h1 className="mt-4 font-display text-4xl font-extrabold leading-tight text-white sm:text-5xl">
             We Don&apos;t Just Build Banking Solutions.{" "}
             <span className="text-gradient-amber">We Build Careers That Matter.</span>

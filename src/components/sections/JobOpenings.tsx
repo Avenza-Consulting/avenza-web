@@ -13,7 +13,7 @@ export function JobOpenings() {
     <section id="openings" className="relative border-t border-white/5 bg-ink-soft py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="max-w-2xl">
-          <span className="text-xs font-semibold uppercase tracking-widest text-amber-soft">
+          <span className="text-xs font-semibold uppercase tracking-widest text-amber-soft-text">
             Current Openings
           </span>
           <h2 className="mt-4 font-display text-3xl font-bold leading-tight text-white sm:text-4xl">
@@ -32,7 +32,7 @@ export function JobOpenings() {
                 <button
                   type="button"
                   onClick={() => setOpenJobId(job.id)}
-                  className="mt-6 inline-flex w-fit items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:border-amber/50 hover:text-amber-soft"
+                  className="mt-6 inline-flex w-fit items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:border-amber/50 hover:text-amber-soft-text"
                 >
                   Apply Now
                   <svg width="12" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true">

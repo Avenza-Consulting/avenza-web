@@ -21,6 +21,7 @@ export function Header() {
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [mobileOpenGroup, setMobileOpenGroup] = useState<string | null>(null);
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const navRef = useRef<HTMLUListElement>(null);
   const pathname = usePathname();
   const [lastPathname, setLastPathname] = useState(pathname);
 
@@ -50,6 +51,21 @@ export function Header() {
     };
   }, []);
 
+  // Touch/tablet devices don't fire mouseleave the way a real cursor does,
+  // so a dropdown opened by tap-triggered mouseenter can get stuck open
+  // with no hover event left to close it. Tapping anywhere outside the
+  // open dropdown closes it as the touch-friendly equivalent.
+  useEffect(() => {
+    if (!openGroup) return;
+    const onPointerDown = (e: PointerEvent) => {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) {
+        setOpenGroup(null);
+      }
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => document.removeEventListener("pointerdown", onPointerDown);
+  }, [openGroup]);
+
   const activeSectionId = useActiveSection(inPageSectionIds, pathname === "/");
 
   const activeHref = useMemo(() => {
@@ -62,7 +78,15 @@ export function Header() {
     return "/";
   }, [pathname, activeSectionId]);
 
-  const openGroupWithoutDelay = (label: string) => {
+  // Coarse pointers (touch) can synthesize a mouseenter on tap with no
+  // mouseleave to follow, so hover-driven open/close is scoped to real
+  // hover capability — touch relies on the button's onClick toggle plus
+  // the outside-tap handler above.
+  const isHoverCapable = () =>
+    typeof window !== "undefined" && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  const openGroupOnHover = (label: string) => {
+    if (!isHoverCapable()) return;
     if (closeTimeoutRef.current) {
       clearTimeout(closeTimeoutRef.current);
       closeTimeoutRef.current = null;
@@ -70,7 +94,8 @@ export function Header() {
     setOpenGroup(label);
   };
 
-  const scheduleCloseGroup = () => {
+  const scheduleCloseGroupOnHover = () => {
+    if (!isHoverCapable()) return;
     closeTimeoutRef.current = setTimeout(() => setOpenGroup(null), 150);
   };
 
@@ -100,7 +125,7 @@ export function Header() {
         >
           <Logo className="text-amber" />
 
-          <ul className="hidden items-center gap-8 lg:flex">
+          <ul ref={navRef} className="hidden items-center gap-8 lg:flex">
             {nav.map((item) => {
               if ("items" in item) {
                 const isGroupActive = item.items.some((sub) => sub.href === activeHref);
@@ -109,8 +134,8 @@ export function Header() {
                   <li
                     key={item.label}
                     className="relative"
-                    onMouseEnter={() => openGroupWithoutDelay(item.label)}
-                    onMouseLeave={scheduleCloseGroup}
+                    onMouseEnter={() => openGroupOnHover(item.label)}
+                    onMouseLeave={scheduleCloseGroupOnHover}
                   >
                     <button
                       type="button"

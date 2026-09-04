@@ -1,5 +1,6 @@
 import { Hero } from "@/components/sections/Hero";
 import { WhoWeAre } from "@/components/sections/WhoWeAre";
+import { Achievement } from "@/components/sections/Achievement";
 import { Capabilities } from "@/components/sections/Capabilities";
 import { Journey } from "@/components/sections/Journey";
 import { Accelerators } from "@/components/sections/Accelerators";
@@ -23,6 +24,7 @@ export default function Home() {
       <DeliveryModels />
       <WhyAvenza />
       <Insights />
+      <Achievement />
       <ContactCta />
     </>
   );

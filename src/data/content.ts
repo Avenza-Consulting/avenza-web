@@ -30,6 +30,16 @@ export const leadership = [
   },
 ] as const;
 
+export const achievement = {
+  id: "temenos-techdays-2026-shark-tank",
+  eyebrow: "Achievement",
+  title: "Avenza wins Shark Tank at Temenos TechDays '26",
+  summary:
+    "Our team took the stage at Temenos TechDays 2026 in Chennai and won the Shark Tank innovation pitch — recognition for the ideas we're building to help banks move faster on Temenos.",
+  photo: "/achievement-techdays-2026.jpg",
+  href: "/achievements/temenos-techdays-2026-shark-tank",
+} as const;
+
 export const clientLogos = [
   { id: "al-baraka", name: "al Baraka", src: "/clients/al-baraka.png" },
   { id: "bdo", name: "BDO", src: "/clients/bdo.png" },

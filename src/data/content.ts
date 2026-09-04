@@ -398,6 +398,19 @@ export const sportsPhotos = [
   { id: "cricket-10", src: "/sports-cricket-10.jpg", alt: "Avenza team cricket day photo" },
 ] as const;
 
+export const offsitePhotos = [
+  { id: "chennai-1", src: "/offsite-chennai-1.jpg", alt: "Avenza Chennai team offsite get-together" },
+  { id: "chennai-2", src: "/offsite-chennai-2.jpg", alt: "Avenza Chennai team offsite photo" },
+  { id: "hyderabad-1", src: "/offsite-hyderabad-1.jpg", alt: "Avenza Hyderabad team offsite" },
+  { id: "hyderabad-2", src: "/offsite-hyderabad-2.jpg", alt: "Avenza Hyderabad team offsite photo" },
+  { id: "hyderabad-3", src: "/offsite-hyderabad-3.jpg", alt: "Avenza Hyderabad team offsite moment" },
+  { id: "hyderabad-4", src: "/offsite-hyderabad-4.jpg", alt: "Avenza Hyderabad team offsite get-together" },
+  { id: "hyderabad-5", src: "/offsite-hyderabad-5.jpg", alt: "Avenza Hyderabad team offsite gathering" },
+  { id: "hyderabad-6", src: "/offsite-hyderabad-6.jpg", alt: "Avenza Hyderabad team offsite outing" },
+  { id: "hyderabad-7", src: "/offsite-hyderabad-7.jpg", alt: "Avenza Hyderabad team offsite photo" },
+  { id: "hyderabad-8", src: "/offsite-hyderabad-8.jpg", alt: "Avenza Hyderabad team offsite day" },
+] as const;
+
 export const lifeHighlights = [
   {
     id: "team-events",

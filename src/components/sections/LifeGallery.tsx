@@ -4,13 +4,12 @@ import { useState } from "react";
 import Image from "next/image";
 import { Reveal } from "@/components/ui/Reveal";
 import { Lightbox } from "@/components/ui/Lightbox";
-import { celebrationPhotos, sportsPhotos } from "@/data/content";
+import { celebrationPhotos, sportsPhotos, offsitePhotos } from "@/data/content";
 
 type Photo = { id: string; src: string; alt: string };
 
 const placeholderTiles = [
   { id: "learning", label: "Learning Sessions", color: "#7c6cff" },
-  { id: "offsites", label: "Team Offsites", color: "#3d8bff" },
   { id: "festivals", label: "Festival Get-Togethers", color: "#ffb066" },
 ] as const;
 
@@ -102,8 +101,16 @@ export function LifeGallery() {
             />
           </Reveal>
 
+          <Reveal delay={0.18} className="aspect-square overflow-hidden rounded-2xl">
+            <PhotoStackTile
+              label="Team Offsites"
+              photos={offsitePhotos}
+              onOpen={() => openGallery(offsitePhotos)}
+            />
+          </Reveal>
+
           {placeholderTiles.map((tile, i) => (
-            <Reveal key={tile.id} delay={(i + 3) * 0.06} className="aspect-square overflow-hidden rounded-2xl border border-white/10">
+            <Reveal key={tile.id} delay={(i + 4) * 0.06} className="aspect-square overflow-hidden rounded-2xl border border-white/10">
               <div
                 className="relative flex h-full w-full items-center justify-center bg-surface"
                 style={{ background: `radial-gradient(circle at 30% 30%, color-mix(in oklab, ${tile.color} 25%, transparent), transparent 70%)` }}

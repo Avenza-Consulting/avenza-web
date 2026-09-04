@@ -2,6 +2,14 @@ import Link from "next/link";
 import { Logo } from "./Logo";
 import { nav, contactInfo } from "@/data/content";
 
+type FooterLink = { label: string; href: string };
+
+const footerLinks: FooterLink[] = nav.flatMap((item): FooterLink[] =>
+  "items" in item
+    ? item.items.map((sub): FooterLink => ({ label: sub.label, href: sub.href }))
+    : [{ label: item.label, href: item.href }]
+);
+
 export function Footer() {
   return (
     <footer className="relative overflow-hidden border-t border-white/10 bg-ink-soft">
@@ -20,7 +28,7 @@ export function Footer() {
           <div>
             <h3 className="font-display text-sm font-semibold text-white">Navigate</h3>
             <ul className="mt-4 space-y-3">
-              {nav.map((item) => (
+              {footerLinks.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}

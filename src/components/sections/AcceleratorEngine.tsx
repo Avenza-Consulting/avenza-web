@@ -2,9 +2,9 @@
 
 import { motion } from "framer-motion";
 import { Reveal } from "@/components/ui/Reveal";
-import { accelerators } from "@/data/content";
+import { acceleratorEngine } from "@/data/content";
 
-export function Accelerators() {
+export function AcceleratorEngine() {
   return (
     <section className="relative overflow-hidden border-t border-white/5 bg-ink-soft py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -22,7 +22,7 @@ export function Accelerators() {
               risk and effort on every program that follows.
             </p>
             <ul className="mt-8 space-y-4">
-              {accelerators.map((item, i) => (
+              {acceleratorEngine.map((item, i) => (
                 <Reveal key={item} delay={i * 0.06} as="span">
                   <li className="flex items-start gap-3 text-sm text-text-muted">
                     <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-violet/15 text-violet">

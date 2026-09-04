@@ -3,7 +3,6 @@ import { WhoWeAre } from "@/components/sections/WhoWeAre";
 import { Achievement } from "@/components/sections/Achievement";
 import { Capabilities } from "@/components/sections/Capabilities";
 import { Journey } from "@/components/sections/Journey";
-import { Accelerators } from "@/components/sections/Accelerators";
 import { AiBanking } from "@/components/sections/AiBanking";
 import { Ecosystem } from "@/components/sections/Ecosystem";
 import { DeliveryModels } from "@/components/sections/DeliveryModels";
@@ -16,15 +15,14 @@ export default function Home() {
     <>
       <Hero />
       <WhoWeAre />
+      <Achievement />
       <Capabilities />
       <Journey />
-      <Accelerators />
       <AiBanking />
       <Ecosystem />
       <DeliveryModels />
       <WhyAvenza />
       <Insights />
-      <Achievement />
       <ContactCta />
     </>
   );

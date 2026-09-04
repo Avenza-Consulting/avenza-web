@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -11,15 +11,23 @@ import { nav } from "@/data/content";
 
 const inPageSectionIds = ["capabilities", "solutions", "why-avenza", "insights"];
 
+function flatNavHrefs() {
+  return nav.flatMap((item) => ("items" in item ? item.items.map((sub) => sub.href) : [item.href]));
+}
+
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [openGroup, setOpenGroup] = useState<string | null>(null);
+  const [mobileOpenGroup, setMobileOpenGroup] = useState<string | null>(null);
+  const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pathname = usePathname();
   const [lastPathname, setLastPathname] = useState(pathname);
 
   if (pathname !== lastPathname) {
     setLastPathname(pathname);
     setMobileOpen(false);
+    setMobileOpenGroup(null);
   }
 
   useEffect(() => {
@@ -36,17 +44,35 @@ export function Header() {
     };
   }, [mobileOpen]);
 
+  useEffect(() => {
+    return () => {
+      if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+    };
+  }, []);
+
   const activeSectionId = useActiveSection(inPageSectionIds, pathname === "/");
 
   const activeHref = useMemo(() => {
     if (pathname !== "/") {
-      // Leadership/Careers/Contact are real routes — match by exact pathname.
-      const match = nav.find((item) => item.href === pathname);
-      return match?.href ?? null;
+      // Real routes (including ones nested under a dropdown) — match by exact pathname.
+      const match = flatNavHrefs().find((href) => href === pathname);
+      return match ?? null;
     }
     if (activeSectionId) return `/#${activeSectionId}`;
     return "/";
   }, [pathname, activeSectionId]);
+
+  const openGroupWithoutDelay = (label: string) => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+    setOpenGroup(label);
+  };
+
+  const scheduleCloseGroup = () => {
+    closeTimeoutRef.current = setTimeout(() => setOpenGroup(null), 150);
+  };
 
   // Next.js <Link> is a no-op when the target URL matches the current one,
   // so clicking "Home" while already on "/" doesn't scroll anywhere on its
@@ -76,6 +102,79 @@ export function Header() {
 
           <ul className="hidden items-center gap-8 lg:flex">
             {nav.map((item) => {
+              if ("items" in item) {
+                const isGroupActive = item.items.some((sub) => sub.href === activeHref);
+                const isOpen = openGroup === item.label;
+                return (
+                  <li
+                    key={item.label}
+                    className="relative"
+                    onMouseEnter={() => openGroupWithoutDelay(item.label)}
+                    onMouseLeave={scheduleCloseGroup}
+                  >
+                    <button
+                      type="button"
+                      aria-expanded={isOpen}
+                      onClick={() => setOpenGroup(isOpen ? null : item.label)}
+                      className={`group relative flex items-center gap-1.5 text-sm font-medium transition-colors ${
+                        isGroupActive ? "text-white" : "text-text-muted hover:text-white"
+                      }`}
+                    >
+                      {item.label}
+                      <svg
+                        width="9"
+                        height="6"
+                        viewBox="0 0 9 6"
+                        fill="none"
+                        aria-hidden="true"
+                        className={`transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+                      >
+                        <path d="M1 1L4.5 5L8 1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                      <span
+                        className={`absolute -bottom-1 left-0 h-px bg-amber transition-all duration-300 ${
+                          isGroupActive ? "w-full" : "w-0 group-hover:w-full"
+                        }`}
+                      />
+                    </button>
+
+                    <AnimatePresence>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -6 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -6 }}
+                          transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                          className="absolute left-0 top-full z-10 mt-3 w-56 overflow-hidden rounded-2xl border border-white/10 bg-surface-raised shadow-xl shadow-black/30"
+                        >
+                          <ul className="py-2">
+                            {item.items.map((sub) => {
+                              const isSubActive = sub.href === activeHref;
+                              return (
+                                <li key={sub.href}>
+                                  <Link
+                                    href={sub.href}
+                                    aria-current={isSubActive ? "page" : undefined}
+                                    onClick={() => setOpenGroup(null)}
+                                    className={`block px-4 py-2.5 text-sm transition-colors ${
+                                      isSubActive
+                                        ? "bg-amber/10 text-amber-soft"
+                                        : "text-text-muted hover:bg-white/5 hover:text-white"
+                                    }`}
+                                  >
+                                    {sub.label}
+                                  </Link>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </li>
+                );
+              }
+
               const isActive = item.href === activeHref;
               return (
                 <li key={item.href}>
@@ -150,6 +249,67 @@ export function Header() {
           >
             <ul className="flex flex-col gap-1 px-4 py-4">
               {nav.map((item) => {
+                if ("items" in item) {
+                  const isGroupActive = item.items.some((sub) => sub.href === activeHref);
+                  const isGroupOpen = mobileOpenGroup === item.label;
+                  return (
+                    <li key={item.label}>
+                      <button
+                        type="button"
+                        aria-expanded={isGroupOpen}
+                        onClick={() => setMobileOpenGroup(isGroupOpen ? null : item.label)}
+                        className={`flex w-full items-center justify-between rounded-lg px-3 py-3 text-base font-medium transition-colors ${
+                          isGroupActive
+                            ? "bg-amber/10 text-amber-soft"
+                            : "text-text-primary hover:bg-white/5 hover:text-amber-soft"
+                        }`}
+                      >
+                        {item.label}
+                        <svg
+                          width="11"
+                          height="7"
+                          viewBox="0 0 9 6"
+                          fill="none"
+                          aria-hidden="true"
+                          className={`transition-transform duration-200 ${isGroupOpen ? "rotate-180" : ""}`}
+                        >
+                          <path d="M1 1L4.5 5L8 1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </button>
+                      <AnimatePresence initial={false}>
+                        {isGroupOpen && (
+                          <motion.ul
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                            className="overflow-hidden pl-3"
+                          >
+                            {item.items.map((sub) => {
+                              const isSubActive = sub.href === activeHref;
+                              return (
+                                <li key={sub.href}>
+                                  <Link
+                                    href={sub.href}
+                                    aria-current={isSubActive ? "page" : undefined}
+                                    className={`block rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                                      isSubActive
+                                        ? "bg-amber/10 text-amber-soft"
+                                        : "text-text-muted hover:bg-white/5 hover:text-amber-soft"
+                                    }`}
+                                  >
+                                    {sub.label}
+                                  </Link>
+                                </li>
+                              );
+                            })}
+                          </motion.ul>
+                        )}
+                      </AnimatePresence>
+                    </li>
+                  );
+                }
+
                 const isActive = item.href === activeHref;
                 return (
                   <li key={item.href}>

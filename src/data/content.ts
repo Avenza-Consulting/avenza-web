@@ -1,11 +1,23 @@
 export const nav = [
   { label: "Home", href: "/" },
-  { label: "Capabilities", href: "/#capabilities" },
-  { label: "Solutions", href: "/#solutions" },
-  { label: "Expertise", href: "/#why-avenza" },
+  {
+    label: "About",
+    items: [
+      { label: "Capabilities", href: "/#capabilities" },
+      { label: "Solutions", href: "/#solutions" },
+      { label: "Expertise", href: "/#why-avenza" },
+      { label: "Accelerators", href: "/accelerators" },
+    ],
+  },
   { label: "Insights", href: "/#insights" },
-  { label: "Leadership", href: "/leadership" },
-  { label: "Careers", href: "/careers" },
+  {
+    label: "Careers",
+    items: [
+      { label: "Life at Avenza", href: "/life-at-avenza" },
+      { label: "Open Roles", href: "/careers" },
+      { label: "Leadership", href: "/leadership" },
+    ],
+  },
   { label: "Contact", href: "/contact" },
 ] as const;
 
@@ -165,12 +177,101 @@ export const journey = [
   "Optimize",
 ] as const;
 
-export const accelerators = [
+export const acceleratorEngine = [
   "Proven implementation methodology",
   "Pre-filled product configuration templates",
   "Reusable data mapping sheets for migrations",
   "Automation of deployment pipelines",
   "Reusable delivery assets across engagements",
+] as const;
+
+export const acceleratorCategories = [
+  "Assess",
+  "Transform",
+  "Validate",
+  "Deploy",
+  "Optimise",
+] as const;
+
+export const acceleratorCatalog = [
+  {
+    id: "migration-toolkit",
+    title: "Migration Toolkit",
+    category: "Transform",
+    summary:
+      "A reusable migration framework covering extraction, transformation and reconciliation with built-in traceability.",
+    problem:
+      "Migrations lose time and confidence to bespoke extraction, mapping and reconciliation built from scratch each time.",
+    howItWorks:
+      "Pre-built pipelines and reconciliation controls are configured to the target model, so effort shifts from plumbing to data quality.",
+    benefits: [
+      "Lower migration effort",
+      "End-to-end traceability",
+      "Faster reconciliation",
+      "Repeatable across programmes",
+    ],
+  },
+  {
+    id: "configuration-templates",
+    title: "Configuration Templates",
+    category: "Transform",
+    summary: "A library of proven configuration templates for common banking models and modules.",
+    problem:
+      "Core and upgrade configuration is repetitive, error-prone and slow when started from a blank canvas.",
+    howItWorks:
+      "Templates are adapted to the bank's requirements, giving a known-good baseline instead of first-principles configuration.",
+    benefits: ["Faster configuration", "Fewer defects", "Consistency across environments"],
+  },
+  {
+    id: "data-mapping-utilities",
+    title: "Data Mapping Utilities",
+    category: "Assess",
+    summary: "Reusable mapping utilities that accelerate and document source-to-target definitions.",
+    problem: "Source-to-target mapping is one of the most time-consuming and error-sensitive parts of any migration.",
+    howItWorks:
+      "Mappings are captured, validated and versioned in a structured form that feeds directly into migration pipelines.",
+    benefits: ["Accelerated mapping", "Documented lineage", "Reduced rework"],
+  },
+  {
+    id: "test-automation-framework",
+    title: "Test Automation Framework",
+    category: "Validate",
+    summary: "A banking-aware automation framework for regression, integration and non-functional testing.",
+    problem: "Manual regression cannot keep pace with a live transformation, so coverage and confidence slip.",
+    howItWorks:
+      "Reusable test assets and harnesses are configured to the programme, enabling repeatable automated runs.",
+    benefits: ["Higher coverage", "Faster releases", "Audit-ready evidence"],
+  },
+  {
+    id: "deployment-automation",
+    title: "Deployment Automation",
+    category: "Deploy",
+    summary: "Automation that standardises and de-risks build, promotion and deployment.",
+    problem: "Manual, inconsistent deployments introduce risk and slow every environment promotion.",
+    howItWorks: "Deployment steps are codified and repeatable, reducing manual error and shortening cutover.",
+    benefits: ["Predictable deployments", "Reduced cutover risk", "Faster environment turnaround"],
+  },
+  {
+    id: "documentation-automation",
+    title: "Documentation Automation",
+    category: "Optimise",
+    summary: "AI-assisted generation and maintenance of technical and configuration documentation.",
+    problem: "Documentation drifts out of date the moment a programme moves, eroding knowledge and audit-readiness.",
+    howItWorks:
+      "Documentation is generated from the current state and reviewed by experts, keeping knowledge current with far less effort.",
+    benefits: ["Always-current documentation", "Lower manual effort", "Stronger audit-readiness"],
+  },
+  {
+    id: "ai-implementation-tools",
+    title: "AI Implementation Tools",
+    category: "Transform",
+    summary:
+      "AI-powered tooling for code analysis, conversion and implementation assistance — with a human in the loop.",
+    problem: "Skilled engineers spend too much time on repeatable implementation and conversion work.",
+    howItWorks:
+      "AI proposes conversions, documentation and test cases; banking experts validate every output before it lands.",
+    benefits: ["Reduced implementation effort", "Consistent quality", "Expert oversight retained"],
+  },
 ] as const;
 
 export const aiFlow = [
@@ -271,6 +372,52 @@ export const jobs = [
     id: "lead-product-consultant",
     title: "Lead Product Consultant",
     blurb: "We are seeking an experienced Lead Product Consultant.",
+  },
+] as const;
+
+export const celebrationPhotos = [
+  { id: "founders-day-1", src: "/celebration-founders-day-1.jpg", alt: "Avenza 1st Founders Day celebration cake" },
+  { id: "founders-day-2", src: "/celebration-founders-day-2.jpg", alt: "Avenza leadership team at the 1st Founders Day celebration" },
+  { id: "founders-day-3", src: "/celebration-founders-day-3.jpg", alt: "Avenza team member speaking at the Founders Day event" },
+  { id: "founders-day-4", src: "/celebration-founders-day-4.jpg", alt: "Avenza team group photo at the Founders Day celebration" },
+  { id: "avenza100-1", src: "/celebration-avenza100-1.jpg", alt: "Avenza 100 associates milestone celebration cake" },
+  { id: "avenza100-2", src: "/celebration-avenza100-2.jpg", alt: "Avenza team celebrating reaching 100 associates" },
+  { id: "avenza100-3", src: "/celebration-avenza100-3.jpg", alt: "Avenza team cutting the cake for the 100 associates milestone" },
+] as const;
+
+export const sportsPhotos = [
+  { id: "cricket-1", src: "/sports-cricket-1.jpg", alt: "Avenza team cricket match" },
+  { id: "cricket-2", src: "/sports-cricket-2.jpg", alt: "Avenza team playing cricket" },
+  { id: "cricket-3", src: "/sports-cricket-3.jpg", alt: "Avenza team cricket outing" },
+  { id: "cricket-4", src: "/sports-cricket-4.jpg", alt: "Avenza team cricket match action" },
+  { id: "cricket-5", src: "/sports-cricket-5.jpg", alt: "Avenza team on the cricket field" },
+  { id: "cricket-6", src: "/sports-cricket-6.jpg", alt: "Avenza team cricket game" },
+  { id: "cricket-7", src: "/sports-cricket-7.jpg", alt: "Avenza team cricket outing photo" },
+  { id: "cricket-8", src: "/sports-cricket-8.jpg", alt: "Avenza team playing cricket together" },
+  { id: "cricket-9", src: "/sports-cricket-9.jpg", alt: "Avenza team cricket match moment" },
+  { id: "cricket-10", src: "/sports-cricket-10.jpg", alt: "Avenza team cricket day photo" },
+] as const;
+
+export const lifeHighlights = [
+  {
+    id: "team-events",
+    title: "Team Events & Celebrations",
+    body: "From festival get-togethers to milestone celebrations, we make time to celebrate wins and each other — not just on the calendar, but as a habit.",
+  },
+  {
+    id: "learning",
+    title: "Learning & Growth",
+    body: "Certifications, internal knowledge-sharing sessions, and hands-on mentorship — we invest in the skills that grow your career, not just the project.",
+  },
+  {
+    id: "work-life-balance",
+    title: "Work-Life Balance",
+    body: "Flexible working, genuine respect for personal time, and a culture that doesn't equate long hours with commitment.",
+  },
+  {
+    id: "fun-activities",
+    title: "Fun & Team Bonding",
+    body: "Game nights, sports, and informal hangouts — the moments outside of delivery that turn colleagues into a team.",
   },
 ] as const;
 

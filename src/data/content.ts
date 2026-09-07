@@ -384,39 +384,68 @@ export const jobs = [
 ] as const;
 
 export const celebrationPhotos = [
-  { id: "founders-day-1", src: "/celebration-founders-day-1.jpg", alt: "Avenza 1st Founders Day celebration cake" },
-  { id: "founders-day-2", src: "/celebration-founders-day-2.jpg", alt: "Avenza leadership team at the 1st Founders Day celebration" },
-  { id: "founders-day-3", src: "/celebration-founders-day-3.jpg", alt: "Avenza team member speaking at the Founders Day event" },
-  { id: "founders-day-4", src: "/celebration-founders-day-4.jpg", alt: "Avenza team group photo at the Founders Day celebration" },
-  { id: "avenza100-1", src: "/celebration-avenza100-1.jpg", alt: "Avenza 100 associates milestone celebration cake" },
-  { id: "avenza100-2", src: "/celebration-avenza100-2.jpg", alt: "Avenza team celebrating reaching 100 associates" },
-  { id: "avenza100-3", src: "/celebration-avenza100-3.jpg", alt: "Avenza team cutting the cake for the 100 associates milestone" },
+  { id: "founders-day-1", src: "/celebration-founders-day-1.jpg", alt: "Avenza 1st Founders Day celebration cake", width: 720, height: 1280 },
+  { id: "founders-day-2", src: "/celebration-founders-day-2.jpg", alt: "Avenza leadership team at the 1st Founders Day celebration", width: 2048, height: 1536 },
+  { id: "founders-day-3", src: "/celebration-founders-day-3.jpg", alt: "Avenza team member speaking at the Founders Day event", width: 1600, height: 721 },
+  { id: "founders-day-4", src: "/celebration-founders-day-4.jpg", alt: "Avenza team group photo at the Founders Day celebration", width: 1280, height: 576 },
+  { id: "avenza100-1", src: "/celebration-avenza100-1.jpg", alt: "Avenza 100 associates milestone celebration cake", width: 1600, height: 1200 },
+  { id: "avenza100-2", src: "/celebration-avenza100-2.jpg", alt: "Avenza team celebrating reaching 100 associates", width: 1600, height: 1200 },
+  { id: "avenza100-3", src: "/celebration-avenza100-3.jpg", alt: "Avenza team cutting the cake for the 100 associates milestone", width: 1200, height: 1600 },
 ] as const;
 
 export const sportsPhotos = [
-  { id: "cricket-1", src: "/sports-cricket-1.jpg", alt: "Avenza team cricket match" },
-  { id: "cricket-2", src: "/sports-cricket-2.jpg", alt: "Avenza team playing cricket" },
-  { id: "cricket-3", src: "/sports-cricket-3.jpg", alt: "Avenza team cricket outing" },
-  { id: "cricket-4", src: "/sports-cricket-4.jpg", alt: "Avenza team cricket match action" },
-  { id: "cricket-5", src: "/sports-cricket-5.jpg", alt: "Avenza team on the cricket field" },
-  { id: "cricket-6", src: "/sports-cricket-6.jpg", alt: "Avenza team cricket game" },
-  { id: "cricket-7", src: "/sports-cricket-7.jpg", alt: "Avenza team cricket outing photo" },
-  { id: "cricket-8", src: "/sports-cricket-8.jpg", alt: "Avenza team playing cricket together" },
-  { id: "cricket-9", src: "/sports-cricket-9.jpg", alt: "Avenza team cricket match moment" },
-  { id: "cricket-10", src: "/sports-cricket-10.jpg", alt: "Avenza team cricket day photo" },
+  { id: "cricket-1", src: "/sports-cricket-1.jpg", alt: "Avenza team cricket match", width: 1600, height: 900 },
+  { id: "cricket-2", src: "/sports-cricket-2.jpg", alt: "Avenza team playing cricket", width: 1280, height: 960 },
+  { id: "cricket-3", src: "/sports-cricket-3.jpg", alt: "Avenza team cricket outing", width: 1280, height: 960 },
+  { id: "cricket-4", src: "/sports-cricket-4.jpg", alt: "Avenza team cricket match action", width: 1280, height: 720 },
+  { id: "cricket-5", src: "/sports-cricket-5.jpg", alt: "Avenza team on the cricket field", width: 1280, height: 960 },
+  { id: "cricket-6", src: "/sports-cricket-6.jpg", alt: "Avenza team cricket game", width: 1280, height: 960 },
+  { id: "cricket-7", src: "/sports-cricket-7.jpg", alt: "Avenza team cricket outing photo", width: 1280, height: 960 },
+  { id: "cricket-8", src: "/sports-cricket-8.jpg", alt: "Avenza team playing cricket together", width: 1080, height: 1198 },
+  { id: "cricket-9", src: "/sports-cricket-9.jpg", alt: "Avenza team cricket match moment", width: 1474, height: 1497 },
+  { id: "cricket-10", src: "/sports-cricket-10.jpg", alt: "Avenza team cricket day photo", width: 1600, height: 1200 },
 ] as const;
 
 export const offsitePhotos = [
-  { id: "chennai-1", src: "/offsite-chennai-1.jpg", alt: "Avenza Chennai team offsite get-together" },
-  { id: "chennai-2", src: "/offsite-chennai-2.jpg", alt: "Avenza Chennai team offsite photo" },
-  { id: "hyderabad-1", src: "/offsite-hyderabad-1.jpg", alt: "Avenza Hyderabad team offsite" },
-  { id: "hyderabad-2", src: "/offsite-hyderabad-2.jpg", alt: "Avenza Hyderabad team offsite photo" },
-  { id: "hyderabad-3", src: "/offsite-hyderabad-3.jpg", alt: "Avenza Hyderabad team offsite moment" },
-  { id: "hyderabad-4", src: "/offsite-hyderabad-4.jpg", alt: "Avenza Hyderabad team offsite get-together" },
-  { id: "hyderabad-5", src: "/offsite-hyderabad-5.jpg", alt: "Avenza Hyderabad team offsite gathering" },
-  { id: "hyderabad-6", src: "/offsite-hyderabad-6.jpg", alt: "Avenza Hyderabad team offsite outing" },
-  { id: "hyderabad-7", src: "/offsite-hyderabad-7.jpg", alt: "Avenza Hyderabad team offsite photo" },
-  { id: "hyderabad-8", src: "/offsite-hyderabad-8.jpg", alt: "Avenza Hyderabad team offsite day" },
+  { id: "chennai-1", src: "/offsite-chennai-1.jpg", alt: "Avenza Chennai team offsite get-together", width: 800, height: 599 },
+  { id: "chennai-2", src: "/offsite-chennai-2.jpg", alt: "Avenza Chennai team offsite photo", width: 600, height: 800 },
+  { id: "hyderabad-1", src: "/offsite-hyderabad-1.jpg", alt: "Avenza Hyderabad team offsite", width: 4032, height: 3024 },
+  { id: "hyderabad-2", src: "/offsite-hyderabad-2.jpg", alt: "Avenza Hyderabad team offsite photo", width: 4032, height: 3024 },
+  { id: "hyderabad-3", src: "/offsite-hyderabad-3.jpg", alt: "Avenza Hyderabad team offsite moment", width: 4284, height: 5712 },
+  { id: "hyderabad-4", src: "/offsite-hyderabad-4.jpg", alt: "Avenza Hyderabad team offsite get-together", width: 5712, height: 4284 },
+  { id: "hyderabad-5", src: "/offsite-hyderabad-5.jpg", alt: "Avenza Hyderabad team offsite gathering", width: 5712, height: 4284 },
+  { id: "hyderabad-6", src: "/offsite-hyderabad-6.jpg", alt: "Avenza Hyderabad team offsite outing", width: 4284, height: 5712 },
+  { id: "hyderabad-7", src: "/offsite-hyderabad-7.jpg", alt: "Avenza Hyderabad team offsite photo", width: 5712, height: 4284 },
+  { id: "hyderabad-8", src: "/offsite-hyderabad-8.jpg", alt: "Avenza Hyderabad team offsite day", width: 4284, height: 5712 },
+] as const;
+
+export const yercaudTrip = {
+  eyebrow: "Team Offsite 2026",
+  title: "The whole company, two days, one hill station",
+  dates: "5–6 September 2026",
+  location: "Yercaud, Tamil Nadu",
+  description:
+    "Every single person at Avenza — the whole company, not just a team or two — packed up for a weekend in the hills of Yercaud. We travelled up together, stayed together, and spent two days on things that had nothing to do with sprints or release dates: games on the lawn, a sunset that stopped everyone mid-conversation, and a lot of laughing at each other's photos the next morning. The kind of trip that reminds you why the people matter as much as the work.",
+  heroPhoto: { src: "/yercaud-2026-9.jpg", alt: "Avenza whole-company team photo at the Yercaud 2026 offsite", width: 1280, height: 720 },
+} as const;
+
+export const yercaudPhotos = [
+  { id: "yercaud-1", src: "/yercaud-2026-1.jpg", alt: "Avenza team on the bus ride to Yercaud", width: 1280, height: 960 },
+  { id: "yercaud-2", src: "/yercaud-2026-2.jpg", alt: "Avenza team travelling together to Yercaud", width: 1280, height: 960 },
+  { id: "yercaud-3", src: "/yercaud-2026-3.jpg", alt: "Aerial view of the whole Avenza team at the Yercaud offsite", width: 1600, height: 1200 },
+  { id: "yercaud-4", src: "/yercaud-2026-4.jpg", alt: "Avenza team member gearing up for an adventure activity at Yercaud", width: 838, height: 1280 },
+  { id: "yercaud-5", src: "/yercaud-2026-5.jpg", alt: "Sunset through the pines at Yercaud", width: 1280, height: 960 },
+  { id: "yercaud-6", src: "/yercaud-2026-6.jpg", alt: "Avenza team group photo on the way to Yercaud", width: 720, height: 1280 },
+  { id: "yercaud-8", src: "/yercaud-2026-8.jpg", alt: "Whole Avenza team at the Yercaud 2026 offsite", width: 1280, height: 720 },
+  { id: "yercaud-10", src: "/yercaud-2026-10.jpg", alt: "Aerial group photo of the Avenza team at Yercaud", width: 1600, height: 720 },
+  { id: "yercaud-11", src: "/yercaud-2026-11.jpg", alt: "Illuminated garden at the Yercaud resort by night", width: 720, height: 1280 },
+  { id: "yercaud-12", src: "/yercaud-2026-12.jpg", alt: "Sunset over the hills at Yercaud", width: 720, height: 1280 },
+  { id: "yercaud-13", src: "/yercaud-2026-13.jpg", alt: "Resort grounds and adventure park at Yercaud", width: 720, height: 1280 },
+  { id: "yercaud-14", src: "/yercaud-2026-14.jpg", alt: "Avenza team at the airport heading to Yercaud", width: 592, height: 1052 },
+] as const;
+
+export const yercaudVideos = [
+  { id: "yercaud-video-2", src: "/yercaud-2026-video-2.mp4" },
 ] as const;
 
 export const lifeHighlights = [

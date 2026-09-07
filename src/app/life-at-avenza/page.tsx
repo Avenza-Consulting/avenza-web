@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { LifeHero } from "@/components/sections/LifeHero";
+import { YercaudOffsite } from "@/components/sections/YercaudOffsite";
 import { LifeHighlights } from "@/components/sections/LifeHighlights";
 import { LifeGallery } from "@/components/sections/LifeGallery";
 import { ContactCta } from "@/components/sections/ContactCta";
@@ -37,6 +38,7 @@ export default function LifeAtAvenzaPage() {
   return (
     <>
       <LifeHero />
+      <YercaudOffsite />
       <LifeHighlights />
       <LifeGallery />
       <ContactCta />

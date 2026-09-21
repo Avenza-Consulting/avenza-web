@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { sendEmail } from "@/lib/resend";
 import { applicationEmailHtml, applicationEmailText } from "@/lib/emailTemplates";
 
 const MAX_RESUME_BYTES = 5 * 1024 * 1024; // 5MB
@@ -53,23 +53,13 @@ export async function POST(request: Request) {
   const resumeFile = resume as File;
   const resumeBuffer = Buffer.from(await resumeFile.arrayBuffer());
 
-  const smtpHost = process.env.SMTP_HOST;
-  const smtpPort = process.env.SMTP_PORT;
-  const smtpUser = process.env.SMTP_USER;
-  const smtpPass = process.env.SMTP_PASS;
+  const fromAddress = process.env.EMAIL_FROM;
   const careersInbox = process.env.CAREERS_INBOX_EMAIL;
 
-  if (!smtpHost || !smtpPort || !smtpUser || !smtpPass || !careersInbox) {
-    console.error("Missing SMTP configuration environment variables.");
+  if (!process.env.RESEND_API_KEY || !fromAddress || !careersInbox) {
+    console.error("Missing Resend configuration environment variables.");
     return NextResponse.json({ error: "Email is not configured on the server." }, { status: 500 });
   }
-
-  const transporter = nodemailer.createTransport({
-    host: smtpHost,
-    port: Number(smtpPort),
-    secure: process.env.SMTP_SECURE === "true",
-    auth: { user: smtpUser, pass: smtpPass },
-  });
 
   const templateData = {
     jobTitle,
@@ -81,8 +71,8 @@ export async function POST(request: Request) {
   };
 
   try {
-    await transporter.sendMail({
-      from: `"Avenza Careers" <${smtpUser}>`,
+    await sendEmail({
+      from: `Avenza Careers <${fromAddress}>`,
       to: careersInbox,
       replyTo: email,
       subject: `New application: ${jobTitle} — ${name}`,

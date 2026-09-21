@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { sendEmail } from "@/lib/resend";
 import { contactEmailHtml, contactEmailText } from "@/lib/emailTemplates";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -32,30 +32,20 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Validation failed.", fieldErrors }, { status: 400 });
   }
 
-  const smtpHost = process.env.SMTP_HOST;
-  const smtpPort = process.env.SMTP_PORT;
-  const smtpUser = process.env.SMTP_USER;
-  const smtpPass = process.env.SMTP_PASS;
+  const fromAddress = process.env.EMAIL_FROM;
   const contactInbox = process.env.CONTACT_INBOX_EMAIL || process.env.CAREERS_INBOX_EMAIL;
 
-  if (!smtpHost || !smtpPort || !smtpUser || !smtpPass || !contactInbox) {
-    console.error("Missing SMTP configuration environment variables.");
+  if (!process.env.RESEND_API_KEY || !fromAddress || !contactInbox) {
+    console.error("Missing Resend configuration environment variables.");
     return NextResponse.json({ error: "Email is not configured on the server." }, { status: 500 });
   }
-
-  const transporter = nodemailer.createTransport({
-    host: smtpHost,
-    port: Number(smtpPort),
-    secure: process.env.SMTP_SECURE === "true",
-    auth: { user: smtpUser, pass: smtpPass },
-  });
 
   const name = `${firstName} ${lastName}`.trim();
   const templateData = { name, email, phone: phone || undefined, message };
 
   try {
-    await transporter.sendMail({
-      from: `"Avenza Website" <${smtpUser}>`,
+    await sendEmail({
+      from: `Avenza Website <${fromAddress}>`,
       to: contactInbox,
       replyTo: email,
       subject: `New contact request — ${name}`,

@@ -3,11 +3,11 @@ import { Reveal } from "@/components/ui/Reveal";
 
 export function AcceleratorsCta() {
   return (
-    <section className="relative border-t border-white/5 bg-ink py-24 sm:py-28">
+    <section className="relative border-t border-white/5 bg-ink py-16 sm:py-20">
       <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
         <Reveal>
           <h2 className="font-display text-3xl font-bold leading-tight text-white sm:text-4xl">
-            Want these working on <span className="text-gradient-amber">your programme?</span>
+            Want these working on <span className="text-white">your programme?</span>
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-text-muted">
             Our accelerators are deployed within a delivery engagement —

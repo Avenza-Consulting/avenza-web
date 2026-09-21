@@ -1,86 +1,328 @@
 "use client";
 
-const nodes = [
-  { id: "core", label: "Core Banking", x: 60, y: 260, color: "#ff8a2b" },
-  { id: "api", label: "APIs", x: 200, y: 120, color: "#3d8bff" },
-  { id: "payments", label: "Payments", x: 200, y: 400, color: "#3d8bff" },
-  { id: "cloud", label: "Cloud", x: 360, y: 60, color: "#7c6cff" },
-  { id: "ai", label: "AI", x: 360, y: 460, color: "#34e0d9" },
-  { id: "digital", label: "Digital Channels", x: 500, y: 260, color: "#ffb066" },
-];
+// angleDeg is measured clockwise from straight up (12 o'clock = -90 in
+// standard math convention). Payments & FCM is placed close to Digital
+// Banking & Journey Manager, and Wealth & Islamic Banking close to Data Hub
+// & Treasury, so the two related pairs read as grouped around the hub.
+// icon: a small glyph representing what flows toward the hub from that
+// product area — core ledger data, mobile journeys, card payments, wealth
+// balances, or API/treasury sync — drawn in a shared 24x24 box centered on
+// the origin so it can be scaled and placed without per-icon offsets.
+const products = [
+  { id: "core", lines: ["Core Banking"], color: "#ff8a2b", angleDeg: -90, icon: "database" },
+  { id: "digital", lines: ["Digital Banking &", "Journey Manager"], color: "#3d8bff", angleDeg: -18, icon: "mobile" },
+  { id: "payments", lines: ["Payments & FCM"], color: "#ff8a2b", angleDeg: 40, icon: "payment" },
+  { id: "wealth", lines: ["Wealth &", "Islamic Banking"], color: "#ffb066", angleDeg: 140, icon: "wallet" },
+  { id: "datahub", lines: ["Data Hub &", "Treasury"], color: "#34e0d9", angleDeg: 198, icon: "sync" },
+] as const;
 
-const edges: [string, string][] = [
-  ["core", "api"],
-  ["core", "payments"],
-  ["api", "cloud"],
-  ["api", "digital"],
-  ["payments", "ai"],
-  ["payments", "digital"],
-  ["cloud", "digital"],
-  ["ai", "digital"],
-];
+const FLOW_ICONS: Record<(typeof products)[number]["icon"], string> = {
+  // cylinder / database stack
+  database:
+    "M-6,-6.5 C-6,-8 -3.3,-9 0,-9 C3.3,-9 6,-8 6,-6.5 C6,-5 3.3,-4 0,-4 C-3.3,-4 -6,-5 -6,-6.5 Z M-6,-6.5 L-6,6.5 C-6,8 -3.3,9 0,9 C3.3,9 6,8 6,6.5 L6,-6.5 M-6,0 C-6,1.5 -3.3,2.5 0,2.5 C3.3,2.5 6,1.5 6,0",
+  // phone with a small screen dot
+  mobile:
+    "M-4,-9 L4,-9 C5,-9 5.5,-8.5 5.5,-7.5 L5.5,7.5 C5.5,8.5 5,9 4,9 L-4,9 C-5,9 -5.5,8.5 -5.5,7.5 L-5.5,-7.5 C-5.5,-8.5 -5,-9 -4,-9 Z M-2,-6.5 L2,-6.5 M0,6 L0.01,6",
+  // card with a swipe line and transfer arrows
+  payment:
+    "M-9,-5.5 L9,-5.5 C9.8,-5.5 10.4,-4.9 10.4,-4.1 L10.4,4.1 C10.4,4.9 9.8,5.5 9,5.5 L-9,5.5 C-9.8,5.5 -10.4,4.9 -10.4,4.1 L-10.4,-4.1 C-10.4,-4.9 -9.8,-5.5 -9,-5.5 Z M-10.4,-1.8 L10.4,-1.8 M-6,2 L-2,2",
+  // wallet with a coin
+  wallet:
+    "M-9,-5 L6,-5 C7.7,-5 9,-3.7 9,-2 L9,5 C9,6.7 7.7,8 6,8 L-9,8 C-9,8 -9,-5 -9,-5 Z M-9,-5 C-9,-6.7 -7.7,-8 -6,-8 L4,-8 M3,1.5 A2,2 0 1 0 3,1.4",
+  // circular sync / API arrows
+  sync:
+    "M-7,-1 A7,7 0 0 1 6.2,-4.5 M6.2,-4.5 L6.2,-8 M6.2,-4.5 L2.7,-4.5 M7,1 A7,7 0 0 1 -6.2,4.5 M-6.2,4.5 L-6.2,8 M-6.2,4.5 L-2.7,4.5",
+};
 
-function nodeById(id: string) {
-  return nodes.find((n) => n.id === id)!;
+const outcomes = [
+  { id: "modernized", label: "Modernized Core", icon: "upgrade" },
+  { id: "integration", label: "Seamless Integration", icon: "puzzle" },
+  { id: "time-to-market", label: "Faster Time-to-Market", icon: "speed" },
+  { id: "compliance", label: "Regulatory Compliance", icon: "shield" },
+] as const;
+
+const OUTCOME_ICONS: Record<(typeof outcomes)[number]["icon"], string> = {
+  // upward step-chart with a rising arrow
+  upgrade:
+    "M-9,8 L-9,2 L-4,2 L-4,-2 L1,-2 L1,-6 L6,-6 M2,-9 L6,-6 L2,-3",
+  // two interlocking puzzle pieces
+  puzzle:
+    "M-9,-2 L-9,-7 C-9,-8 -8,-8.5 -7.2,-8 C-6.7,-7.7 -6.7,-7 -7.2,-6.6 C-7.8,-6.1 -7.8,-5.2 -7,-4.8 C-6.3,-4.4 -5.5,-4.9 -5.5,-5.7 C-5.5,-6.3 -5.9,-6.6 -6.2,-6.9 C-6.7,-7.4 -6.6,-8.2 -6,-8.5 C-5.2,-9 -4.2,-8.4 -4.2,-7.5 L-4.2,-2 L2,-2 M2,-2 L7,-2 L7,3 C7,3.8 6.4,4.2 5.7,3.7 C5.3,3.4 4.6,3.5 4.3,4 C3.9,4.7 4.5,5.5 5.3,5.5 C5.9,5.5 6.2,5.1 6.5,4.8 C7,4.3 7.8,4.4 8.1,5 C8.6,5.8 8,6.8 7.1,6.8 L2,6.8 Z",
+  // speedometer / gauge with a fast-forward needle
+  speed:
+    "M-8,4 A8,8 0 1 1 8,4 M0,4 L4,-3 M-8,4 L-6,4 M8,4 L6,4 M0,-8 L0,-6",
+  // shield with a checkmark
+  shield:
+    "M0,-9 L7,-6.5 L7,0.5 C7,4.5 4,7.5 0,9 C-4,7.5 -7,4.5 -7,0.5 L-7,-6.5 Z M-3.3,0 L-1,2.5 L3.3,-2.5",
+};
+
+const CENTER_X = 300;
+const CENTER_Y = 248;
+const RING_R = 168;
+const NODE_R = 42;
+const HUB_R = 62;
+const LABEL_GAP = 20;
+const OUTCOME_Y = 525;
+const OUTCOME_W = 112;
+const OUTCOME_H = 48;
+const OUTCOME_SPREAD = 118;
+
+function pointOnRing(angleDeg: number, radius: number) {
+  const angle = (angleDeg * Math.PI) / 180;
+  return {
+    x: CENTER_X + radius * Math.cos(angle),
+    y: CENTER_Y + radius * Math.sin(angle),
+    angle,
+  };
+}
+
+/**
+ * Places each label outward along the same radial angle as its node —
+ * a fixed offset isn't enough, since it has to clear the node's own
+ * circle in every direction: a node at the top of the ring needs the
+ * label pushed up past NODE_R, one at dead-left/right needs it pushed
+ * sideways past NODE_R, not just by a flat pixel gap either way.
+ */
+function labelPosition(x: number, y: number, angle: number, lineCount: number) {
+  const dx = Math.cos(angle);
+  const dy = Math.sin(angle);
+  const extraForWrap = lineCount > 1 ? 10 : 0;
+  const offset = NODE_R + LABEL_GAP + extraForWrap;
+  const labelX = x + dx * offset;
+  const labelY = y + dy * offset + (Math.abs(dy) < 0.5 ? 4 : 0);
+  const textAnchor: "start" | "end" | "middle" = dx > 0.35 ? "start" : dx < -0.35 ? "end" : "middle";
+  return { labelX, labelY, textAnchor };
 }
 
 export function HeroFlowVisual() {
   return (
-    <div className="relative mx-auto aspect-square w-full max-w-lg">
+    <div className="relative mx-auto w-full max-w-xl">
       <svg
-        viewBox="0 0 560 520"
-        className="h-full w-full"
+        viewBox="0 0 628 622"
+        className="h-auto w-full overflow-visible"
         role="img"
-        aria-label="Diagram showing data flowing from Core Banking through APIs and Payments to Cloud, AI and Digital Channels"
+        aria-label="Diagram showing five grouped Temenos product areas — Core Banking, Digital Banking and Journey Manager, Payments and Financial Crime Mitigation, Wealth Management and Islamic Banking, and Data Hub and Treasury — flowing into Avenza's services hub and out to delivery outcomes: modernized core, seamless integration, faster time-to-market and regulatory compliance"
       >
         <defs>
-          <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="var(--color-white)" stopOpacity="0.25" />
-            <stop offset="100%" stopColor="var(--color-white)" stopOpacity="0" />
+          <radialGradient id="hubGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#34e0d9" stopOpacity="0.35" />
+            <stop offset="100%" stopColor="#34e0d9" stopOpacity="0" />
           </radialGradient>
+          <linearGradient id="hubFill" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#161a24" />
+            <stop offset="100%" stopColor="#0c0f16" />
+          </linearGradient>
         </defs>
 
-        {edges.map(([from, to], i) => {
-          const a = nodeById(from);
-          const b = nodeById(to);
+
+        {/* connectors: product -> hub, with a traveling icon along each */}
+        {products.map((p, i) => {
+          const { x, y } = pointOnRing(p.angleDeg, RING_R);
+          const lineId = `edge-${p.id}`;
           return (
-            <line
-              key={i}
-              x1={a.x}
-              y1={a.y}
-              x2={b.x}
-              y2={b.y}
-              stroke="url(#nodeGlow)"
-              strokeOpacity="0.5"
-              strokeWidth="1.5"
-              className="animate-dash-flow"
-              style={{ stroke: "var(--color-white)", strokeOpacity: 0.18 }}
-            />
+            <g key={lineId}>
+              <path
+                id={lineId}
+                d={`M ${x} ${y} L ${CENTER_X} ${CENTER_Y}`}
+                fill="none"
+                stroke={p.color}
+                strokeOpacity="0.45"
+                strokeWidth="3.5"
+                strokeDasharray="6 7"
+                className="animate-dash-flow"
+              />
+              <g opacity="0">
+                <animateMotion dur="2.6s" begin={`${i * 0.35}s`} repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+                  <mpath href={`#${lineId}`} />
+                </animateMotion>
+                <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="2.6s" begin={`${i * 0.35}s`} repeatCount="indefinite" fill="freeze" />
+                <circle r="11" fill="var(--color-surface)" stroke={p.color} strokeWidth="1.5" />
+                <path
+                  d={FLOW_ICONS[p.icon]}
+                  transform="scale(0.68)"
+                  fill="none"
+                  stroke={p.color}
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </g>
+            </g>
           );
         })}
 
-        {nodes.map((n, i) => (
-          <g key={n.id}>
-            <circle cx={n.x} cy={n.y} r="46" fill={n.color} opacity="0.12" className="animate-pulse-glow" style={{ animationDelay: `${i * 0.4}s` }} />
-            <circle cx={n.x} cy={n.y} r="30" fill="var(--color-surface)" stroke={n.color} strokeWidth="1.5" />
-            <circle cx={n.x} cy={n.y} r="4" fill={n.color} />
-          </g>
-        ))}
+        {/* connectors: hub -> outcomes, terminating exactly at each outcome card */}
+        {outcomes.map((o, i) => {
+          const targetX = CENTER_X + (i - (outcomes.length - 1) / 2) * OUTCOME_SPREAD;
+          const pathId = `edge-out-${o.id}`;
+          return (
+            <g key={pathId}>
+              <path
+                id={pathId}
+                d={`M ${CENTER_X} ${CENTER_Y + HUB_R} C ${CENTER_X} ${CENTER_Y + HUB_R + 95}, ${targetX} ${OUTCOME_Y - 50}, ${targetX} ${OUTCOME_Y - OUTCOME_H / 2 - 2}`}
+                fill="none"
+                stroke="#ffb066"
+                strokeOpacity="0.65"
+                strokeWidth="3.5"
+                strokeDasharray="6 7"
+                className="animate-dash-flow"
+              />
+              <g opacity="0">
+                <animateMotion dur="2.8s" begin={`${1.6 + i * 0.3}s`} repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+                  <mpath href={`#${pathId}`} />
+                </animateMotion>
+                <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="2.8s" begin={`${1.6 + i * 0.3}s`} repeatCount="indefinite" fill="freeze" />
+                <circle r="11" fill="var(--color-surface)" stroke="#ffb066" strokeWidth="1.5" />
+                <path
+                  d={OUTCOME_ICONS[o.icon]}
+                  transform="scale(0.68)"
+                  fill="none"
+                  stroke="#ffb066"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </g>
+            </g>
+          );
+        })}
 
-        {nodes.map((n) => (
-          <text
-            key={`${n.id}-label`}
-            x={n.x}
-            y={n.y + 52}
-            textAnchor="middle"
-            fontSize="13"
-            fontWeight="600"
-            fill="var(--color-text-primary)"
-            fontFamily="var(--font-body)"
-          >
-            {n.label}
-          </text>
-        ))}
+        {/* product nodes */}
+        {products.map((p, i) => {
+          const { x, y, angle } = pointOnRing(p.angleDeg, RING_R);
+          const { labelX, labelY, textAnchor } = labelPosition(x, y, angle, p.lines.length);
+          const growsUpward = Math.sin(angle) < -0.85 && p.lines.length > 1;
+          return (
+            <g key={p.id}>
+              <circle cx={x} cy={y} r={NODE_R + 8} fill={p.color} opacity="0.1" className="animate-pulse-glow" style={{ animationDelay: `${i * 0.25}s` }} />
+              <circle cx={x} cy={y} r={NODE_R} fill="var(--color-surface)" stroke={p.color} strokeWidth="1.5" />
+              <path
+                d={FLOW_ICONS[p.icon]}
+                transform={`translate(${x} ${y}) scale(1.15)`}
+                fill="none"
+                stroke={p.color}
+                strokeWidth="1.4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <text
+                x={labelX}
+                y={labelY}
+                textAnchor={textAnchor}
+                fontSize="11"
+                fontWeight="600"
+                fill="var(--color-text-muted)"
+                fontFamily="var(--font-body)"
+              >
+                {(growsUpward ? [...p.lines].reverse() : p.lines).map((line, li) => (
+                  <tspan key={li} x={labelX} dy={li === 0 ? 0 : growsUpward ? -14 : 14}>
+                    {line}
+                  </tspan>
+                ))}
+              </text>
+            </g>
+          );
+        })}
+
+        {/* Avenza hub */}
+        <circle cx={CENTER_X} cy={CENTER_Y} r={HUB_R + 26} fill="url(#hubGlow)" />
+        <circle cx={CENTER_X} cy={CENTER_Y} r={HUB_R} fill="url(#hubFill)" stroke="#34e0d9" strokeWidth="2" />
+        <circle cx={CENTER_X} cy={CENTER_Y} r={HUB_R - 12} fill="none" stroke="#34e0d9" strokeOpacity="0.5" strokeWidth="1" strokeDasharray="3 4">
+          <animateTransform
+            attributeName="transform"
+            type="rotate"
+            from={`0 ${CENTER_X} ${CENTER_Y}`}
+            to={`360 ${CENTER_X} ${CENTER_Y}`}
+            dur="14s"
+            repeatCount="indefinite"
+          />
+        </circle>
+        <text x={CENTER_X} y={CENTER_Y - 2} textAnchor="middle" fontSize="17" fontWeight="800" fill="#f4f5f7" fontFamily="var(--font-display)">
+          Avenza
+        </text>
+        <text x={CENTER_X} y={CENTER_Y + 18} textAnchor="middle" fontSize="10.5" fontWeight="600" fill="#7fd8d1" fontFamily="var(--font-body)">
+          Services Hub
+        </text>
+
+        {/* outcome cards — native SVG so the connector lines visibly land on them */}
+        {outcomes.map((o, i) => {
+          const targetX = CENTER_X + (i - (outcomes.length - 1) / 2) * OUTCOME_SPREAD;
+          const lines = o.label.split(" ").reduce<string[]>((acc, word) => {
+            const last = acc[acc.length - 1];
+            if (last && (last + " " + word).length <= 12) {
+              acc[acc.length - 1] = last + " " + word;
+            } else {
+              acc.push(word);
+            }
+            return acc;
+          }, []);
+          const startY = OUTCOME_Y + 4 - ((lines.length - 1) * 13) / 2;
+          const dotDur = 2.8;
+          const dotBegin = 1.6 + i * 0.3;
+          const arrivalOffset = dotDur * 0.85;
+          return (
+            <g key={o.id}>
+              <rect
+                x={targetX - OUTCOME_W / 2}
+                y={OUTCOME_Y - OUTCOME_H / 2}
+                width={OUTCOME_W}
+                height={OUTCOME_H}
+                rx="10"
+                fill="color-mix(in oklab, #ff8a2b 10%, var(--color-surface))"
+                stroke="#ff8a2b"
+                strokeOpacity="0.5"
+                strokeWidth="1.5"
+                className="animate-pulse-glow"
+                style={{ animationDelay: `${i * 0.3 + 1}s` }}
+              >
+                <animate
+                  attributeName="stroke-opacity"
+                  values="0.5;1;0.5"
+                  keyTimes="0;0.3;1"
+                  dur={`${dotDur}s`}
+                  begin={`${dotBegin + arrivalOffset}s`}
+                  repeatCount="indefinite"
+                />
+                <animate
+                  attributeName="stroke-width"
+                  values="1.5;3.5;1.5"
+                  keyTimes="0;0.3;1"
+                  dur={`${dotDur}s`}
+                  begin={`${dotBegin + arrivalOffset}s`}
+                  repeatCount="indefinite"
+                />
+              </rect>
+              <text
+                x={targetX}
+                y={startY}
+                textAnchor="middle"
+                fontSize="10.5"
+                fontWeight="700"
+                fill="#ffb066"
+                fontFamily="var(--font-body)"
+              >
+                {lines.map((line, li) => (
+                  <tspan key={li} x={targetX} dy={li === 0 ? 0 : 13}>
+                    {line}
+                  </tspan>
+                ))}
+              </text>
+            </g>
+          );
+        })}
+
+        <text
+          x={CENTER_X}
+          y={OUTCOME_Y + OUTCOME_H / 2 + 30}
+          textAnchor="middle"
+          fontSize="11"
+          fontWeight="700"
+          fill="#c9a06a"
+          fontFamily="var(--font-body)"
+          letterSpacing="1.5"
+        >
+          DELIVERED OUTCOMES
+        </text>
       </svg>
     </div>
   );

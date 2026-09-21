@@ -159,13 +159,6 @@ body {
   font-family: var(--font-display);
 }
 
-.text-gradient-amber {
-  background: linear-gradient(90deg, #ffb066 0%, #ff8a2b 50%, #ff6a3d 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
 .text-gradient-cool {
   background: linear-gradient(90deg, #7c6cff 0%, #3d8bff 50%, #34e0d9 100%);
   -webkit-background-clip: text;
@@ -221,6 +214,11 @@ body {
   to { stroke-dashoffset: -200; }
 }
 
+@keyframes marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
 .animate-drift {
   animation: drift 18s ease-in-out infinite;
 }
@@ -232,4 +230,14 @@ body {
 .animate-dash-flow {
   stroke-dasharray: 6 10;
   animation: dash-flow 6s linear infinite;
+}
+
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
 }

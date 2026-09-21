@@ -3,7 +3,7 @@ import { cultureValues } from "@/data/content";
 
 export function Culture() {
   return (
-    <section className="relative border-t border-white/5 bg-ink py-24 sm:py-32">
+    <section className="relative border-t border-white/5 bg-ink py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="max-w-2xl">
           <span className="text-xs font-semibold uppercase tracking-widest text-amber-soft-text">

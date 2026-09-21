@@ -6,7 +6,7 @@ import { HeroFlowVisual } from "@/components/ui/HeroFlowVisual";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-ink pt-16 pb-24 sm:pt-24 sm:pb-32">
+    <section className="relative overflow-hidden bg-ink pt-12 pb-16 sm:pt-16 sm:pb-24">
       <div className="bg-grid pointer-events-none absolute inset-0 opacity-[0.07]" aria-hidden="true" />
       <div
         className="animate-drift pointer-events-none absolute -left-40 top-0 h-[560px] w-[560px] rounded-full opacity-30 blur-[120px]"
@@ -38,7 +38,7 @@ export function Hero() {
             className="mt-6 font-display text-4xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl"
           >
             Transforming Core Banking.{" "}
-            <span className="text-gradient-amber">Accelerating Digital Innovation.</span>
+            <span className="text-white">Accelerating Digital Innovation.</span>
           </motion.h1>
 
           <motion.p
@@ -69,21 +69,6 @@ export function Hero() {
               className="rounded-full border border-white/15 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:border-amber/50 hover:text-amber-soft"
             >
               Talk to Avenza
-            </Link>
-            <Link
-              href="#solutions"
-              className="inline-flex items-center gap-1.5 px-2 py-3.5 text-sm font-semibold text-text-muted transition-colors hover:text-white"
-            >
-              Discover Our Solutions
-              <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true">
-                <path
-                  d="M1 5H13M13 5L9 1M13 5L9 9"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
             </Link>
           </motion.div>
         </div>

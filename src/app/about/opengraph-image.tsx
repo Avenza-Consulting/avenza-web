@@ -5,7 +5,7 @@ export const contentType = ogImageContentType;
 
 export default function Image() {
   return renderOgImage({
-    eyebrow: "Leadership",
-    title: "The Team Behind Avenza's Transformation Story",
+    eyebrow: "About Avenza",
+    title: "One Ecosystem, One Delivery Engine, One Accountable Partner",
   });
 }

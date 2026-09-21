@@ -4,34 +4,44 @@ import { leadership } from "@/data/content";
 
 export function LeadershipGrid() {
   return (
-    <section className="relative border-t border-white/5 bg-ink py-16 sm:py-24">
+    <section id="leadership" className="relative border-t border-white/5 bg-ink py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <Reveal className="max-w-2xl">
+          <span className="text-xs font-semibold uppercase tracking-widest text-amber-soft-text">
+            Leadership
+          </span>
+          <h2 className="mt-4 font-display text-3xl font-bold leading-tight text-white sm:text-4xl">
+            The team behind Avenza&apos;s transformation story
+          </h2>
+          <p className="mt-5 text-base leading-relaxed text-text-muted">
+            Deep banking domain expertise, proven Temenos delivery experience,
+            and a shared commitment to timely, tech-enabled core banking
+            transformation.
+          </p>
+        </Reveal>
+
+        <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
           {leadership.map((person, i) => (
-            <Reveal key={person.id} delay={i * 0.08}>
-              <div className="group overflow-hidden rounded-2xl border border-white/10 bg-surface transition-all duration-300 hover:-translate-y-1 hover:border-amber/30">
-                <div className="relative aspect-square overflow-hidden bg-surface-raised">
+            <Reveal key={person.id} delay={i * 0.08} duration={0.5} distance={14}>
+              <div className="group h-full rounded-2xl border border-white/10 bg-surface p-8 text-center transition-colors duration-300 hover:border-white/20">
+                <div className="relative mx-auto h-64 w-64 overflow-hidden rounded-xl bg-surface-raised">
                   <Image
                     src={person.photo}
                     alt={person.name}
                     fill
                     priority
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div
-                    className="pointer-events-none absolute inset-0"
-                    style={{
-                      background:
-                        "linear-gradient(to top, rgba(6,7,10,0.55) 0%, rgba(6,7,10,0) 40%)",
-                    }}
-                    aria-hidden="true"
+                    sizes="256px"
+                    className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.04]"
                   />
                 </div>
-                <div className="p-6">
-                  <h3 className="font-display text-lg font-bold text-white">{person.name}</h3>
-                  <p className="mt-1 text-sm font-medium text-amber-soft-text">{person.title}</p>
-                </div>
+                <h3 className="mt-6 font-display text-lg font-bold text-white">{person.name}</h3>
+                <p className="mt-1.5 text-xs font-semibold uppercase tracking-wider text-amber-soft-text">
+                  {person.title}
+                </p>
+                <div className="mx-auto mt-4 h-px w-10 bg-white/15" aria-hidden="true" />
+                <p className="mx-auto mt-4 max-w-[22ch] text-sm leading-relaxed text-text-muted">
+                  {person.bio}
+                </p>
               </div>
             </Reveal>
           ))}

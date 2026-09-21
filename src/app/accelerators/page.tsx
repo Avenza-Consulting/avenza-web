@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { AcceleratorsHero } from "@/components/sections/AcceleratorsHero";
-import { AcceleratorEngine } from "@/components/sections/AcceleratorEngine";
 import { AcceleratorsCatalog } from "@/components/sections/AcceleratorsCatalog";
 import { AcceleratorsCta } from "@/components/sections/AcceleratorsCta";
 
@@ -28,7 +27,6 @@ export default function AcceleratorsPage() {
   return (
     <>
       <AcceleratorsHero />
-      <AcceleratorEngine />
       <AcceleratorsCatalog />
       <AcceleratorsCta />
     </>

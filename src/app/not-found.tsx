@@ -16,7 +16,7 @@ export default function NotFound() {
       />
 
       <div className="relative mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8">
-        <span className="font-display text-7xl font-extrabold text-gradient-amber sm:text-8xl">
+        <span className="font-display text-7xl font-extrabold text-white sm:text-8xl">
           404
         </span>
         <h1 className="mt-4 font-display text-2xl font-bold leading-tight text-white sm:text-3xl">

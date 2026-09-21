@@ -9,10 +9,11 @@ import { ThemeToggle } from "./ThemeToggle";
 import { useActiveSection } from "./useActiveSection";
 import { nav } from "@/data/content";
 
-const inPageSectionIds = ["capabilities", "solutions", "why-avenza", "insights"];
+const inPageSectionIds = ["who-we-are", "achievements", "capabilities", "why-avenza"];
+const aboutPageSectionIds = ["industry-expertise", "delivery-models", "leadership", "insights"];
 
 function flatNavHrefs() {
-  return nav.flatMap((item) => ("items" in item ? item.items.map((sub) => sub.href) : [item.href]));
+  return nav.flatMap((item) => ("items" in item ? [item.href, ...item.items.map((sub) => sub.href)] : [item.href]));
 }
 
 export function Header() {
@@ -67,8 +68,13 @@ export function Header() {
   }, [openGroup]);
 
   const activeSectionId = useActiveSection(inPageSectionIds, pathname === "/");
+  const activeAboutSectionId = useActiveSection(aboutPageSectionIds, pathname === "/about");
 
   const activeHref = useMemo(() => {
+    if (pathname === "/about") {
+      if (activeAboutSectionId) return `/about#${activeAboutSectionId}`;
+      return "/about";
+    }
     if (pathname !== "/") {
       // Real routes (including ones nested under a dropdown) — match by exact pathname.
       const match = flatNavHrefs().find((href) => href === pathname);
@@ -76,7 +82,7 @@ export function Header() {
     }
     if (activeSectionId) return `/#${activeSectionId}`;
     return "/";
-  }, [pathname, activeSectionId]);
+  }, [pathname, activeSectionId, activeAboutSectionId]);
 
   // Coarse pointers (touch) can synthesize a mouseenter on tap with no
   // mouseleave to follow, so hover-driven open/close is scoped to real
@@ -128,7 +134,8 @@ export function Header() {
           <ul ref={navRef} className="hidden items-center gap-8 lg:flex">
             {nav.map((item) => {
               if ("items" in item) {
-                const isGroupActive = item.items.some((sub) => sub.href === activeHref);
+                const isGroupActive =
+                  item.href === activeHref || item.items.some((sub) => sub.href === activeHref);
                 const isOpen = openGroup === item.label;
                 return (
                   <li
@@ -137,31 +144,39 @@ export function Header() {
                     onMouseEnter={() => openGroupOnHover(item.label)}
                     onMouseLeave={scheduleCloseGroupOnHover}
                   >
-                    <button
-                      type="button"
-                      aria-expanded={isOpen}
-                      onClick={() => setOpenGroup(isOpen ? null : item.label)}
-                      className={`group relative flex items-center gap-1.5 text-sm font-medium transition-colors ${
-                        isGroupActive ? "text-white" : "text-text-muted hover:text-white"
-                      }`}
-                    >
-                      {item.label}
-                      <svg
-                        width="9"
-                        height="6"
-                        viewBox="0 0 9 6"
-                        fill="none"
-                        aria-hidden="true"
-                        className={`transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+                    <span className={`group relative flex items-center gap-1 text-sm font-medium ${isGroupActive ? "text-white" : "text-text-muted"}`}>
+                      <Link
+                        href={item.href}
+                        aria-current={item.href === activeHref ? "page" : undefined}
+                        onClick={item.href === "/" ? handleHomeClick : () => setOpenGroup(null)}
+                        className="transition-colors hover:text-white"
                       >
-                        <path d="M1 1L4.5 5L8 1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
+                        {item.label}
+                      </Link>
+                      <button
+                        type="button"
+                        aria-expanded={isOpen}
+                        aria-label={`${isOpen ? "Close" : "Open"} ${item.label} submenu`}
+                        onClick={() => setOpenGroup(isOpen ? null : item.label)}
+                        className="p-1 transition-colors hover:text-white"
+                      >
+                        <svg
+                          width="9"
+                          height="6"
+                          viewBox="0 0 9 6"
+                          fill="none"
+                          aria-hidden="true"
+                          className={`transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+                        >
+                          <path d="M1 1L4.5 5L8 1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </button>
                       <span
-                        className={`absolute -bottom-1 left-0 h-px bg-amber transition-all duration-300 ${
+                        className={`pointer-events-none absolute -bottom-1 left-0 h-px bg-amber transition-all duration-300 ${
                           isGroupActive ? "w-full" : "w-0 group-hover:w-full"
                         }`}
                       />
-                    </button>
+                    </span>
 
                     <AnimatePresence>
                       {isOpen && (
@@ -206,7 +221,6 @@ export function Header() {
                   <Link
                     href={item.href}
                     aria-current={isActive ? "page" : undefined}
-                    onClick={item.href === "/" ? handleHomeClick : undefined}
                     className={`group relative text-sm font-medium transition-colors ${
                       isActive ? "text-white" : "text-text-muted hover:text-white"
                     }`}
@@ -279,28 +293,40 @@ export function Header() {
                   const isGroupOpen = mobileOpenGroup === item.label;
                   return (
                     <li key={item.label}>
-                      <button
-                        type="button"
-                        aria-expanded={isGroupOpen}
-                        onClick={() => setMobileOpenGroup(isGroupOpen ? null : item.label)}
-                        className={`flex w-full items-center justify-between rounded-lg px-3 py-3 text-base font-medium transition-colors ${
+                      <div
+                        className={`flex w-full items-center justify-between rounded-lg text-base font-medium transition-colors ${
                           isGroupActive
                             ? "bg-amber/10 text-amber-soft"
                             : "text-text-primary hover:bg-white/5 hover:text-amber-soft"
                         }`}
                       >
-                        {item.label}
-                        <svg
-                          width="11"
-                          height="7"
-                          viewBox="0 0 9 6"
-                          fill="none"
-                          aria-hidden="true"
-                          className={`transition-transform duration-200 ${isGroupOpen ? "rotate-180" : ""}`}
+                        <Link
+                          href={item.href}
+                          aria-current={item.href === activeHref ? "page" : undefined}
+                          onClick={item.href === "/" ? handleHomeClick : undefined}
+                          className="flex-1 px-3 py-3"
                         >
-                          <path d="M1 1L4.5 5L8 1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      </button>
+                          {item.label}
+                        </Link>
+                        <button
+                          type="button"
+                          aria-expanded={isGroupOpen}
+                          aria-label={`${isGroupOpen ? "Close" : "Open"} ${item.label} submenu`}
+                          onClick={() => setMobileOpenGroup(isGroupOpen ? null : item.label)}
+                          className="px-3 py-3"
+                        >
+                          <svg
+                            width="11"
+                            height="7"
+                            viewBox="0 0 9 6"
+                            fill="none"
+                            aria-hidden="true"
+                            className={`transition-transform duration-200 ${isGroupOpen ? "rotate-180" : ""}`}
+                          >
+                            <path d="M1 1L4.5 5L8 1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </button>
+                      </div>
                       <AnimatePresence initial={false}>
                         {isGroupOpen && (
                           <motion.ul
@@ -317,6 +343,7 @@ export function Header() {
                                   <Link
                                     href={sub.href}
                                     aria-current={isSubActive ? "page" : undefined}
+                                    onClick={() => setMobileOpen(false)}
                                     className={`block rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
                                       isSubActive
                                         ? "bg-amber/10 text-amber-soft"
@@ -341,7 +368,6 @@ export function Header() {
                     <Link
                       href={item.href}
                       aria-current={isActive ? "page" : undefined}
-                      onClick={item.href === "/" ? handleHomeClick : undefined}
                       className={`block rounded-lg px-3 py-3 text-base font-medium transition-colors ${
                         isActive
                           ? "bg-amber/10 text-amber-soft"

@@ -1,0 +1,28 @@
+import { Reveal } from "@/components/ui/Reveal";
+
+export function AboutHero() {
+  return (
+    <section className="relative overflow-hidden bg-ink pb-12 pt-14 sm:pb-16 sm:pt-20">
+      <div className="bg-grid pointer-events-none absolute inset-0 opacity-[0.06]" aria-hidden="true" />
+      <div
+        className="animate-drift pointer-events-none absolute -left-32 top-10 h-[440px] w-[440px] rounded-full opacity-25 blur-[120px]"
+        style={{ background: "radial-gradient(circle, #3d8bff, transparent 70%)" }}
+        aria-hidden="true"
+      />
+      <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+        <Reveal>
+          <span className="text-xs font-semibold uppercase tracking-widest text-amber-soft-text">About Avenza</span>
+          <h1 className="mt-4 font-display text-4xl font-extrabold leading-tight text-white sm:text-5xl">
+            One ecosystem, one delivery engine,{" "}
+            <span className="text-white">one accountable partner.</span>
+          </h1>
+          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-text-muted">
+            How Avenza&apos;s services span the Temenos ecosystem, the delivery
+            models we flex to fit your team, and the perspectives we&apos;re
+            sharing along the way.
+          </p>
+        </Reveal>
+      </div>
+    </section>
+  );
+}

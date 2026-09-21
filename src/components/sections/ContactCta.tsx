@@ -4,7 +4,7 @@ import { LogoGrid } from "@/components/ui/LogoGrid";
 
 export function ContactCta() {
   return (
-    <section className="relative overflow-hidden border-t border-white/5 bg-ink-soft py-20 sm:py-28">
+    <section className="relative overflow-hidden border-t border-white/5 bg-ink-soft py-14 sm:py-20">
       <div
         className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[900px] -translate-x-1/2 -translate-y-1/2 opacity-25 blur-[140px]"
         style={{ background: "radial-gradient(ellipse, #ff8a2b, transparent 65%)" }}
@@ -13,7 +13,7 @@ export function ContactCta() {
       <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
         <Reveal>
           <h2 className="font-display text-3xl font-bold leading-tight text-white sm:text-5xl">
-            Let&apos;s Transform Banking <span className="text-gradient-amber">Together</span>
+            Let&apos;s Transform Banking <span className="text-white">Together</span>
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-text-muted">
             Whether you&apos;re planning a core transformation, exploring Temenos,

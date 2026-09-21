@@ -10,7 +10,7 @@ export function Lightbox({
   onClose,
   onNavigate,
 }: {
-  images: readonly { src: string; alt: string }[];
+  images: readonly { src: string; alt: string; caption?: string }[];
   index: number;
   onClose: () => void;
   onNavigate: (index: number) => void;
@@ -94,6 +94,11 @@ export function Lightbox({
             className="max-h-[85vh] w-auto rounded-xl object-contain"
             priority
           />
+          {active.caption && (
+            <span className="absolute -bottom-9 left-1/2 -translate-x-1/2 whitespace-nowrap font-display text-sm font-medium text-white/80">
+              {active.caption}
+            </span>
+          )}
         </motion.div>
 
         {images.length > 1 && (

@@ -145,7 +145,7 @@ export function Capabilities() {
     <section
       ref={sectionRef}
       id="capabilities"
-      className="relative overflow-hidden border-t border-white/5 bg-ink-soft py-24 sm:py-32"
+      className="relative overflow-hidden border-t border-white/5 bg-ink-soft py-16 sm:py-24"
       onMouseEnter={() => {
         hoveredRef.current = true;
         setPaused(true);

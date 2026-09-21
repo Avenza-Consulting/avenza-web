@@ -2,12 +2,7 @@ import { Hero } from "@/components/sections/Hero";
 import { WhoWeAre } from "@/components/sections/WhoWeAre";
 import { Achievement } from "@/components/sections/Achievement";
 import { Capabilities } from "@/components/sections/Capabilities";
-import { Journey } from "@/components/sections/Journey";
-import { AiBanking } from "@/components/sections/AiBanking";
-import { Ecosystem } from "@/components/sections/Ecosystem";
-import { DeliveryModels } from "@/components/sections/DeliveryModels";
 import { WhyAvenza } from "@/components/sections/WhyAvenza";
-import { Insights } from "@/components/sections/Insights";
 import { ContactCta } from "@/components/sections/ContactCta";
 
 export default function Home() {
@@ -17,12 +12,7 @@ export default function Home() {
       <WhoWeAre />
       <Achievement />
       <Capabilities />
-      <Journey />
-      <AiBanking />
-      <Ecosystem />
-      <DeliveryModels />
       <WhyAvenza />
-      <Insights />
       <ContactCta />
     </>
   );

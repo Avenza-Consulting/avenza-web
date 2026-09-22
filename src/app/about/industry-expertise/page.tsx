@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Ecosystem } from "@/components/sections/Ecosystem";
-import { ContactCta } from "@/components/sections/ContactCta";
 
 export const metadata: Metadata = {
   title: "Industry Expertise | Avenza Consulting",
@@ -26,7 +25,6 @@ export default function IndustryExpertisePage() {
   return (
     <>
       <Ecosystem />
-      <ContactCta />
     </>
   );
 }

@@ -46,8 +46,6 @@ export function Capabilities() {
   const [paused, setPaused] = useState(false);
   const [inView, setInView] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-  const hoveredRef = useRef(false);
-  const interactedUntilRef = useRef(0);
   const resumeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const active = capabilities[index];
@@ -92,26 +90,22 @@ export function Capabilities() {
     };
   }, [paused, inView]);
 
-  // Marks the interaction as "just happened" so the mouseleave/auto-advance
-  // effects know to stay paused, then schedules the resume. Also clears the
-  // auto-advance interval synchronously — setPaused(true) alone only stops
-  // the *next* effect run from creating a new interval, but a tick already
-  // queued by the still-running interval can fire in the same batch as this
-  // click's setIndex call, compounding into a double-advance. Clearing it
-  // here closes that race.
+  // Marks the interaction as "just happened" so the auto-advance effect
+  // knows to stay paused briefly, then schedules the resume. Also clears
+  // the auto-advance interval synchronously — setPaused(true) alone only
+  // stops the *next* effect run from creating a new interval, but a tick
+  // already queued by the still-running interval can fire in the same
+  // batch as this click's setIndex call, compounding into a double-advance.
+  // Clearing it here closes that race.
   const markInteracted = () => {
     if (autoAdvanceIntervalRef.current !== null) {
       clearInterval(autoAdvanceIntervalRef.current);
       autoAdvanceIntervalRef.current = null;
     }
     setPaused(true);
-    // Only ever runs from click handlers, never during render — this
-    // Date.now() call is safe despite the lint rule's static check.
-    // eslint-disable-next-line react-hooks/purity
-    interactedUntilRef.current = Date.now() + RESUME_AFTER_INTERACTION_MS;
     if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
     resumeTimeoutRef.current = setTimeout(() => {
-      if (!hoveredRef.current) setPaused(false);
+      setPaused(false);
     }, RESUME_AFTER_INTERACTION_MS);
   };
 
@@ -146,14 +140,6 @@ export function Capabilities() {
       ref={sectionRef}
       id="capabilities"
       className="relative overflow-hidden border-t border-white/5 bg-ink-soft py-16 sm:py-24"
-      onMouseEnter={() => {
-        hoveredRef.current = true;
-        setPaused(true);
-      }}
-      onMouseLeave={() => {
-        hoveredRef.current = false;
-        if (Date.now() >= interactedUntilRef.current) setPaused(false);
-      }}
     >
       <div className="bg-grid pointer-events-none absolute inset-0 opacity-[0.05]" aria-hidden="true" />
       <motion.div

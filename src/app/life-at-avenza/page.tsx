@@ -4,7 +4,6 @@ import { YercaudOffsite } from "@/components/sections/YercaudOffsite";
 import { LifeHighlights } from "@/components/sections/LifeHighlights";
 import { LifeGallery } from "@/components/sections/LifeGallery";
 import { LifeCta } from "@/components/sections/LifeCta";
-import { ContactCta } from "@/components/sections/ContactCta";
 
 export const metadata: Metadata = {
   title: "Life at Avenza | Avenza Consulting",
@@ -43,7 +42,6 @@ export default function LifeAtAvenzaPage() {
       <LifeHighlights />
       <LifeGallery />
       <LifeCta />
-      <ContactCta />
     </>
   );
 }

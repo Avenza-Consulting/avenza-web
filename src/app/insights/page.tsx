@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { InsightsHero } from "@/components/sections/InsightsHero";
 import { InsightsList } from "@/components/sections/InsightsList";
-import { ContactCta } from "@/components/sections/ContactCta";
 
 export const metadata: Metadata = {
   title: "Insights | Avenza Consulting",
@@ -28,7 +27,6 @@ export default function InsightsPage() {
     <>
       <InsightsHero />
       <InsightsList />
-      <ContactCta />
     </>
   );
 }

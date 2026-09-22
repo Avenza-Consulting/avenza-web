@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
-import { ContactCta } from "@/components/sections/ContactCta";
 import { achievements } from "@/data/content";
 
 const achievement = achievements.find((a) => a.id === "trf26-apac-silver-sponsor")!;
@@ -100,8 +99,6 @@ export default function TrfAchievementPage() {
           </Reveal>
         </div>
       </section>
-
-      <ContactCta />
     </>
   );
 }

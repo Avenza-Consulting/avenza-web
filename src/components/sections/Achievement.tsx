@@ -11,15 +11,14 @@ const AUTO_ADVANCE_MS = 6500;
 
 export function Achievement() {
   const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
-    if (paused || achievements.length < 2) return;
+    if (achievements.length < 2) return;
     const timer = setInterval(() => {
       setIndex((i) => (i + 1) % achievements.length);
     }, AUTO_ADVANCE_MS);
     return () => clearInterval(timer);
-  }, [paused]);
+  }, []);
 
   const current = achievements[index];
 
@@ -28,8 +27,6 @@ export function Achievement() {
       id="achievements"
       className="relative border-t border-white/5 bg-ink py-16 sm:py-24"
       style={{ perspective: 1600 }}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
@@ -62,7 +59,7 @@ export function Achievement() {
             </AnimatePresence>
 
             {achievements.length > 1 && (
-              <div className="mt-10 flex items-center gap-2">
+              <div className="mt-10 flex gap-1.5">
                 {achievements.map((a, i) => (
                   <button
                     key={a.id}
@@ -70,13 +67,18 @@ export function Achievement() {
                     onClick={() => setIndex(i)}
                     aria-label={`Show achievement: ${a.title}`}
                     aria-current={i === index}
-                    className="group p-1.5"
+                    className="group relative h-1.5 flex-1 overflow-hidden rounded-full bg-white/10"
                   >
-                    <span
-                      className={`block h-1.5 rounded-full transition-all duration-300 ${
-                        i === index ? "w-7 bg-amber" : "w-1.5 bg-white/20 group-hover:bg-white/40"
-                      }`}
-                    />
+                    {i === index && (
+                      <motion.span
+                        key={index}
+                        className="absolute inset-y-0 left-0 rounded-full bg-amber"
+                        initial={{ width: "0%" }}
+                        animate={{ width: "100%" }}
+                        transition={{ duration: AUTO_ADVANCE_MS / 1000, ease: "linear" }}
+                      />
+                    )}
+                    {i < index && <span className="absolute inset-0 rounded-full bg-amber/40" />}
                   </button>
                 ))}
               </div>

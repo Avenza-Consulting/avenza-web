@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { AboutHero } from "@/components/sections/AboutHero";
 import { HowWeDeliver } from "@/components/sections/HowWeDeliver";
 import { LeadershipGrid } from "@/components/sections/LeadershipGrid";
-import { ContactCta } from "@/components/sections/ContactCta";
 
 export const metadata: Metadata = {
   title: "About | Avenza Consulting",
@@ -30,7 +29,6 @@ export default function AboutPage() {
       <AboutHero />
       <HowWeDeliver />
       <LeadershipGrid />
-      <ContactCta />
     </>
   );
 }

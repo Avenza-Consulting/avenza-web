@@ -159,6 +159,10 @@ body {
   font-family: var(--font-display);
 }
 
+.font-hand {
+  font-family: var(--font-caveat);
+}
+
 .text-gradient-cool {
   background: linear-gradient(90deg, #7c6cff 0%, #3d8bff 50%, #34e0d9 100%);
   -webkit-background-clip: text;

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Manrope } from "next/font/google";
+import { Inter, Manrope, Caveat } from "next/font/google";
 import { ThemeScript } from "@/components/ui/ThemeScript";
 import { TrfBanner } from "@/components/ui/TrfBanner";
 import { Header } from "@/components/ui/Header";
@@ -38,6 +38,12 @@ const manrope = Manrope({
   display: "swap",
 });
 
+const caveat = Caveat({
+  variable: "--font-caveat",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Timely Core Banking Transformations | Avenza Consulting Services",
   description:
@@ -63,7 +69,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${manrope.variable} h-full antialiased`}
+      className={`${inter.variable} ${manrope.variable} ${caveat.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>

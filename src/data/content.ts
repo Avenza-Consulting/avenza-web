@@ -471,29 +471,6 @@ export const yercaudTrip = {
   heroVideo: "/yercaud-2026-video-2.mp4",
 } as const;
 
-export const lifeHighlights = [
-  {
-    id: "team-events",
-    title: "We celebrate everything 🎉",
-    body: "From festival get-togethers to milestone celebrations, we make time to celebrate wins and each other — not just on the calendar, but as a habit.",
-  },
-  {
-    id: "learning",
-    title: "Room to actually grow 📈",
-    body: "Certifications, internal knowledge-sharing sessions, and hands-on mentorship — we invest in the skills that grow your career, not just the project.",
-  },
-  {
-    id: "work-life-balance",
-    title: "Life outside the sprint 🌤️",
-    body: "Flexible working, genuine respect for personal time, and a culture that doesn't equate long hours with commitment.",
-  },
-  {
-    id: "fun-activities",
-    title: "Genuinely fun people 🙌",
-    body: "Game nights, sports, and informal hangouts — the moments outside of delivery that turn colleagues into a team.",
-  },
-] as const;
-
 export const cultureValues = [
   {
     id: "people-first",

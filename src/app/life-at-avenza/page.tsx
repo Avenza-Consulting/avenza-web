@@ -3,6 +3,7 @@ import { LifeHero } from "@/components/sections/LifeHero";
 import { YercaudOffsite } from "@/components/sections/YercaudOffsite";
 import { LifeHighlights } from "@/components/sections/LifeHighlights";
 import { LifeGallery } from "@/components/sections/LifeGallery";
+import { LifeCta } from "@/components/sections/LifeCta";
 import { ContactCta } from "@/components/sections/ContactCta";
 
 export const metadata: Metadata = {
@@ -41,6 +42,7 @@ export default function LifeAtAvenzaPage() {
       <YercaudOffsite />
       <LifeHighlights />
       <LifeGallery />
+      <LifeCta />
       <ContactCta />
     </>
   );

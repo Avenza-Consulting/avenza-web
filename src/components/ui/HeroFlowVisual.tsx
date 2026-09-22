@@ -11,12 +11,16 @@ import { motion } from "framer-motion";
 // product area — core ledger data, mobile journeys, card payments, wealth
 // balances, or API/treasury sync — drawn in a shared 24x24 box centered on
 // the origin so it can be scaled and placed without per-icon offsets.
+// Outer ring = the Temenos platform, so it reads in a single cohesive blue
+// family (subtle shade variation keeps it alive without going multi-color).
+// The Avenza hub stays orange and the outcomes amber, so the story is:
+// blue Temenos products flow IN → orange Avenza → amber outcomes flow OUT.
 const products = [
-  { id: "core", lines: ["Core Banking"], color: "#ff8a2b", angleDeg: -90, icon: "database" },
+  { id: "core", lines: ["Core Banking"], color: "#4a90ff", angleDeg: -90, icon: "database" },
   { id: "digital", lines: ["Digital Banking"], color: "#3d8bff", angleDeg: -18, icon: "mobile" },
-  { id: "payments", lines: ["Payments & FCM"], color: "#ff8a2b", angleDeg: 40, icon: "payment" },
-  { id: "wealth", lines: ["Wealth &", "Islamic Banking"], color: "#ffb066", angleDeg: 140, icon: "wallet" },
-  { id: "datahub", lines: ["Data Hub &", "Treasury"], color: "#34e0d9", angleDeg: 198, icon: "sync" },
+  { id: "payments", lines: ["Payments & FCM"], color: "#5b9dff", angleDeg: 40, icon: "payment" },
+  { id: "wealth", lines: ["Wealth &", "Islamic Banking"], color: "#2e79f0", angleDeg: 140, icon: "wallet" },
+  { id: "datahub", lines: ["Data Hub &", "Treasury"], color: "#6aa8ff", angleDeg: 198, icon: "sync" },
 ] as const;
 
 const FLOW_ICONS: Record<(typeof products)[number]["icon"], string> = {
@@ -151,12 +155,13 @@ export function HeroFlowVisual() {
       >
         <defs>
           <radialGradient id="hubGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#34e0d9" stopOpacity="0.35" />
-            <stop offset="100%" stopColor="#34e0d9" stopOpacity="0" />
+            <stop offset="0%" stopColor="#ff8a2b" stopOpacity="0.4" />
+            <stop offset="100%" stopColor="#ff8a2b" stopOpacity="0" />
           </radialGradient>
           <linearGradient id="hubFill" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#161a24" />
-            <stop offset="100%" stopColor="#0c0f16" />
+            <stop offset="0%" stopColor="#ffb066" />
+            <stop offset="55%" stopColor="#ff8a2b" />
+            <stop offset="100%" stopColor="#e0680f" />
           </linearGradient>
         </defs>
 
@@ -334,20 +339,20 @@ export function HeroFlowVisual() {
           onMouseLeave={() => setHoveredHub(false)}
           style={{ cursor: "pointer" }}
         >
-          {hoveredHub && !reduced && <Ripples cx={CENTER_X} cy={CENTER_Y} r={HUB_R} color="#34e0d9" />}
+          {hoveredHub && !reduced && <Ripples cx={CENTER_X} cy={CENTER_Y} r={HUB_R} color="#ff8a2b" />}
           <circle cx={CENTER_X} cy={CENTER_Y} r={HUB_R + 26} fill="url(#hubGlow)" style={{ pointerEvents: "none" }} />
           <motion.circle
             cx={CENTER_X}
             cy={CENTER_Y}
             r={HUB_R}
             fill="url(#hubFill)"
-            stroke="#34e0d9"
+            stroke="#ffc78f"
             initial={false}
             animate={{ strokeWidth: hoveredHub ? 3 : 2 }}
             transition={{ duration: 0.3 }}
-            style={{ filter: hoveredHub ? "drop-shadow(0 0 16px #34e0d9)" : "none" }}
+            style={{ filter: hoveredHub ? "drop-shadow(0 0 18px #ff8a2b)" : "drop-shadow(0 0 10px rgba(255,138,43,0.5))" }}
           />
-          <circle cx={CENTER_X} cy={CENTER_Y} r={HUB_R - 12} fill="none" stroke="#34e0d9" strokeOpacity="0.5" strokeWidth="1" strokeDasharray="3 4" style={{ pointerEvents: "none" }}>
+          <circle cx={CENTER_X} cy={CENTER_Y} r={HUB_R - 12} fill="none" stroke="#06070a" strokeOpacity="0.28" strokeWidth="1" strokeDasharray="3 4" style={{ pointerEvents: "none" }}>
             <animateTransform
               attributeName="transform"
               type="rotate"
@@ -357,10 +362,10 @@ export function HeroFlowVisual() {
               repeatCount="indefinite"
             />
           </circle>
-          <text x={CENTER_X} y={CENTER_Y - 2} textAnchor="middle" fontSize="17" fontWeight="800" fill="#f4f5f7" fontFamily="var(--font-display)" style={{ pointerEvents: "none" }}>
+          <text x={CENTER_X} y={CENTER_Y - 2} textAnchor="middle" fontSize="17" fontWeight="800" fill="#0a0a0a" fontFamily="var(--font-display)" style={{ pointerEvents: "none" }}>
             Avenza
           </text>
-          <text x={CENTER_X} y={CENTER_Y + 18} textAnchor="middle" fontSize="10.5" fontWeight="600" fill="#7fd8d1" fontFamily="var(--font-body)" style={{ pointerEvents: "none" }}>
+          <text x={CENTER_X} y={CENTER_Y + 18} textAnchor="middle" fontSize="10.5" fontWeight="700" fill="#06070a" fillOpacity="0.7" fontFamily="var(--font-body)" style={{ pointerEvents: "none" }}>
             Services Hub
           </text>
         </motion.g>

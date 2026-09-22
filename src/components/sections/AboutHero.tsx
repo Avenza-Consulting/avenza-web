@@ -17,9 +17,8 @@ export function AboutHero() {
             <span className="text-white">one accountable partner.</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-text-muted">
-            How Avenza&apos;s services span the Temenos ecosystem, the delivery
-            models we flex to fit your team, and the perspectives we&apos;re
-            sharing along the way.
+            How we deliver, the team behind it, and the perspectives
+            we&apos;re sharing along the way.
           </p>
         </Reveal>
       </div>

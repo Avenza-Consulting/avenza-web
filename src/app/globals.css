@@ -150,6 +150,16 @@ body {
   font-family: var(--font-body);
 }
 
+/* Site-wide custom cursor using the Avenza mark. !important beats
+   Tailwind's cursor-pointer utility and any per-component cursor style,
+   so the brand cursor stays consistent over links, buttons and inputs
+   too, not just plain page background. */
+*,
+*::before,
+*::after {
+  cursor: url("/cursor-avenza.svg") 6 11, auto !important;
+}
+
 ::selection {
   background: var(--color-amber);
   color: #06070a;

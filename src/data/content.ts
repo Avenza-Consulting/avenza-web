@@ -1,29 +1,18 @@
 export const nav = [
-  {
-    label: "Home",
-    href: "/",
-    items: [
-      { label: "Who We Are", href: "/#who-we-are" },
-      { label: "Achievements", href: "/#achievements" },
-      { label: "Core Capabilities", href: "/#capabilities" },
-      { label: "Why Avenza", href: "/#why-avenza" },
-    ],
-  },
+  { label: "Capabilities", href: "/#capabilities" },
   {
     label: "About",
     href: "/about",
     items: [
-      { label: "Industry Expertise", href: "/about#industry-expertise" },
-      { label: "Delivery Model", href: "/about#delivery-models" },
       { label: "How We Deliver", href: "/about#how-we-deliver" },
       { label: "Leadership", href: "/about#leadership" },
+      { label: "Industry Expertise", href: "/about/industry-expertise" },
       { label: "Insights", href: "/about#insights" },
     ],
   },
   { label: "Accelerators", href: "/accelerators" },
   { label: "Careers", href: "/careers" },
   { label: "Life @ Avenza", href: "/life-at-avenza" },
-  { label: "Contact", href: "/contact" },
 ] as const;
 
 export const leadership = [
@@ -275,37 +264,6 @@ export const acceleratorCatalog = [
     benefits: ["Reduced implementation effort", "Consistent quality", "Expert oversight retained"],
   },
 ] as const;
-
-export const deliveryModels = [
-  {
-    id: "agility",
-    title: "Agility & Hyper Personalized Service",
-    body: "Our core banking transformation services help banks stay agile, deploy new features quickly, and seamlessly integrate with emerging technologies. With our expertise, we deliver hyper-personalized experiences aligned with your business goals.",
-  },
-  {
-    id: "temenos-expertise",
-    title: "Specialized Expertise in Temenos Transact, TPH and FCM",
-    body: "With deep expertise in Temenos products, we deliver tailored solutions for smooth implementation, optimized local development, and enhanced performance, helping you maximize Temenos' potential while staying compliant and competitive.",
-  },
-  {
-    id: "accelerators",
-    title: "Value Added Tools & Accelerators",
-    body: "We offer home grown tools and accelerators that streamline processes, cutting time-to-market, and boosting efficiency. Our proprietary solutions reduce manual effort and mitigate risks through automation and reusability.",
-  },
-  {
-    id: "technology-ai",
-    title: "Leverage Technology & AI",
-    body: "We leverage AI for product implementation, streamlining documentation across the SDLC and enabling accurate code conversion and upgrades.",
-  },
-  {
-    id: "flexible-engagement",
-    title: "Flexible Engagement Models",
-    body: "We offer flexible engagement models tailored to your needs, from end-to-end project delivery to staff augmentation or a hybrid approach, we provide the right level of support ensuring success on your terms.",
-  },
-] as const;
-
-export const deliveryModelsTagline =
-  "Avenza blends Temenos expertise with AI, digital, and advanced analytics to deliver future-proof core banking solutions, creating a unique value proposition for customers worldwide.";
 
 export const deliveryLifecycle = [
   {

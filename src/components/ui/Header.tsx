@@ -10,7 +10,7 @@ import { useActiveSection } from "./useActiveSection";
 import { nav } from "@/data/content";
 
 const inPageSectionIds = ["who-we-are", "achievements", "capabilities", "why-avenza"];
-const aboutPageSectionIds = ["industry-expertise", "delivery-models", "how-we-deliver", "leadership", "insights"];
+const aboutPageSectionIds = ["how-we-deliver", "leadership", "insights"];
 
 function flatNavHrefs() {
   return nav.flatMap((item) => ("items" in item ? [item.href, ...item.items.map((sub) => sub.href)] : [item.href]));
@@ -105,17 +105,6 @@ export function Header() {
     closeTimeoutRef.current = setTimeout(() => setOpenGroup(null), 150);
   };
 
-  // Next.js <Link> is a no-op when the target URL matches the current one,
-  // so clicking "Home" while already on "/" doesn't scroll anywhere on its
-  // own — do it explicitly.
-  const handleHomeClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (pathname === "/") {
-      e.preventDefault();
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      setMobileOpen(false);
-    }
-  };
-
   return (
     <header className="sticky top-0 z-50">
       <div
@@ -148,7 +137,7 @@ export function Header() {
                       <Link
                         href={item.href}
                         aria-current={item.href === activeHref ? "page" : undefined}
-                        onClick={item.href === "/" ? handleHomeClick : () => setOpenGroup(null)}
+                        onClick={() => setOpenGroup(null)}
                         className="transition-colors hover:text-white"
                       >
                         {item.label}
@@ -303,7 +292,6 @@ export function Header() {
                         <Link
                           href={item.href}
                           aria-current={item.href === activeHref ? "page" : undefined}
-                          onClick={item.href === "/" ? handleHomeClick : undefined}
                           className="flex-1 px-3 py-3"
                         >
                           {item.label}

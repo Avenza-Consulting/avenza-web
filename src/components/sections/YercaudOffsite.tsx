@@ -1,7 +1,26 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { Reveal } from "@/components/ui/Reveal";
 import { yercaudTrip } from "@/data/content";
+import { fetchAllLifePhotos, isLifePhotosSheetConfigured } from "@/lib/lifePhotosSheet";
 
 export function YercaudOffsite() {
+  const [posterSrc, setPosterSrc] = useState<string>(yercaudTrip.heroPhoto.src);
+
+  useEffect(() => {
+    if (!isLifePhotosSheetConfigured) return;
+    let cancelled = false;
+    fetchAllLifePhotos().then((result) => {
+      if (cancelled || !result) return;
+      const featured = result.yercaud.find((photo) => photo.featured) ?? result.yercaud[0];
+      if (featured) setPosterSrc(featured.src);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   return (
     <section className="relative border-t border-white/5 bg-ink py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -31,7 +50,7 @@ export function YercaudOffsite() {
                 controls
                 playsInline
                 preload="metadata"
-                poster={yercaudTrip.heroPhoto.src}
+                poster={posterSrc}
                 className="h-full w-full bg-black object-cover"
               />
             </div>

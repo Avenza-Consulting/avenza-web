@@ -7,6 +7,12 @@ import { useEffect, useState } from "react";
  * highlighting the matching nav link. Only runs on "/" — the only route
  * with in-page section anchors; other routes rely on pathname matching
  * instead (see Header.tsx).
+ *
+ * Also keeps the URL hash in sync with whatever section is actually in
+ * view: clicking a nav link sets the hash once, but without this the hash
+ * then stays frozen at that value no matter where the user scrolls to
+ * afterward. Uses replaceState (not pushState) so scrolling never adds
+ * history entries — only real navigations do.
  */
 export function useActiveSection(sectionIds: string[], enabled: boolean) {
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -72,6 +78,14 @@ export function useActiveSection(sectionIds: string[], enabled: boolean) {
       window.removeEventListener("resize", recomputeFromScroll);
     };
   }, [sectionIds, enabled]);
+
+  useEffect(() => {
+    if (!enabled) return;
+    const nextHash = activeId ? `#${activeId}` : "";
+    if (location.hash === nextHash) return;
+    const url = `${location.pathname}${location.search}${nextHash}`;
+    history.replaceState(history.state, "", url);
+  }, [activeId, enabled]);
 
   return activeId;
 }

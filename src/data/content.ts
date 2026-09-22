@@ -7,10 +7,10 @@ export const nav = [
       { label: "How We Deliver", href: "/about#how-we-deliver" },
       { label: "Leadership", href: "/about#leadership" },
       { label: "Industry Expertise", href: "/about/industry-expertise" },
-      { label: "Insights", href: "/about#insights" },
     ],
   },
   { label: "Accelerators", href: "/accelerators" },
+  { label: "Insights", href: "/insights" },
   { label: "Careers", href: "/careers" },
   { label: "Life @ Avenza", href: "/life-at-avenza" },
 ] as const;
@@ -460,23 +460,55 @@ export const contactInfo = {
   email: "info@avenza-consulting.com",
 } as const;
 
+export const insightCategories = ["Core Modernization", "Cloud", "Automation"] as const;
+
 export const insights = [
   {
     id: "core-modernization",
+    slug: "modernizing-the-core-without-a-big-bang",
+    type: "Point of View",
     tag: "Core Modernization",
-    title: "White papers on core modernization",
-    body: "Perspectives on modernizing core banking platforms without disrupting the business.",
+    title: "Modernizing the core without a big-bang gamble",
+    summary:
+      "Why continuity-first, incremental core modernization beats rip-and-replace — and how to sequence it so the business never stops.",
+    date: "2026-07-08",
+    readTime: "6 min read",
+    body: [
+      "Every bank carrying a legacy core faces the same tension: the platform that runs the business is also the thing holding it back. The instinct to replace it wholesale is understandable — and usually wrong.",
+      "A continuity-first approach treats modernization as a sequenced programme rather than a single event. Each increment is assessed, designed, transformed and validated before the next begins, so risk is retired steadily rather than concentrated at one catastrophic go-live.",
+      "The discipline that makes this work is evidence: automated testing, reconciliation and rehearsal at every step. Modernization stops being a leap of faith and becomes a measured, reversible sequence of controlled changes.",
+    ],
   },
   {
     id: "cloud-migration",
+    slug: "sequencing-cloud-migration-with-core-transformation",
+    type: "Whitepaper",
     tag: "Cloud",
-    title: "A point of view on cloud migration",
-    body: "How banks are sequencing cloud migration alongside core transformation programs.",
+    title: "Sequencing cloud migration with core transformation",
+    summary:
+      "Running a cloud move alongside a core transformation multiplies risk if it's improvised — here's how banks are sequencing the two so they reinforce each other instead.",
+    date: "2026-06-10",
+    readTime: "8 min read",
+    body: [
+      "Cloud migration and core transformation are often treated as separate initiatives with separate timelines — which is exactly how they end up colliding mid-programme.",
+      "Sequencing them deliberately means moving non-critical workloads first to prove the cloud landing zone, then migrating the core once the operating model, security posture and observability are already proven under real load.",
+      "Done this way, the cloud migration de-risks the core transformation instead of competing with it for attention, and the bank ends up with a validated cloud foundation before the workload that matters most ever moves.",
+    ],
   },
   {
     id: "deployment-automation",
+    slug: "automating-the-deployment-pipeline",
+    type: "Article",
     tag: "Automation",
     title: "Automating the deployment pipeline",
-    body: "Reducing release risk and cycle time with CI/CD built for core banking environments.",
+    summary:
+      "Reducing release risk and cycle time with CI/CD built for core banking environments, where every change carries regulatory and reconciliation weight.",
+    date: "2026-05-14",
+    readTime: "5 min read",
+    body: [
+      "Core banking deployments carry a different weight than typical software releases — every change touches customer money, so speed can't come at the cost of auditability.",
+      "An automated pipeline built for this context standardizes build, test and promotion across environments, with approvals and rollback designed in rather than bolted on afterward.",
+      "The payoff isn't just faster releases — it's releases that are repeatable and provable, which is what actually shortens the path from code complete to a controlled, confident go-live.",
+    ],
   },
 ] as const;

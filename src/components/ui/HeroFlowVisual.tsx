@@ -185,10 +185,10 @@ export function HeroFlowVisual() {
                   className="animate-dash-flow"
                 />
                 <g opacity="0">
-                  <animateMotion dur="2.6s" begin={`${i * 0.35}s`} repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+                  <animateMotion dur="3.12s" begin={`${i * 0.35}s`} repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                     <mpath href={`#${lineId}`} />
                   </animateMotion>
-                  <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="2.6s" begin={`${i * 0.35}s`} repeatCount="indefinite" fill="freeze" />
+                  <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="3.12s" begin={`${i * 0.35}s`} repeatCount="indefinite" fill="freeze" />
                   <circle r="11" fill="var(--color-surface)" stroke={p.color} strokeWidth="1.5" />
                   <path
                     d={FLOW_ICONS[p.icon]}
@@ -237,10 +237,10 @@ export function HeroFlowVisual() {
                   className="animate-dash-flow"
                 />
                 <g opacity="0">
-                  <animateMotion dur="2.8s" begin={`${1.6 + o.i * 0.3}s`} repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+                  <animateMotion dur="3.36s" begin={`${1.6 + o.i * 0.3}s`} repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                     <mpath href={`#${pathId}`} />
                   </animateMotion>
-                  <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="2.8s" begin={`${1.6 + o.i * 0.3}s`} repeatCount="indefinite" fill="freeze" />
+                  <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="3.36s" begin={`${1.6 + o.i * 0.3}s`} repeatCount="indefinite" fill="freeze" />
                   <circle r="11" fill="var(--color-surface)" stroke="#ffb066" strokeWidth="1.5" />
                   <path
                     d={OUTCOME_ICONS[o.icon]}
@@ -385,7 +385,7 @@ export function HeroFlowVisual() {
             return acc;
           }, []);
           const startY = OUTCOME_Y + 4 - ((lines.length - 1) * 13) / 2;
-          const dotDur = 2.8;
+          const dotDur = 3.36;
           const dotBegin = 1.6 + o.i * 0.3;
           const arrivalOffset = dotDur * 0.85;
           return (

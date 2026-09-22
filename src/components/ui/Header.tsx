@@ -10,7 +10,7 @@ import { useActiveSection } from "./useActiveSection";
 import { nav } from "@/data/content";
 
 const inPageSectionIds = ["who-we-are", "achievements", "capabilities", "why-avenza"];
-const aboutPageSectionIds = ["how-we-deliver", "leadership", "insights"];
+const aboutPageSectionIds = ["how-we-deliver", "leadership"];
 
 function flatNavHrefs() {
   return nav.flatMap((item) => ("items" in item ? [item.href, ...item.items.map((sub) => sub.href)] : [item.href]));
@@ -118,7 +118,7 @@ export function Header() {
             scrolled ? "py-3" : "py-5"
           }`}
         >
-          <Logo className="text-amber" />
+          <Logo className="text-amber origin-left scale-[1.2]" />
 
           <ul ref={navRef} className="hidden items-center gap-8 lg:flex">
             {nav.map((item) => {

@@ -287,6 +287,14 @@ export function JobOpenings() {
                                 </svg>
                                 {employmentTypeLabels[job.employmentType] ?? job.employmentType}
                               </span>
+                              {job.experience && (
+                                <span className="inline-flex items-center gap-1.5">
+                                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <path d="M12 2 4 6v6c0 5 3.4 8.7 8 10 4.6-1.3 8-5 8-10V6l-8-4Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+                                  </svg>
+                                  {job.experience}
+                                </span>
+                              )}
                               {postedAgo && (
                                 <span className="inline-flex items-center gap-1.5">
                                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">

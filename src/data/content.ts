@@ -426,6 +426,7 @@ export const jobs = [
     workMode: "Hybrid",
     category: "Delivery",
     level: "Senior",
+    experience: "6-12 Years",
   },
   {
     id: "sr-product-specialist",
@@ -436,6 +437,7 @@ export const jobs = [
     workMode: "Hybrid",
     category: "Product",
     level: "Senior",
+    experience: "6-12 Years",
   },
   {
     id: "pre-sales-lead",
@@ -447,6 +449,7 @@ export const jobs = [
     workMode: "Remote",
     category: "Pre-Sales",
     level: "Lead",
+    experience: "12-15 Years",
   },
   {
     id: "lead-product-consultant",
@@ -457,6 +460,7 @@ export const jobs = [
     workMode: "Remote",
     category: "Product",
     level: "Lead",
+    experience: "12-15 Years",
   },
 ] as const;
 

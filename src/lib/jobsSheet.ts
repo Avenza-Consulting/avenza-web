@@ -7,16 +7,19 @@ export type Job = {
   workMode: string;
   category: string;
   level: string;
+  experience: string;
 };
 
 // Publish the sheet via File > Share > Publish to web > select the jobs
 // tab > CSV, then paste the resulting URL here (or set
 // NEXT_PUBLIC_JOBS_SHEET_CSV_URL in the environment so it can change
 // without a code edit). Expected header row (case-insensitive):
-// id, title, blurb, datePosted, employmentType, workMode, category, level, status
+// id, title, blurb, datePosted, employmentType, workMode, category, level, experience, status
 // A row is shown only when status is "open" (blank/anything else is
 // treated as closed, so leaving the column empty hides a row safely).
-// category and level are optional — leave either blank to skip that tag.
+// category, level and experience are optional — leave any blank to skip
+// that tag. experience is free text (e.g. "4-12 Years"), distinct from
+// level (Mid/Senior/Lead/Manager).
 const SHEET_CSV_URL = process.env.NEXT_PUBLIC_JOBS_SHEET_CSV_URL ?? "";
 
 // Lets callers avoid flashing the fallback jobs before the real sheet data
@@ -112,6 +115,7 @@ function rowsToJobs(rows: string[][]): Job[] {
   // single misspelled header doesn't silently drop the whole column.
   const categoryCol = col("category", "categoty");
   const levelCol = col("level");
+  const experienceCol = col("experience");
   const statusCol = col("status");
 
   const jobs: Job[] = [];
@@ -136,6 +140,7 @@ function rowsToJobs(rows: string[][]): Job[] {
       workMode: modeCol >= 0 ? (cells[modeCol] ?? "").trim() || "On-site" : "On-site",
       category: categoryCol >= 0 ? (cells[categoryCol] ?? "").trim() : "",
       level: levelCol >= 0 ? (cells[levelCol] ?? "").trim() : "",
+      experience: experienceCol >= 0 ? (cells[experienceCol] ?? "").trim() : "",
     });
   }
   return jobs;

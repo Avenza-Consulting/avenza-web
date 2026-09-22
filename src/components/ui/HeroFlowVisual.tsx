@@ -8,22 +8,26 @@ import { motion } from "framer-motion";
 // Banking & Journey Manager, and Wealth & Islamic Banking close to Data Hub
 // & Treasury, so the two related pairs read as grouped around the hub.
 // icon: a small glyph representing what flows toward the hub from that
-// product area — core ledger data, mobile journeys, card payments, wealth
-// balances, or API/treasury sync — drawn in a shared 24x24 box centered on
-// the origin so it can be scaled and placed without per-icon offsets.
+// product area — a bank building for core banking, mobile journeys, card
+// payments, wealth balances, or a database stack for data hub & treasury —
+// drawn in a shared 24x24 box centered on the origin so it can be scaled
+// and placed without per-icon offsets.
 // Outer ring = the Temenos platform, so it reads in a single cohesive blue
 // family (subtle shade variation keeps it alive without going multi-color).
 // The Avenza hub stays orange and the outcomes amber, so the story is:
 // blue Temenos products flow IN → orange Avenza → amber outcomes flow OUT.
 const products = [
-  { id: "core", lines: ["Core Banking"], color: "#4a90ff", angleDeg: -90, icon: "database" },
+  { id: "core", lines: ["Core Banking"], color: "#4a90ff", angleDeg: -90, icon: "bank" },
   { id: "digital", lines: ["Digital Banking"], color: "#3d8bff", angleDeg: -18, icon: "mobile" },
   { id: "payments", lines: ["Payments & FCM"], color: "#5b9dff", angleDeg: 40, icon: "payment" },
   { id: "wealth", lines: ["Wealth &", "Islamic Banking"], color: "#2e79f0", angleDeg: 140, icon: "wallet" },
-  { id: "datahub", lines: ["Data Hub &", "Treasury"], color: "#6aa8ff", angleDeg: 198, icon: "sync" },
+  { id: "datahub", lines: ["Data Hub &", "Treasury"], color: "#6aa8ff", angleDeg: 198, icon: "database" },
 ] as const;
 
 const FLOW_ICONS: Record<(typeof products)[number]["icon"], string> = {
+  // classical bank building — pediment roof, columns, base plinth
+  bank:
+    "M-9,-4 L0,-9 L9,-4 Z M-8,-4 L8,-4 M-7,-4 L-7,4 M-3.5,-4 L-3.5,4 M3.5,-4 L3.5,4 M7,-4 L7,4 M-9,4 L9,4 M-9,7.5 L9,7.5 M-9,4 L-9,7.5 M9,4 L9,7.5",
   // cylinder / database stack
   database:
     "M-6,-6.5 C-6,-8 -3.3,-9 0,-9 C3.3,-9 6,-8 6,-6.5 C6,-5 3.3,-4 0,-4 C-3.3,-4 -6,-5 -6,-6.5 Z M-6,-6.5 L-6,6.5 C-6,8 -3.3,9 0,9 C3.3,9 6,8 6,6.5 L6,-6.5 M-6,0 C-6,1.5 -3.3,2.5 0,2.5 C3.3,2.5 6,1.5 6,0",
@@ -36,9 +40,6 @@ const FLOW_ICONS: Record<(typeof products)[number]["icon"], string> = {
   // wallet with a coin
   wallet:
     "M-9,-5 L6,-5 C7.7,-5 9,-3.7 9,-2 L9,5 C9,6.7 7.7,8 6,8 L-9,8 C-9,8 -9,-5 -9,-5 Z M-9,-5 C-9,-6.7 -7.7,-8 -6,-8 L4,-8 M3,1.5 A2,2 0 1 0 3,1.4",
-  // circular sync / API arrows
-  sync:
-    "M-7,-1 A7,7 0 0 1 6.2,-4.5 M6.2,-4.5 L6.2,-8 M6.2,-4.5 L2.7,-4.5 M7,1 A7,7 0 0 1 -6.2,4.5 M-6.2,4.5 L-6.2,8 M-6.2,4.5 L-2.7,4.5",
 };
 
 const outcomes = [

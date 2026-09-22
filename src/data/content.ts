@@ -22,6 +22,7 @@ export const leadership = [
     title: "Chief Executive Officer",
     bio: "Sets the vision and holds the bar for how Avenza delivers.",
     photo: "/leadership-mahesh-dutt-kolar.png",
+    video: "/leadership-mahesh-dutt-kolar.mp4",
   },
   {
     id: "ratnadeep-mukherjee",
@@ -29,6 +30,7 @@ export const leadership = [
     title: "Co-Founder & Chief Revenue Officer",
     bio: "Builds the relationships and growth engine behind the business.",
     photo: "/leadership-ratnadeep-mukherjee.png",
+    video: "/leadership-ratnadeep-mukherjee.mp4",
   },
   {
     id: "gopinath-chandran",
@@ -36,6 +38,7 @@ export const leadership = [
     title: "Chief Operating Officer",
     bio: "Turns strategy into dependable, day-to-day delivery.",
     photo: "/leadership-gopinath-chandran.png",
+    video: "/leadership-gopinath-chandran.mp4",
   },
 ] as const;
 

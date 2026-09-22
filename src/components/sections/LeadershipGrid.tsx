@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { Reveal } from "@/components/ui/Reveal";
+import { LeadershipVideo } from "@/components/ui/LeadershipVideo";
 import { leadership } from "@/data/content";
 
 export function LeadershipGrid() {
@@ -32,16 +32,10 @@ export function LeadershipGrid() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true, amount: 0.5 }}
                   transition={{ duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                  className="relative mx-auto h-64 w-64 overflow-hidden rounded-xl bg-surface-raised"
+                  className="relative mx-auto h-64 w-64 overflow-hidden rounded-xl bg-surface-raised ring-1 ring-inset ring-white/5 transition-all duration-300 group-hover:ring-2 group-hover:ring-amber/30 group-hover:shadow-[0_0_34px_-8px_rgba(255,138,43,0.45)]"
                 >
-                  <Image
-                    src={person.photo}
-                    alt={person.name}
-                    fill
-                    priority
-                    sizes="256px"
-                    className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.04]"
-                  />
+                  <LeadershipVideo src={person.video} poster={person.photo} name={person.name} />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
                 </motion.div>
                 <h3 className="mt-6 font-display text-lg font-bold text-white">{person.name}</h3>
                 <p className="mt-1.5 text-xs font-semibold uppercase tracking-wider text-amber-soft-text">

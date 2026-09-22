@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { Reveal } from "@/components/ui/Reveal";
 import { leadership } from "@/data/content";
 
@@ -24,7 +27,13 @@ export function LeadershipGrid() {
           {leadership.map((person, i) => (
             <Reveal key={person.id} delay={i * 0.08} duration={0.5} distance={14}>
               <div className="group h-full rounded-2xl border border-white/10 bg-surface p-8 text-center transition-colors duration-300 hover:border-white/20">
-                <div className="relative mx-auto h-64 w-64 overflow-hidden rounded-xl bg-surface-raised">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, amount: 0.5 }}
+                  transition={{ duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                  className="relative mx-auto h-64 w-64 overflow-hidden rounded-xl bg-surface-raised"
+                >
                   <Image
                     src={person.photo}
                     alt={person.name}
@@ -33,7 +42,7 @@ export function LeadershipGrid() {
                     sizes="256px"
                     className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.04]"
                   />
-                </div>
+                </motion.div>
                 <h3 className="mt-6 font-display text-lg font-bold text-white">{person.name}</h3>
                 <p className="mt-1.5 text-xs font-semibold uppercase tracking-wider text-amber-soft-text">
                   {person.title}

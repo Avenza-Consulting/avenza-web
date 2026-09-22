@@ -1,13 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { Reveal } from "@/components/ui/Reveal";
 import { AcceleratorIcon } from "@/components/ui/AcceleratorIcon";
 import { acceleratorCatalog, acceleratorCategories } from "@/data/content";
-
-const SLIDE_MS = 4500;
-const RESUME_AFTER_INTERACTION_MS = 9000;
 
 const categoryAccent: Record<string, { color: string; textColor: string; text: string }> = {
   Assess: { color: "#3d8bff", textColor: "var(--color-azure-text)", text: "text-azure-text" },
@@ -17,128 +14,152 @@ const categoryAccent: Record<string, { color: string; textColor: string; text: s
   Optimise: { color: "#ffb066", textColor: "var(--color-amber-soft-text)", text: "text-amber-soft-text" },
 };
 
-export function AcceleratorsCatalog() {
-  const [index, setIndex] = useState(0);
-  const [direction, setDirection] = useState(1);
-  const [paused, setPaused] = useState(false);
-  const [inView, setInView] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-  const hoveredRef = useRef(false);
-  const interactedUntilRef = useRef(0);
-  const resumeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const active = acceleratorCatalog[index];
-  const accent = categoryAccent[active.category];
-  const autoAdvanceIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setInView(entry.isIntersecting),
-      { threshold: 0.35 }
-    );
-    observer.observe(el);
-
-    const poll = window.setInterval(() => {
-      if (window.innerWidth === 0 || window.innerHeight === 0) return;
-      const rect = el.getBoundingClientRect();
-      const visible = rect.top < window.innerHeight && rect.bottom > 0;
-      setInView((prev) => (prev === visible ? prev : visible));
-    }, 1000);
-
-    return () => {
-      observer.disconnect();
-      window.clearInterval(poll);
-    };
-  }, []);
-
-  useEffect(() => {
-    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (query.matches || paused || !inView) return;
-
-    const id = setInterval(() => {
-      setDirection(1);
-      setIndex((current) => (current + 1) % acceleratorCatalog.length);
-    }, SLIDE_MS);
-    autoAdvanceIntervalRef.current = id;
-    return () => {
-      clearInterval(id);
-      if (autoAdvanceIntervalRef.current === id) autoAdvanceIntervalRef.current = null;
-    };
-  }, [paused, inView]);
-
-  // Marks the interaction as "just happened" so the mouseleave/auto-advance
-  // effects know to stay paused, then schedules the resume. Also clears the
-  // auto-advance interval synchronously — setPaused(true) alone only stops
-  // the *next* effect run from creating a new interval, but a tick already
-  // queued by the still-running interval can fire in the same batch as this
-  // click's setIndex call, compounding into a double-advance. Clearing it
-  // here closes that race.
-  const markInteracted = () => {
-    if (autoAdvanceIntervalRef.current !== null) {
-      clearInterval(autoAdvanceIntervalRef.current);
-      autoAdvanceIntervalRef.current = null;
-    }
-    setPaused(true);
-    // Only ever runs from click handlers, never during render — this
-    // Date.now() call is safe despite the lint rule's static check.
-    // eslint-disable-next-line react-hooks/purity
-    interactedUntilRef.current = Date.now() + RESUME_AFTER_INTERACTION_MS;
-    if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
-    resumeTimeoutRef.current = setTimeout(() => {
-      if (!hoveredRef.current) setPaused(false);
-    }, RESUME_AFTER_INTERACTION_MS);
-  };
-
-  // Jump to an absolute slide (progress segments, category pills). dir only
-  // controls the slide-in direction, so it's fine if it's occasionally off
-  // by a sign on a rapid double-click — the index itself is always exact.
-  const goTo = (nextIndex: number, dir: number) => {
-    markInteracted();
-    setDirection(dir);
-    setIndex((nextIndex + acceleratorCatalog.length) % acceleratorCatalog.length);
-  };
-
-  // Step relative to whatever the current slide actually is at the moment
-  // the update applies, not whatever `index` this closure captured when the
-  // button was rendered — otherwise two rapid clicks (or a click racing the
-  // auto-advance timer) can both compute the same target and the visible
-  // position skips or repeats a slide.
-  const step = (delta: 1 | -1) => {
-    markInteracted();
-    setDirection(delta);
-    setIndex((current) => (current + delta + acceleratorCatalog.length) % acceleratorCatalog.length);
-  };
-
-  useEffect(() => {
-    return () => {
-      if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
-    };
-  }, []);
+function AcceleratorCard({
+  item,
+  open,
+  onToggle,
+}: {
+  item: (typeof acceleratorCatalog)[number];
+  open: boolean;
+  onToggle: () => void;
+}) {
+  const accent = categoryAccent[item.category];
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative overflow-hidden border-t border-white/5 bg-ink-soft py-16 sm:py-24"
-      onMouseEnter={() => {
-        hoveredRef.current = true;
-        setPaused(true);
-      }}
-      onMouseLeave={() => {
-        hoveredRef.current = false;
-        if (Date.now() >= interactedUntilRef.current) setPaused(false);
-      }}
-    >
-      <div className="bg-grid pointer-events-none absolute inset-0 opacity-[0.05]" aria-hidden="true" />
-      <motion.div
-        className="pointer-events-none absolute inset-0 opacity-25 blur-[140px] transition-colors duration-700"
-        style={{ background: `radial-gradient(ellipse at 30% 20%, ${accent.color}, transparent 60%)` }}
-        aria-hidden="true"
-      />
+    <div className="overflow-hidden rounded-2xl border border-white/10 bg-surface">
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-expanded={open}
+        className="flex w-full items-start gap-4 p-6 text-left sm:p-7"
+      >
+        <span
+          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl"
+          style={{ background: `color-mix(in oklab, ${accent.color} 16%, transparent)`, color: accent.textColor }}
+        >
+          <AcceleratorIcon id={item.id} className="h-5 w-5" />
+        </span>
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+            <h3 className="font-display text-base font-bold text-white sm:text-lg">{item.title}</h3>
+            <span className={`text-[11px] font-bold uppercase tracking-widest ${accent.text}`}>
+              {item.category}
+            </span>
+          </div>
+          <p className="mt-2 text-sm leading-relaxed text-text-muted">{item.summary}</p>
+        </div>
+        <span
+          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/10 text-text-muted transition-transform duration-300 ${
+            open ? "rotate-45" : ""
+          }`}
+          aria-hidden="true"
+        >
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M6 1v10M1 6h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+        </span>
+      </button>
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden"
+          >
+            <div className="grid grid-cols-1 gap-4 border-t border-white/10 p-4 sm:grid-cols-3 sm:p-6">
+              <div className="rounded-xl border border-rose-400/20 bg-rose-400/[0.06] p-4">
+                <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-rose-300">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path
+                      d="M12 9v4m0 4h.01M10.29 3.86l-8.18 14.18A2 2 0 0 0 3.82 21h16.36a2 2 0 0 0 1.71-2.96L13.71 3.86a2 2 0 0 0-3.42 0Z"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  Problem
+                </p>
+                <p className="mt-2 text-sm leading-relaxed text-text-muted">{item.problem}</p>
+              </div>
+              <div className="rounded-xl border border-azure/20 bg-azure/[0.06] p-4">
+                <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-azure-text">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path
+                      d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  How it works
+                </p>
+                <p className="mt-2 text-sm leading-relaxed text-text-muted">{item.howItWorks}</p>
+              </div>
+              <div className="rounded-xl border border-cyan/20 bg-cyan/[0.06] p-4">
+                <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-cyan-text">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path
+                      d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.74V17h8v-2.26A7 7 0 0 0 12 2Z"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  Benefits
+                </p>
+                <ul className="mt-2 space-y-2">
+                  {item.benefits.map((benefit) => (
+                    <li key={benefit} className="flex items-start gap-2.5 text-sm text-text-muted">
+                      <span
+                        className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full"
+                        style={{
+                          background: `color-mix(in oklab, ${accent.color} 16%, transparent)`,
+                          color: accent.textColor,
+                        }}
+                      >
+                        <svg width="9" height="7" viewBox="0 0 10 8" fill="none" aria-hidden="true">
+                          <path
+                            d="M1 4L3.5 6.5L9 1"
+                            stroke="currentColor"
+                            strokeWidth="1.6"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </span>
+                      {benefit}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+export function AcceleratorsCatalog() {
+  const [activeFilter, setActiveFilter] = useState<string | "All">("All");
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+
+  const visible =
+    activeFilter === "All"
+      ? acceleratorCatalog
+      : acceleratorCatalog.filter((item) => item.category === activeFilter);
+
+  return (
+    <section className="relative overflow-hidden border-t border-white/5 bg-ink-soft py-16 sm:py-24">
+      <div className="bg-grid pointer-events-none absolute inset-0 opacity-[0.05]" aria-hidden="true" />
+
+      <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <Reveal className="max-w-2xl">
           <span className="text-xs font-semibold uppercase tracking-widest text-cyan-text">
             The Accelerator Pipeline
@@ -151,155 +172,45 @@ export function AcceleratorsCatalog() {
           </p>
         </Reveal>
 
-        <Reveal delay={0.1} className="mt-10 flex flex-wrap gap-2">
-          {acceleratorCategories.map((category) => {
-            const isActiveCategory = category === active.category;
-            const categoryAccentColor = categoryAccent[category];
-            const firstIndexOfCategory = acceleratorCatalog.findIndex((item) => item.category === category);
-            return (
-              <button
-                key={category}
-                type="button"
-                onClick={() => goTo(firstIndexOfCategory, firstIndexOfCategory > index ? 1 : -1)}
-                className={`rounded-full border px-4 py-1.5 text-xs font-semibold transition-all duration-300 ${
-                  isActiveCategory
-                    ? "border-transparent text-on-accent"
-                    : "border-white/10 text-text-muted hover:border-white/20 hover:text-white"
-                }`}
-                style={isActiveCategory ? { background: categoryAccentColor.color } : undefined}
-              >
-                {category}
-              </button>
-            );
-          })}
+        <Reveal delay={0.1} className="mt-8 flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={() => setActiveFilter("All")}
+            className={`rounded-full border px-4 py-1.5 text-sm transition-colors ${
+              activeFilter === "All"
+                ? "border-amber/60 bg-amber/15 text-white"
+                : "border-white/10 text-text-muted hover:border-white/25 hover:text-text-primary"
+            }`}
+          >
+            All
+          </button>
+          {acceleratorCategories.map((category) => (
+            <button
+              key={category}
+              type="button"
+              onClick={() => setActiveFilter(category)}
+              className={`rounded-full border px-4 py-1.5 text-sm transition-colors ${
+                activeFilter === category
+                  ? "border-amber/60 bg-amber/15 text-white"
+                  : "border-white/10 text-text-muted hover:border-white/25 hover:text-text-primary"
+              }`}
+            >
+              {category}
+            </button>
+          ))}
         </Reveal>
 
-        <Reveal delay={0.15} className="relative mt-8">
-          <div className="flex gap-1.5">
-            {acceleratorCatalog.map((item, i) => (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => goTo(i, i > index ? 1 : -1)}
-                aria-label={`Go to ${item.title}`}
-                aria-current={i === index}
-                className="group relative h-1.5 flex-1 overflow-hidden rounded-full bg-white/10"
-              >
-                {i === index && (
-                  <motion.span
-                    key={`${index}-${paused}-${inView}`}
-                    className="absolute inset-y-0 left-0 rounded-full"
-                    style={{ background: accent.color }}
-                    initial={{ width: "0%" }}
-                    animate={{ width: "100%" }}
-                    transition={
-                      paused || !inView
-                        ? { duration: 0.2 }
-                        : { duration: SLIDE_MS / 1000, ease: "linear" }
-                    }
-                  />
-                )}
-                {i < index && <span className="absolute inset-0 rounded-full" style={{ background: accent.color, opacity: 0.4 }} />}
-              </button>
-            ))}
-          </div>
-
-          <div className="relative mt-6 overflow-hidden rounded-3xl border border-white/10 bg-surface">
-            <AnimatePresence initial={false} mode="popLayout">
-              <motion.div
-                key={active.id}
-                initial={{ opacity: 0, x: direction > 0 ? 60 : -60 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: direction > 0 ? -60 : 60, position: "absolute" }}
-                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                className="p-8 sm:p-12"
-              >
-                <div className="flex items-center gap-4">
-                  <span
-                    className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl sm:h-16 sm:w-16"
-                    style={{ background: `color-mix(in oklab, ${accent.color} 16%, transparent)`, color: accent.textColor }}
-                  >
-                    <AcceleratorIcon id={active.id} className="h-6 w-6 sm:h-7 sm:w-7" />
-                  </span>
-                  <div>
-                    <p className={`text-xs font-bold uppercase tracking-widest ${accent.text}`}>
-                      {active.category}
-                    </p>
-                    <h3 className="mt-1 font-display text-2xl font-bold leading-snug text-white sm:text-3xl">
-                      {active.title}
-                    </h3>
-                  </div>
-                </div>
-
-                <p className="mt-6 max-w-2xl text-sm leading-relaxed text-text-muted">{active.summary}</p>
-
-                <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-widest text-text-dim">Problem</p>
-                    <p className="mt-2 text-sm leading-relaxed text-text-muted">{active.problem}</p>
-                    <p className="mt-5 text-xs font-bold uppercase tracking-widest text-text-dim">How it works</p>
-                    <p className="mt-2 text-sm leading-relaxed text-text-muted">{active.howItWorks}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-widest text-text-dim">Benefits</p>
-                    <ul className="mt-2 space-y-2">
-                      {active.benefits.map((benefit) => (
-                        <li key={benefit} className="flex items-start gap-3 text-sm text-text-muted">
-                          <span
-                            className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
-                            style={{
-                              background: `color-mix(in oklab, ${accent.color} 16%, transparent)`,
-                              color: accent.textColor,
-                            }}
-                          >
-                            <svg width="10" height="8" viewBox="0 0 10 8" fill="none" aria-hidden="true">
-                              <path
-                                d="M1 4L3.5 6.5L9 1"
-                                stroke="currentColor"
-                                strokeWidth="1.6"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </span>
-                          {benefit}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-
-            <div className="relative flex items-center justify-between border-t border-white/10 px-6 py-4 sm:px-12">
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => step(-1)}
-                  aria-label="Previous accelerator"
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-text-muted transition-colors hover:border-white/30 hover:text-white"
-                >
-                  <svg width="14" height="12" viewBox="0 0 14 12" fill="none" aria-hidden="true">
-                    <path d="M13 6H1M1 6L6 1M1 6L6 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => step(1)}
-                  aria-label="Next accelerator"
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-text-muted transition-colors hover:border-white/30 hover:text-white"
-                >
-                  <svg width="14" height="12" viewBox="0 0 14 12" fill="none" aria-hidden="true">
-                    <path d="M1 6H13M13 6L8 1M13 6L8 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </button>
-              </div>
-              <span className="font-display text-xs font-semibold text-text-dim">
-                {String(index + 1).padStart(2, "0")} / {String(acceleratorCatalog.length).padStart(2, "0")}
-              </span>
-            </div>
-          </div>
-        </Reveal>
+        <div className="mt-10 space-y-4">
+          {visible.map((item, i) => (
+            <Reveal key={item.id} delay={Math.min(i, 6) * 0.05} distance={12}>
+              <AcceleratorCard
+                item={item}
+                open={expandedId === item.id}
+                onToggle={() => setExpandedId((current) => (current === item.id ? null : item.id))}
+              />
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );

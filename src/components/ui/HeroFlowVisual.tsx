@@ -1,5 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+
 // angleDeg is measured clockwise from straight up (12 o'clock = -90 in
 // standard math convention). Payments & FCM is placed close to Digital
 // Banking & Journey Manager, and Wealth & Islamic Banking close to Data Hub
@@ -10,7 +13,7 @@
 // the origin so it can be scaled and placed without per-icon offsets.
 const products = [
   { id: "core", lines: ["Core Banking"], color: "#ff8a2b", angleDeg: -90, icon: "database" },
-  { id: "digital", lines: ["Digital Banking &", "Journey Manager"], color: "#3d8bff", angleDeg: -18, icon: "mobile" },
+  { id: "digital", lines: ["Digital Banking"], color: "#3d8bff", angleDeg: -18, icon: "mobile" },
   { id: "payments", lines: ["Payments & FCM"], color: "#ff8a2b", angleDeg: 40, icon: "payment" },
   { id: "wealth", lines: ["Wealth &", "Islamic Banking"], color: "#ffb066", angleDeg: 140, icon: "wallet" },
   { id: "datahub", lines: ["Data Hub &", "Treasury"], color: "#34e0d9", angleDeg: 198, icon: "sync" },
@@ -94,14 +97,57 @@ function labelPosition(x: number, y: number, angle: number, lineCount: number) {
   return { labelX, labelY, textAnchor };
 }
 
+// Expanding rings that emanate from a point while its element is hovered.
+// Staggered so there's always one mid-flight, giving a continuous ripple.
+function Ripples({ cx, cy, r, color }: { cx: number; cy: number; r: number; color: string }) {
+  return (
+    <>
+      {[0, 1, 2].map((k) => (
+        <motion.circle
+          key={k}
+          cx={cx}
+          cy={cy}
+          fill="none"
+          stroke={color}
+          strokeWidth={1.5}
+          initial={{ r, opacity: 0.5 }}
+          animate={{ r: r + 46, opacity: 0 }}
+          transition={{ duration: 1.6, repeat: Infinity, delay: k * 0.53, ease: "easeOut" }}
+          style={{ pointerEvents: "none" }}
+        />
+      ))}
+    </>
+  );
+}
+
 export function HeroFlowVisual() {
+  const [hoveredProduct, setHoveredProduct] = useState<string | null>(null);
+  const [hoveredOutcome, setHoveredOutcome] = useState<string | null>(null);
+  const [hoveredHub, setHoveredHub] = useState(false);
+  const [reduced, setReduced] = useState(false);
+
+  useEffect(() => {
+    setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  }, []);
+
+  const productGeo = products.map((p) => {
+    const { x, y, angle } = pointOnRing(p.angleDeg, RING_R);
+    return { ...p, x, y, angle, ...labelPosition(x, y, angle, p.lines.length) };
+  });
+
+  const outcomeGeo = outcomes.map((o, i) => ({
+    ...o,
+    targetX: CENTER_X + (i - (outcomes.length - 1) / 2) * OUTCOME_SPREAD,
+    i,
+  }));
+
   return (
     <div className="relative mx-auto w-full max-w-xl">
       <svg
         viewBox="0 0 628 622"
         className="h-auto w-full overflow-visible"
         role="img"
-        aria-label="Diagram showing five grouped Temenos product areas — Core Banking, Digital Banking and Journey Manager, Payments and Financial Crime Mitigation, Wealth Management and Islamic Banking, and Data Hub and Treasury — flowing into Avenza's services hub and out to delivery outcomes: modernized core, seamless integration, faster time-to-market and regulatory compliance"
+        aria-label="Interactive diagram showing five grouped Temenos product areas — Core Banking, Digital Banking and Journey Manager, Payments and Financial Crime Mitigation, Wealth Management and Islamic Banking, and Data Hub and Treasury — flowing into Avenza's services hub and out to delivery outcomes: modernized core, seamless integration, faster time-to-market and regulatory compliance"
       >
         <defs>
           <radialGradient id="hubGlow" cx="50%" cy="50%" r="50%">
@@ -114,139 +160,215 @@ export function HeroFlowVisual() {
           </linearGradient>
         </defs>
 
-
         {/* connectors: product -> hub, with a traveling icon along each */}
-        {products.map((p, i) => {
-          const { x, y } = pointOnRing(p.angleDeg, RING_R);
+        {productGeo.map((p, i) => {
           const lineId = `edge-${p.id}`;
+          const isOn = hoveredProduct === p.id || hoveredHub;
+          const isDim = hoveredProduct !== null && hoveredProduct !== p.id;
           return (
-            <g key={lineId}>
-              <path
-                id={lineId}
-                d={`M ${x} ${y} L ${CENTER_X} ${CENTER_Y}`}
-                fill="none"
-                stroke={p.color}
-                strokeOpacity="0.45"
-                strokeWidth="3.5"
-                strokeDasharray="6 7"
-                className="animate-dash-flow"
-              />
-              <g opacity="0">
-                <animateMotion dur="2.6s" begin={`${i * 0.35}s`} repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
-                  <mpath href={`#${lineId}`} />
-                </animateMotion>
-                <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="2.6s" begin={`${i * 0.35}s`} repeatCount="indefinite" fill="freeze" />
-                <circle r="11" fill="var(--color-surface)" stroke={p.color} strokeWidth="1.5" />
+            <g key={lineId} style={{ pointerEvents: "none" }}>
+              <motion.g animate={{ opacity: isDim ? 0.2 : 1 }} transition={{ duration: 0.3 }}>
                 <path
-                  d={FLOW_ICONS[p.icon]}
-                  transform="scale(0.68)"
+                  id={lineId}
+                  d={`M ${p.x} ${p.y} L ${CENTER_X} ${CENTER_Y}`}
                   fill="none"
                   stroke={p.color}
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+                  strokeOpacity="0.45"
+                  strokeWidth="3.5"
+                  strokeDasharray="6 7"
+                  className="animate-dash-flow"
                 />
-              </g>
+                <g opacity="0">
+                  <animateMotion dur="2.6s" begin={`${i * 0.35}s`} repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+                    <mpath href={`#${lineId}`} />
+                  </animateMotion>
+                  <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="2.6s" begin={`${i * 0.35}s`} repeatCount="indefinite" fill="freeze" />
+                  <circle r="11" fill="var(--color-surface)" stroke={p.color} strokeWidth="1.5" />
+                  <path
+                    d={FLOW_ICONS[p.icon]}
+                    transform="scale(0.68)"
+                    fill="none"
+                    stroke={p.color}
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </g>
+              </motion.g>
+              {/* highlighted overlay — a solid, glowing line on hover */}
+              <motion.path
+                d={`M ${p.x} ${p.y} L ${CENTER_X} ${CENTER_Y}`}
+                fill="none"
+                stroke={p.color}
+                strokeWidth={5}
+                strokeLinecap="round"
+                initial={false}
+                animate={{ opacity: isOn ? 1 : 0 }}
+                transition={{ duration: 0.3 }}
+                style={{ filter: `drop-shadow(0 0 6px ${p.color})`, pointerEvents: "none" }}
+              />
             </g>
           );
         })}
 
         {/* connectors: hub -> outcomes, terminating exactly at each outcome card */}
-        {outcomes.map((o, i) => {
-          const targetX = CENTER_X + (i - (outcomes.length - 1) / 2) * OUTCOME_SPREAD;
+        {outcomeGeo.map((o) => {
           const pathId = `edge-out-${o.id}`;
+          const d = `M ${CENTER_X} ${CENTER_Y + HUB_R} C ${CENTER_X} ${CENTER_Y + HUB_R + 95}, ${o.targetX} ${OUTCOME_Y - 50}, ${o.targetX} ${OUTCOME_Y - OUTCOME_H / 2 - 2}`;
+          const isOn = hoveredOutcome === o.id || hoveredHub;
+          const isDim = hoveredOutcome !== null && hoveredOutcome !== o.id;
           return (
-            <g key={pathId}>
-              <path
-                id={pathId}
-                d={`M ${CENTER_X} ${CENTER_Y + HUB_R} C ${CENTER_X} ${CENTER_Y + HUB_R + 95}, ${targetX} ${OUTCOME_Y - 50}, ${targetX} ${OUTCOME_Y - OUTCOME_H / 2 - 2}`}
-                fill="none"
-                stroke="#ffb066"
-                strokeOpacity="0.65"
-                strokeWidth="3.5"
-                strokeDasharray="6 7"
-                className="animate-dash-flow"
-              />
-              <g opacity="0">
-                <animateMotion dur="2.8s" begin={`${1.6 + i * 0.3}s`} repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
-                  <mpath href={`#${pathId}`} />
-                </animateMotion>
-                <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="2.8s" begin={`${1.6 + i * 0.3}s`} repeatCount="indefinite" fill="freeze" />
-                <circle r="11" fill="var(--color-surface)" stroke="#ffb066" strokeWidth="1.5" />
+            <g key={pathId} style={{ pointerEvents: "none" }}>
+              <motion.g animate={{ opacity: isDim ? 0.2 : 1 }} transition={{ duration: 0.3 }}>
                 <path
-                  d={OUTCOME_ICONS[o.icon]}
-                  transform="scale(0.68)"
+                  id={pathId}
+                  d={d}
                   fill="none"
                   stroke="#ffb066"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+                  strokeOpacity="0.65"
+                  strokeWidth="3.5"
+                  strokeDasharray="6 7"
+                  className="animate-dash-flow"
                 />
-              </g>
+                <g opacity="0">
+                  <animateMotion dur="2.8s" begin={`${1.6 + o.i * 0.3}s`} repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+                    <mpath href={`#${pathId}`} />
+                  </animateMotion>
+                  <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="2.8s" begin={`${1.6 + o.i * 0.3}s`} repeatCount="indefinite" fill="freeze" />
+                  <circle r="11" fill="var(--color-surface)" stroke="#ffb066" strokeWidth="1.5" />
+                  <path
+                    d={OUTCOME_ICONS[o.icon]}
+                    transform="scale(0.68)"
+                    fill="none"
+                    stroke="#ffb066"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </g>
+              </motion.g>
+              <motion.path
+                d={d}
+                fill="none"
+                stroke="#ffb066"
+                strokeWidth={5}
+                strokeLinecap="round"
+                initial={false}
+                animate={{ opacity: isOn ? 1 : 0 }}
+                transition={{ duration: 0.3 }}
+                style={{ filter: "drop-shadow(0 0 6px #ffb066)", pointerEvents: "none" }}
+              />
             </g>
           );
         })}
 
-        {/* product nodes */}
-        {products.map((p, i) => {
-          const { x, y, angle } = pointOnRing(p.angleDeg, RING_R);
-          const { labelX, labelY, textAnchor } = labelPosition(x, y, angle, p.lines.length);
-          const growsUpward = Math.sin(angle) < -0.85 && p.lines.length > 1;
+        {/* product nodes (interactive) */}
+        {productGeo.map((p, i) => {
+          const isHovered = hoveredProduct === p.id;
+          const isDim = hoveredProduct !== null && !isHovered;
+          const growsUpward = Math.sin(p.angle) < -0.85 && p.lines.length > 1;
           return (
-            <g key={p.id}>
-              <circle cx={x} cy={y} r={NODE_R + 8} fill={p.color} opacity="0.1" className="animate-pulse-glow" style={{ animationDelay: `${i * 0.25}s` }} />
-              <circle cx={x} cy={y} r={NODE_R} fill="var(--color-surface)" stroke={p.color} strokeWidth="1.5" />
+            <motion.g
+              key={p.id}
+              onMouseEnter={() => setHoveredProduct(p.id)}
+              onMouseLeave={() => setHoveredProduct((cur) => (cur === p.id ? null : cur))}
+              animate={{ opacity: isDim ? 0.4 : 1 }}
+              transition={{ duration: 0.3 }}
+              style={{ cursor: "pointer" }}
+            >
+              {isHovered && !reduced && <Ripples cx={p.x} cy={p.y} r={NODE_R} color={p.color} />}
+
+              <circle
+                cx={p.x}
+                cy={p.y}
+                r={NODE_R + 8}
+                fill={p.color}
+                opacity="0.1"
+                className="animate-pulse-glow"
+                style={{ animationDelay: `${i * 0.25}s`, pointerEvents: "none" }}
+              />
+              {/* node base — the hit target; grows and glows on hover */}
+              <motion.circle
+                cx={p.x}
+                cy={p.y}
+                fill="var(--color-surface)"
+                stroke={p.color}
+                initial={false}
+                animate={{ r: isHovered ? NODE_R + 4 : NODE_R, strokeWidth: isHovered ? 3 : 1.5 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                style={{ filter: isHovered ? `drop-shadow(0 0 11px ${p.color})` : "none" }}
+              />
               <path
                 d={FLOW_ICONS[p.icon]}
-                transform={`translate(${x} ${y}) scale(1.15)`}
+                transform={`translate(${p.x} ${p.y}) scale(1.15)`}
                 fill="none"
                 stroke={p.color}
                 strokeWidth="1.4"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                style={{ pointerEvents: "none" }}
               />
               <text
-                x={labelX}
-                y={labelY}
-                textAnchor={textAnchor}
+                x={p.labelX}
+                y={p.labelY}
+                textAnchor={p.textAnchor}
                 fontSize="11"
-                fontWeight="600"
-                fill="var(--color-text-muted)"
+                fontWeight={isHovered ? "700" : "600"}
+                fill={isHovered ? p.color : "var(--color-text-muted)"}
                 fontFamily="var(--font-body)"
+                style={{ pointerEvents: "none", transition: "fill 0.2s" }}
               >
                 {(growsUpward ? [...p.lines].reverse() : p.lines).map((line, li) => (
-                  <tspan key={li} x={labelX} dy={li === 0 ? 0 : growsUpward ? -14 : 14}>
+                  <tspan key={li} x={p.labelX} dy={li === 0 ? 0 : growsUpward ? -14 : 14}>
                     {line}
                   </tspan>
                 ))}
               </text>
-            </g>
+            </motion.g>
           );
         })}
 
-        {/* Avenza hub */}
-        <circle cx={CENTER_X} cy={CENTER_Y} r={HUB_R + 26} fill="url(#hubGlow)" />
-        <circle cx={CENTER_X} cy={CENTER_Y} r={HUB_R} fill="url(#hubFill)" stroke="#34e0d9" strokeWidth="2" />
-        <circle cx={CENTER_X} cy={CENTER_Y} r={HUB_R - 12} fill="none" stroke="#34e0d9" strokeOpacity="0.5" strokeWidth="1" strokeDasharray="3 4">
-          <animateTransform
-            attributeName="transform"
-            type="rotate"
-            from={`0 ${CENTER_X} ${CENTER_Y}`}
-            to={`360 ${CENTER_X} ${CENTER_Y}`}
-            dur="14s"
-            repeatCount="indefinite"
+        {/* Avenza hub (interactive — hovering it lights the whole system) */}
+        <motion.g
+          onMouseEnter={() => setHoveredHub(true)}
+          onMouseLeave={() => setHoveredHub(false)}
+          style={{ cursor: "pointer" }}
+        >
+          {hoveredHub && !reduced && <Ripples cx={CENTER_X} cy={CENTER_Y} r={HUB_R} color="#34e0d9" />}
+          <circle cx={CENTER_X} cy={CENTER_Y} r={HUB_R + 26} fill="url(#hubGlow)" style={{ pointerEvents: "none" }} />
+          <motion.circle
+            cx={CENTER_X}
+            cy={CENTER_Y}
+            r={HUB_R}
+            fill="url(#hubFill)"
+            stroke="#34e0d9"
+            initial={false}
+            animate={{ strokeWidth: hoveredHub ? 3 : 2 }}
+            transition={{ duration: 0.3 }}
+            style={{ filter: hoveredHub ? "drop-shadow(0 0 16px #34e0d9)" : "none" }}
           />
-        </circle>
-        <text x={CENTER_X} y={CENTER_Y - 2} textAnchor="middle" fontSize="17" fontWeight="800" fill="#f4f5f7" fontFamily="var(--font-display)">
-          Avenza
-        </text>
-        <text x={CENTER_X} y={CENTER_Y + 18} textAnchor="middle" fontSize="10.5" fontWeight="600" fill="#7fd8d1" fontFamily="var(--font-body)">
-          Services Hub
-        </text>
+          <circle cx={CENTER_X} cy={CENTER_Y} r={HUB_R - 12} fill="none" stroke="#34e0d9" strokeOpacity="0.5" strokeWidth="1" strokeDasharray="3 4" style={{ pointerEvents: "none" }}>
+            <animateTransform
+              attributeName="transform"
+              type="rotate"
+              from={`0 ${CENTER_X} ${CENTER_Y}`}
+              to={`360 ${CENTER_X} ${CENTER_Y}`}
+              dur="14s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <text x={CENTER_X} y={CENTER_Y - 2} textAnchor="middle" fontSize="17" fontWeight="800" fill="#f4f5f7" fontFamily="var(--font-display)" style={{ pointerEvents: "none" }}>
+            Avenza
+          </text>
+          <text x={CENTER_X} y={CENTER_Y + 18} textAnchor="middle" fontSize="10.5" fontWeight="600" fill="#7fd8d1" fontFamily="var(--font-body)" style={{ pointerEvents: "none" }}>
+            Services Hub
+          </text>
+        </motion.g>
 
         {/* outcome cards — native SVG so the connector lines visibly land on them */}
-        {outcomes.map((o, i) => {
-          const targetX = CENTER_X + (i - (outcomes.length - 1) / 2) * OUTCOME_SPREAD;
+        {outcomeGeo.map((o) => {
+          const isHovered = hoveredOutcome === o.id;
+          const isDim = hoveredOutcome !== null && !isHovered;
           const lines = o.label.split(" ").reduce<string[]>((acc, word) => {
             const last = acc[acc.length - 1];
             if (last && (last + " " + word).length <= 12) {
@@ -258,56 +380,85 @@ export function HeroFlowVisual() {
           }, []);
           const startY = OUTCOME_Y + 4 - ((lines.length - 1) * 13) / 2;
           const dotDur = 2.8;
-          const dotBegin = 1.6 + i * 0.3;
+          const dotBegin = 1.6 + o.i * 0.3;
           const arrivalOffset = dotDur * 0.85;
           return (
-            <g key={o.id}>
-              <rect
-                x={targetX - OUTCOME_W / 2}
+            <motion.g
+              key={o.id}
+              onMouseEnter={() => setHoveredOutcome(o.id)}
+              onMouseLeave={() => setHoveredOutcome((cur) => (cur === o.id ? null : cur))}
+              animate={{ opacity: isDim ? 0.4 : 1 }}
+              transition={{ duration: 0.3 }}
+              style={{ cursor: "pointer" }}
+            >
+              {isHovered && !reduced && (
+                <motion.rect
+                  x={o.targetX - OUTCOME_W / 2}
+                  y={OUTCOME_Y - OUTCOME_H / 2}
+                  width={OUTCOME_W}
+                  height={OUTCOME_H}
+                  rx="10"
+                  fill="none"
+                  stroke="#ff8a2b"
+                  strokeWidth={1.5}
+                  initial={{ scale: 1, opacity: 0.5 }}
+                  animate={{ scale: 1.35, opacity: 0 }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut" }}
+                  style={{ transformOrigin: `${o.targetX}px ${OUTCOME_Y}px`, transformBox: "fill-box", pointerEvents: "none" } as React.CSSProperties}
+                />
+              )}
+              <motion.rect
+                x={o.targetX - OUTCOME_W / 2}
                 y={OUTCOME_Y - OUTCOME_H / 2}
                 width={OUTCOME_W}
                 height={OUTCOME_H}
                 rx="10"
                 fill="color-mix(in oklab, #ff8a2b 10%, var(--color-surface))"
                 stroke="#ff8a2b"
-                strokeOpacity="0.5"
-                strokeWidth="1.5"
-                className="animate-pulse-glow"
-                style={{ animationDelay: `${i * 0.3 + 1}s` }}
+                initial={false}
+                animate={{ strokeOpacity: isHovered ? 1 : 0.5, strokeWidth: isHovered ? 2.5 : 1.5 }}
+                transition={{ duration: 0.25 }}
+                className={isHovered ? undefined : "animate-pulse-glow"}
+                style={{ animationDelay: `${o.i * 0.3 + 1}s`, filter: isHovered ? "drop-shadow(0 0 10px #ff8a2b)" : "none" }}
               >
-                <animate
-                  attributeName="stroke-opacity"
-                  values="0.5;1;0.5"
-                  keyTimes="0;0.3;1"
-                  dur={`${dotDur}s`}
-                  begin={`${dotBegin + arrivalOffset}s`}
-                  repeatCount="indefinite"
-                />
-                <animate
-                  attributeName="stroke-width"
-                  values="1.5;3.5;1.5"
-                  keyTimes="0;0.3;1"
-                  dur={`${dotDur}s`}
-                  begin={`${dotBegin + arrivalOffset}s`}
-                  repeatCount="indefinite"
-                />
-              </rect>
+                {!isHovered && (
+                  <>
+                    <animate
+                      attributeName="stroke-opacity"
+                      values="0.5;1;0.5"
+                      keyTimes="0;0.3;1"
+                      dur={`${dotDur}s`}
+                      begin={`${dotBegin + arrivalOffset}s`}
+                      repeatCount="indefinite"
+                    />
+                    <animate
+                      attributeName="stroke-width"
+                      values="1.5;3.5;1.5"
+                      keyTimes="0;0.3;1"
+                      dur={`${dotDur}s`}
+                      begin={`${dotBegin + arrivalOffset}s`}
+                      repeatCount="indefinite"
+                    />
+                  </>
+                )}
+              </motion.rect>
               <text
-                x={targetX}
+                x={o.targetX}
                 y={startY}
                 textAnchor="middle"
                 fontSize="10.5"
                 fontWeight="700"
                 fill="#ffb066"
                 fontFamily="var(--font-body)"
+                style={{ pointerEvents: "none" }}
               >
                 {lines.map((line, li) => (
-                  <tspan key={li} x={targetX} dy={li === 0 ? 0 : 13}>
+                  <tspan key={li} x={o.targetX} dy={li === 0 ? 0 : 13}>
                     {line}
                   </tspan>
                 ))}
               </text>
-            </g>
+            </motion.g>
           );
         })}
 

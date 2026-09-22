@@ -15,6 +15,7 @@ export const nav = [
     items: [
       { label: "Industry Expertise", href: "/about#industry-expertise" },
       { label: "Delivery Model", href: "/about#delivery-models" },
+      { label: "How We Deliver", href: "/about#how-we-deliver" },
       { label: "Leadership", href: "/about#leadership" },
       { label: "Insights", href: "/about#insights" },
     ],
@@ -277,19 +278,91 @@ export const acceleratorCatalog = [
 
 export const deliveryModels = [
   {
-    id: "e2e",
-    title: "End-to-End Delivery",
-    body: "Avenza owns the full transformation lifecycle — strategy, delivery, testing, migration and go-live — with a single accountable team.",
+    id: "agility",
+    title: "Agility & Hyper Personalized Service",
+    body: "Our core banking transformation services help banks stay agile, deploy new features quickly, and seamlessly integrate with emerging technologies. With our expertise, we deliver hyper-personalized experiences aligned with your business goals.",
   },
   {
-    id: "staff-aug",
-    title: "Staff Augmentation",
-    body: "Deep Temenos and core banking specialists embedded directly into your team, on demand.",
+    id: "temenos-expertise",
+    title: "Specialized Expertise in Temenos Transact, TPH and FCM",
+    body: "With deep expertise in Temenos products, we deliver tailored solutions for smooth implementation, optimized local development, and enhanced performance, helping you maximize Temenos' potential while staying compliant and competitive.",
   },
   {
-    id: "hybrid",
-    title: "Hybrid Engagement",
-    body: "A blended model combining Avenza-led delivery with embedded specialists — flexed to your program's shape.",
+    id: "accelerators",
+    title: "Value Added Tools & Accelerators",
+    body: "We offer home grown tools and accelerators that streamline processes, cutting time-to-market, and boosting efficiency. Our proprietary solutions reduce manual effort and mitigate risks through automation and reusability.",
+  },
+  {
+    id: "technology-ai",
+    title: "Leverage Technology & AI",
+    body: "We leverage AI for product implementation, streamlining documentation across the SDLC and enabling accurate code conversion and upgrades.",
+  },
+  {
+    id: "flexible-engagement",
+    title: "Flexible Engagement Models",
+    body: "We offer flexible engagement models tailored to your needs, from end-to-end project delivery to staff augmentation or a hybrid approach, we provide the right level of support ensuring success on your terms.",
+  },
+] as const;
+
+export const deliveryModelsTagline =
+  "Avenza blends Temenos expertise with AI, digital, and advanced analytics to deliver future-proof core banking solutions, creating a unique value proposition for customers worldwide.";
+
+export const deliveryLifecycle = [
+  {
+    id: "discover",
+    number: "01",
+    title: "Discover",
+    body: "Understand the business, the estate and the ambition — before proposing change.",
+    tags: ["Domain discovery", "Estate mapping", "Ambition alignment"],
+  },
+  {
+    id: "assess",
+    number: "02",
+    title: "Assess",
+    body: "Profile the core, customisations, data quality and risk to build a fact-based baseline.",
+    tags: ["Architecture review", "Data profiling", "Risk assessment"],
+  },
+  {
+    id: "design",
+    number: "03",
+    title: "Design",
+    body: "Design the target architecture and a sequenced, continuity-first delivery path.",
+    tags: ["Target architecture", "Roadmap", "Migration strategy"],
+  },
+  {
+    id: "transform",
+    number: "04",
+    title: "Transform",
+    body: "Implement, customise and modernise — incrementally, with accelerators doing the heavy lifting.",
+    tags: ["Implementation", "Customisation", "Accelerators"],
+  },
+  {
+    id: "validate",
+    number: "05",
+    title: "Validate",
+    body: "Prove every step with functional, non-functional and automated testing plus reconciliation.",
+    tags: ["SIT / UAT", "Automation", "Reconciliation"],
+  },
+  {
+    id: "deploy",
+    number: "06",
+    title: "Deploy",
+    body: "Rehearse and execute cutover so go-live becomes a controlled, measured event.",
+    tags: ["Dress rehearsal", "Cutover", "Rollback planning"],
+  },
+  {
+    id: "stabilise",
+    number: "07",
+    title: "Stabilise",
+    body: "Support the live platform through hypercare with L1/L2/L3 and rapid resolution.",
+    tags: ["Hypercare", "L1/L2/L3", "Incident response"],
+  },
+  {
+    id: "optimise",
+    number: "08",
+    title: "Optimise",
+    body: "Tune, enhance and continuously improve — running and changing the bank together.",
+    tags: ["Optimisation", "Enhancements", "Run & change"],
   },
 ] as const;
 

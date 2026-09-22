@@ -15,8 +15,8 @@ export function Ecosystem() {
           </h2>
           <p className="mt-5 text-base leading-relaxed text-text-muted">
             From digital channels through the Temenos product suite to data,
-            cloud and AI — see how Avenza&apos;s services span the entire
-            ecosystem.
+            cloud and banking technology transformation — see how
+            Avenza&apos;s services span the entire ecosystem.
           </p>
         </Reveal>
 

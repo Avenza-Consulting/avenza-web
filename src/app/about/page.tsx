@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { AboutHero } from "@/components/sections/AboutHero";
 import { Ecosystem } from "@/components/sections/Ecosystem";
 import { DeliveryModels } from "@/components/sections/DeliveryModels";
+import { HowWeDeliver } from "@/components/sections/HowWeDeliver";
 import { LeadershipGrid } from "@/components/sections/LeadershipGrid";
 import { Insights } from "@/components/sections/Insights";
 import { ContactCta } from "@/components/sections/ContactCta";
@@ -32,6 +33,7 @@ export default function AboutPage() {
       <AboutHero />
       <Ecosystem />
       <DeliveryModels />
+      <HowWeDeliver />
       <LeadershipGrid />
       <Insights />
       <ContactCta />

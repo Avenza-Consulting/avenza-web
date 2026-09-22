@@ -1,10 +1,55 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Reveal } from "@/components/ui/Reveal";
 import { jobs as fallbackJobs } from "@/data/content";
 import { fetchJobsFromSheet, isJobsSheetConfigured, type Job } from "@/lib/jobsSheet";
+
+const ALL = "All";
+
+function uniqueSorted(values: (string | undefined)[] | undefined) {
+  return Array.from(new Set((values ?? []).filter((v): v is string => !!v))).sort();
+}
+
+function FilterGroup({
+  label,
+  options,
+  active,
+  onChange,
+}: {
+  label: string;
+  options: string[];
+  active: string;
+  onChange: (value: string) => void;
+}) {
+  if (options.length === 0) return null;
+  return (
+    <div>
+      <div className="text-xs font-semibold uppercase tracking-widest text-text-dim">{label}</div>
+      <div className="mt-3 flex flex-wrap gap-2">
+        {[ALL, ...options].map((option) => {
+          const isActive = active === option;
+          return (
+            <button
+              key={option}
+              type="button"
+              onClick={() => onChange(option)}
+              aria-pressed={isActive}
+              className={`rounded-md border px-3 py-1.5 text-xs font-medium transition-colors ${
+                isActive
+                  ? "border-amber bg-amber/15 text-white"
+                  : "border-white/10 text-text-muted hover:text-white"
+              }`}
+            >
+              {option}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 
 const employmentTypeLabels: Record<string, string> = {
   FULL_TIME: "Full-time",
@@ -87,6 +132,11 @@ export function JobOpenings() {
   const [openJobId, setOpenJobId] = useState<string | null>(null);
   const activeJob = jobs?.find((j) => j.id === openJobId) ?? null;
 
+  const [search, setSearch] = useState("");
+  const [department, setDepartment] = useState(ALL);
+  const [location, setLocation] = useState(ALL);
+  const [experience, setExperience] = useState(ALL);
+
   useEffect(() => {
     if (!isJobsSheetConfigured) return;
     let cancelled = false;
@@ -98,6 +148,26 @@ export function JobOpenings() {
       cancelled = true;
     };
   }, []);
+
+  const departmentOptions = useMemo(() => uniqueSorted(jobs?.map((j) => j.category)), [jobs]);
+  const locationOptions = useMemo(() => uniqueSorted(jobs?.map((j) => j.workMode)), [jobs]);
+  const experienceOptions = useMemo(() => uniqueSorted(jobs?.map((j) => j.level)), [jobs]);
+
+  const filteredJobs = useMemo(() => {
+    if (!jobs) return null;
+    const query = search.trim().toLowerCase();
+    return jobs.filter((job) => {
+      if (department !== ALL && job.category !== department) return false;
+      if (location !== ALL && job.workMode !== location) return false;
+      if (experience !== ALL && job.level !== experience) return false;
+      if (!query) return true;
+      return (
+        job.title.toLowerCase().includes(query) ||
+        job.blurb.toLowerCase().includes(query) ||
+        job.category.toLowerCase().includes(query)
+      );
+    });
+  }, [jobs, search, department, location, experience]);
 
   return (
     <section id="openings" className="relative border-t border-white/5 bg-ink-soft py-16 sm:py-24">
@@ -134,70 +204,117 @@ export function JobOpenings() {
             to introduce yourself.
           </p>
         ) : (
-          <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2">
-            {jobs.map((job, i) => {
-              const postedAgo = formatPostedAgo(job.datePosted);
-              return (
-                <Reveal key={job.id} delay={i * 0.08}>
-                  <div className="group flex h-full flex-col justify-between rounded-2xl border border-white/10 bg-surface p-5 transition-all duration-300 hover:-translate-y-1 hover:border-amber/30">
-                    <div>
-                      {(job.category || job.level) && (
-                        <div className="flex flex-wrap items-center gap-2">
-                          {job.category && (
-                            <span className="rounded-full border border-white/10 px-3 py-1 text-xs font-semibold text-text-muted">
-                              {job.category}
-                            </span>
-                          )}
-                          {job.level && (
-                            <span className="rounded-full bg-amber/15 px-3 py-1 text-xs font-semibold text-amber-soft-text">
-                              {job.level}
-                            </span>
-                          )}
-                        </div>
-                      )}
-                      <h3 className="mt-3 font-display text-lg font-bold text-white">{job.title}</h3>
-                      <p className="mt-2 text-sm leading-relaxed text-text-muted">{job.blurb}</p>
+          <div className="mt-14 grid grid-cols-1 gap-10 lg:grid-cols-[16rem_1fr] lg:gap-12">
+            <Reveal className="space-y-6 lg:sticky lg:top-28 lg:h-fit">
+              <div className="relative">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                  className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-text-dim"
+                >
+                  <circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="2" />
+                  <path d="m21 21-4.3-4.3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+                <input
+                  type="search"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Search roles, tech…"
+                  aria-label="Search jobs"
+                  className="h-11 w-full rounded-lg border border-white/10 bg-white/5 pl-10 pr-4 text-sm text-white placeholder:text-text-dim focus:border-amber/50 focus:outline-none focus:ring-2 focus:ring-amber/20"
+                />
+              </div>
 
-                      <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs font-semibold text-amber-soft-text">
-                        <span className="inline-flex items-center gap-1.5">
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                            <path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
-                            <circle cx="12" cy="9" r="2.4" stroke="currentColor" strokeWidth="1.6" />
-                          </svg>
-                          {job.workMode}
-                        </span>
-                        <span className="inline-flex items-center gap-1.5">
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                            <rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor" strokeWidth="1.6" />
-                            <path d="M8 7V5.5A1.5 1.5 0 0 1 9.5 4h5A1.5 1.5 0 0 1 16 5.5V7" stroke="currentColor" strokeWidth="1.6" />
-                          </svg>
-                          {employmentTypeLabels[job.employmentType] ?? job.employmentType}
-                        </span>
-                        {postedAgo && (
-                          <span className="inline-flex items-center gap-1.5">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                              <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" />
-                              <path d="M12 7v5l3.5 2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+              <FilterGroup label="Department" options={departmentOptions} active={department} onChange={setDepartment} />
+              <FilterGroup label="Location" options={locationOptions} active={location} onChange={setLocation} />
+              <FilterGroup label="Experience" options={experienceOptions} active={experience} onChange={setExperience} />
+            </Reveal>
+
+            <div>
+              <p className="mb-5 text-sm text-text-muted">
+                {filteredJobs!.length} {filteredJobs!.length === 1 ? "role" : "roles"}
+              </p>
+
+              {filteredJobs!.length === 0 ? (
+                <p className="text-sm text-text-muted">
+                  No roles match your filters — try clearing search or filters, or{" "}
+                  <a href="/contact" className="text-amber-soft-text underline underline-offset-2">
+                    get in touch
+                  </a>
+                  .
+                </p>
+              ) : (
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                  {filteredJobs!.map((job, i) => {
+                    const postedAgo = formatPostedAgo(job.datePosted);
+                    return (
+                      <Reveal key={job.id} delay={Math.min(i, 6) * 0.06}>
+                        <div className="group flex h-full flex-col justify-between rounded-2xl border border-white/10 bg-surface p-5 transition-all duration-300 hover:-translate-y-1 hover:border-amber/30">
+                          <div>
+                            {(job.category || job.level) && (
+                              <div className="flex flex-wrap items-center gap-2">
+                                {job.category && (
+                                  <span className="rounded-full border border-white/10 px-3 py-1 text-xs font-semibold text-text-muted">
+                                    {job.category}
+                                  </span>
+                                )}
+                                {job.level && (
+                                  <span className="rounded-full bg-amber/15 px-3 py-1 text-xs font-semibold text-amber-soft-text">
+                                    {job.level}
+                                  </span>
+                                )}
+                              </div>
+                            )}
+                            <h3 className="mt-3 font-display text-lg font-bold text-white">{job.title}</h3>
+                            <p className="mt-1 text-xs text-text-dim">Job ID: {job.id}</p>
+                            <p className="mt-2 text-sm leading-relaxed text-text-muted">{job.blurb}</p>
+
+                            <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs font-semibold text-amber-soft-text">
+                              <span className="inline-flex items-center gap-1.5">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                  <path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+                                  <circle cx="12" cy="9" r="2.4" stroke="currentColor" strokeWidth="1.6" />
+                                </svg>
+                                {job.workMode}
+                              </span>
+                              <span className="inline-flex items-center gap-1.5">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                  <rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor" strokeWidth="1.6" />
+                                  <path d="M8 7V5.5A1.5 1.5 0 0 1 9.5 4h5A1.5 1.5 0 0 1 16 5.5V7" stroke="currentColor" strokeWidth="1.6" />
+                                </svg>
+                                {employmentTypeLabels[job.employmentType] ?? job.employmentType}
+                              </span>
+                              {postedAgo && (
+                                <span className="inline-flex items-center gap-1.5">
+                                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" />
+                                    <path d="M12 7v5l3.5 2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                                  </svg>
+                                  {postedAgo}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => setOpenJobId(job.id)}
+                            className="mt-4 inline-flex w-fit items-center gap-2 rounded-full border border-white/15 px-5 py-2 text-sm font-semibold text-white transition-colors hover:border-amber/50 hover:text-amber-soft-text"
+                          >
+                            Apply Now
+                            <svg width="12" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true">
+                              <path d="M1 5H13M13 5L9 1M13 5L9 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
-                            {postedAgo}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => setOpenJobId(job.id)}
-                      className="mt-4 inline-flex w-fit items-center gap-2 rounded-full border border-white/15 px-5 py-2 text-sm font-semibold text-white transition-colors hover:border-amber/50 hover:text-amber-soft-text"
-                    >
-                      Apply Now
-                      <svg width="12" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true">
-                        <path d="M1 5H13M13 5L9 1M13 5L9 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </button>
-                  </div>
-                </Reveal>
-              );
-            })}
+                          </button>
+                        </div>
+                      </Reveal>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>

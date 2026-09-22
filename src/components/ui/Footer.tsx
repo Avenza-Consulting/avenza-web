@@ -20,8 +20,8 @@ export function Footer() {
             <Logo className="text-amber" />
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-text-muted">
               Delivering tech-enabled, state-of-the-art core banking implementation
-              and system integration services — blending Temenos expertise with AI,
-              digital and advanced analytics.
+              and system integration services — blending Temenos expertise with
+              banking technology transformation, digital and advanced analytics.
             </p>
           </div>
 

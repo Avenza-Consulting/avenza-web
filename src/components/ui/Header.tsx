@@ -10,7 +10,7 @@ import { useActiveSection } from "./useActiveSection";
 import { nav } from "@/data/content";
 
 const inPageSectionIds = ["who-we-are", "achievements", "capabilities", "why-avenza"];
-const aboutPageSectionIds = ["industry-expertise", "delivery-models", "leadership", "insights"];
+const aboutPageSectionIds = ["industry-expertise", "delivery-models", "how-we-deliver", "leadership", "insights"];
 
 function flatNavHrefs() {
   return nav.flatMap((item) => ("items" in item ? [item.href, ...item.items.map((sub) => sub.href)] : [item.href]));

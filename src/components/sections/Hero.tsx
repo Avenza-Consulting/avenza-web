@@ -28,7 +28,7 @@ export function Hero() {
             className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-text-muted"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-cyan animate-pulse-glow" />
-            Core Banking · Temenos · Payments · AI
+            Banking Technology Transformation
           </motion.span>
 
           <motion.h1
@@ -37,8 +37,8 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="mt-6 font-display text-4xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl"
           >
-            Transforming Core Banking.{" "}
-            <span className="text-white">Accelerating Digital Innovation.</span>
+            Where Technology &amp; Knowledge{" "}
+            <span className="text-white">Meet Results</span>
           </motion.h1>
 
           <motion.p
@@ -47,9 +47,10 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="mt-6 max-w-xl text-lg leading-relaxed text-text-muted"
           >
-            Avenza is a specialist technology partner driving timely core banking
-            transformations — blending deep Temenos expertise with AI, cloud and
-            advanced analytics to modernize core and payment platforms worldwide.
+            A trusted partner dedicated to driving timely core banking
+            transformations and unlocking new growth opportunities. Our advanced
+            methodologies, capabilities, and solutions help modernize your core
+            and payment platforms.
           </motion.p>
 
           <motion.div

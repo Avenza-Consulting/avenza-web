@@ -36,9 +36,9 @@ export function WhoWeAre() {
             </h2>
             <p className="mt-5 max-w-lg text-base leading-relaxed text-text-muted">
               Where technology and knowledge meet results. Avenza blends Temenos
-              expertise with AI, digital and advanced analytics to deliver
-              future-proof core banking solutions — creating a unique value
-              proposition for customers worldwide.
+              expertise with banking technology transformation, digital and
+              advanced analytics to deliver future-proof core banking solutions
+              — creating a unique value proposition for customers worldwide.
             </p>
           </Reveal>
 

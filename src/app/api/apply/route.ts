@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-import { applicationEmailHtml, applicationEmailText } from "@/lib/emailTemplates";
+import {
+  applicationEmailHtml,
+  applicationEmailText,
+  applicationConfirmationEmailHtml,
+  applicationConfirmationEmailText,
+} from "@/lib/emailTemplates";
 
 const MAX_RESUME_BYTES = 5 * 1024 * 1024; // 5MB
 const ALLOWED_RESUME_TYPES = new Set([
@@ -20,6 +25,7 @@ function hasAllowedExtension(filename: string) {
 export async function POST(request: Request) {
   const formData = await request.formData();
 
+  const jobId = String(formData.get("jobId") ?? "").trim();
   const jobTitle = String(formData.get("jobTitle") ?? "").trim();
   const name = String(formData.get("name") ?? "").trim();
   const email = String(formData.get("email") ?? "").trim();
@@ -72,6 +78,7 @@ export async function POST(request: Request) {
   });
 
   const templateData = {
+    jobId: jobId || undefined,
     jobTitle,
     name,
     email,
@@ -85,7 +92,9 @@ export async function POST(request: Request) {
       from: `"Avenza Careers" <${smtpUser}>`,
       to: careersInbox,
       replyTo: email,
-      subject: `New application: ${jobTitle} — ${name}`,
+      subject: jobId
+        ? `New application: ${jobTitle} (#${jobId}) — ${name}`
+        : `New application: ${jobTitle} — ${name}`,
       text: applicationEmailText(templateData),
       html: applicationEmailHtml(templateData),
       attachments: [
@@ -98,6 +107,20 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("Failed to send application email:", error);
     return NextResponse.json({ error: "Failed to send application. Please try again." }, { status: 502 });
+  }
+
+  // Best-effort — the application itself is already recorded with the
+  // recruiter above, so a failure here shouldn't fail the whole submission.
+  try {
+    await transporter.sendMail({
+      from: `"Avenza Careers" <${smtpUser}>`,
+      to: email,
+      subject: `We've received your application — ${jobTitle}`,
+      text: applicationConfirmationEmailText({ jobTitle, name }),
+      html: applicationConfirmationEmailHtml({ jobTitle, name }),
+    });
+  } catch (error) {
+    console.error("Failed to send candidate confirmation email:", error);
   }
 
   return NextResponse.json({ ok: true });

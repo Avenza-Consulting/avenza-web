@@ -1,4 +1,5 @@
 type ApplicationEmailData = {
+  jobId?: string;
   jobTitle: string;
   name: string;
   email: string;
@@ -13,6 +14,16 @@ type ContactEmailData = {
   phone?: string;
   message: string;
 };
+
+type ApplicationConfirmationEmailData = {
+  jobTitle: string;
+  name: string;
+};
+
+function siteUrl(path: string) {
+  const base = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://avenza-web.vercel.app").replace(/\/$/, "");
+  return `${base}${path}`;
+}
 
 function escapeHtml(value: string) {
   return value
@@ -37,6 +48,7 @@ function detailRow(label: string, value: string) {
 
 export function applicationEmailHtml(data: ApplicationEmailData) {
   const rows = [
+    data.jobId ? detailRow("Job ID", escapeHtml(data.jobId)) : "",
     detailRow("Role", escapeHtml(data.jobTitle)),
     detailRow("Name", escapeHtml(data.name)),
     detailRow(
@@ -107,6 +119,7 @@ export function applicationEmailText(data: ApplicationEmailData) {
   return [
     `New application — ${data.jobTitle}`,
     "",
+    data.jobId ? `Job ID: ${data.jobId}` : null,
     `Name: ${data.name}`,
     `Email: ${data.email}`,
     `Phone: ${data.phone}`,
@@ -117,6 +130,85 @@ export function applicationEmailText(data: ApplicationEmailData) {
   ]
     .filter((line) => line !== null)
     .join("\n");
+}
+
+export function applicationConfirmationEmailHtml(data: ApplicationConfirmationEmailData) {
+  return `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>We've received your application</title>
+  </head>
+  <body style="margin:0;padding:0;background-color:#f4f3f0;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f3f0;padding:32px 16px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background-color:#ffffff;border-radius:12px;overflow:hidden;border:1px solid #e8e6e1;">
+            <tr>
+              <td style="background-color:#06070a;padding:24px 32px;">
+                <span style="font-family:Arial,Helvetica,sans-serif;font-size:20px;font-weight:800;color:#ff8a2b;">avenza</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:32px;">
+                <p style="margin:0 0 4px;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#ff8a2b;">
+                  Application Received
+                </p>
+                <h1 style="margin:0 0 20px;font-family:Arial,Helvetica,sans-serif;font-size:22px;font-weight:800;color:#0a0a0a;">
+                  Thanks for applying, ${escapeHtml(data.name)}
+                </h1>
+                <p style="margin:0 0 16px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#0a0a0a;">
+                  We've received your application for the
+                  <strong>${escapeHtml(data.jobTitle)}</strong> role at Avenza
+                  Consulting Services. Thank you for taking the time to apply —
+                  we know it's an investment, and we don't take that lightly.
+                </p>
+                <p style="margin:0 0 16px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#0a0a0a;">
+                  Our talent team will review your profile against the role and
+                  reach out if there's a fit. Given the volume of applications
+                  we receive, this can take a little time — we appreciate your
+                  patience.
+                </p>
+                <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#0a0a0a;">
+                  In the meantime, feel free to explore more about life at
+                  Avenza on our
+                  <a href="${siteUrl("/life-at-avenza")}" style="color:#ff8a2b;text-decoration:none;">Life @ Avenza</a>
+                  page.
+                </p>
+                <p style="margin:24px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;color:#6b6f76;">
+                  This is an automated confirmation — no action is needed from
+                  you right now.
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:16px 32px;background-color:#f4f3f0;">
+                <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#9a9da3;">
+                  Sent automatically from the Avenza Consulting careers page.
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`;
+}
+
+export function applicationConfirmationEmailText(data: ApplicationConfirmationEmailData) {
+  return [
+    `Thanks for applying, ${data.name}`,
+    "",
+    `We've received your application for the ${data.jobTitle} role at Avenza Consulting Services. Thank you for taking the time to apply.`,
+    "",
+    "Our talent team will review your profile against the role and reach out if there's a fit. Given the volume of applications we receive, this can take a little time — we appreciate your patience.",
+    "",
+    `In the meantime, feel free to explore more about life at Avenza: ${siteUrl("/life-at-avenza")}`,
+    "",
+    "This is an automated confirmation — no action is needed from you right now.",
+  ].join("\n");
 }
 
 export function contactEmailHtml(data: ContactEmailData) {

@@ -39,12 +39,31 @@ export function ContactForm() {
         <div className="mt-16 grid grid-cols-1 gap-10 lg:grid-cols-5">
           <Reveal delay={0.1} className="lg:col-span-2">
             <div className="flex h-full flex-col justify-between rounded-2xl border border-white/10 bg-surface p-8">
-              <div className="space-y-8">
+              <div className="space-y-6">
                 <div>
                   <h3 className="font-display text-sm font-semibold uppercase tracking-wide text-text-dim">
                     Visit our office at
                   </h3>
                   <p className="mt-3 text-base leading-relaxed text-white">{contactInfo.address}</p>
+                  <a
+                    href={contactInfo.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Open Avenza office location in Google Maps"
+                    className="mt-4 block overflow-hidden rounded-xl border border-white/10 transition-opacity hover:opacity-90"
+                  >
+                    <iframe
+                      title="Avenza office location"
+                      src={contactInfo.mapsEmbedUrl}
+                      width="100%"
+                      height="140"
+                      style={{ border: 0, display: "block", pointerEvents: "none" }}
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      aria-hidden="true"
+                      tabIndex={-1}
+                    />
+                  </a>
                 </div>
                 <div>
                   <h3 className="font-display text-sm font-semibold uppercase tracking-wide text-text-dim">

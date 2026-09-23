@@ -1,10 +1,25 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 
 export function Logo({ className = "" }: { className?: string }) {
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (pathname === "/") {
+      e.preventDefault();
+      if (location.hash) router.replace("/");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
     <Link
       href="/"
       aria-label="Avenza Consulting — home"
+      onClick={handleClick}
       className={`inline-flex items-center ${className}`}
     >
       <svg

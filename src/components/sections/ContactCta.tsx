@@ -4,7 +4,10 @@ import { LogoGrid } from "@/components/ui/LogoGrid";
 
 export function ContactCta() {
   return (
-    <section className="relative overflow-hidden border-t border-white/5 bg-ink-soft py-14 sm:py-20">
+    <section
+      id="client-partner"
+      className="relative overflow-hidden border-t border-white/5 bg-ink-soft py-14 sm:py-20"
+    >
       <div
         className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[900px] -translate-x-1/2 -translate-y-1/2 opacity-25 blur-[140px]"
         style={{ background: "radial-gradient(ellipse, #ff8a2b, transparent 65%)" }}

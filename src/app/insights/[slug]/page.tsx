@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { InsightArt } from "@/components/ui/InsightArt";
-import { ContactCta } from "@/components/sections/ContactCta";
 import { insights } from "@/data/content";
 
 function formatDate(iso: string) {
@@ -111,8 +110,6 @@ export default async function InsightDetailPage({
           </Reveal>
         </div>
       </section>
-
-      <ContactCta />
     </>
   );
 }

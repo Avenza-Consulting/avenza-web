@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
-import { ContactCta } from "@/components/sections/ContactCta";
 import { achievement } from "@/data/content";
 
 export const metadata: Metadata = {
@@ -99,8 +98,6 @@ export default function AchievementPage() {
           </Reveal>
         </div>
       </section>
-
-      <ContactCta />
     </>
   );
 }

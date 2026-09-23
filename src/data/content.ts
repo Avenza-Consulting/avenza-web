@@ -478,8 +478,8 @@ export const whyAvenza = [
 
 export const stats = [
   { id: "experience", icon: "experience", value: 15, suffix: "+", label: "Years average experience in core banking" },
-  { id: "service-lines", icon: "service-lines", value: 4, suffix: "", label: "Managed service lines: testing, migration, support, upgrades" },
-  { id: "product-lines", icon: "product-lines", value: 6, suffix: "", label: "Temenos product lines: Transact, Payment Hub, FCM, TDH, Wealth, Digital Banking" },
+  { id: "service-lines", icon: "service-lines", value: 4, suffix: "", label: "Managed services: End to End Implementation, Managed upgrades, Post Live Application support, Managed Testing" },
+  { id: "product-lines", icon: "product-lines", value: 5, suffix: "", label: "Temenos product lines: Transact, Payment Hub, FCM, TDH, Digital Banking" },
   { id: "engagement", icon: "engagement", value: 100, suffix: "%", label: "Flexible engagement — end-to-end or staff augmentation" },
 ] as const;
 

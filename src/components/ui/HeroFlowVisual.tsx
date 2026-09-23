@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 // angleDeg is measured clockwise from straight up (12 o'clock = -90 in
-// standard math convention). Payments & FCM is placed close to Digital
-// Banking & Journey Manager, and Wealth & Islamic Banking close to Data Hub
-// & Treasury, so the two related pairs read as grouped around the hub.
+// standard math convention). Payments is placed close to Digital Banking &
+// Journey Manager, and FCM close to Data Hub & Treasury, so the two related
+// pairs read as grouped around the hub.
 // icon: a small glyph representing what flows toward the hub from that
 // product area — a bank building for core banking, mobile journeys, card
-// payments, wealth balances, or a database stack for data hub & treasury —
-// drawn in a shared 24x24 box centered on the origin so it can be scaled
-// and placed without per-icon offsets.
+// payments, a shield for financial crime mitigation, or a database stack
+// for data hub & treasury — drawn in a shared 24x24 box centered on the
+// origin so it can be scaled and placed without per-icon offsets.
 // Outer ring = the Temenos platform, so it reads in a single cohesive blue
 // family (subtle shade variation keeps it alive without going multi-color).
 // The Avenza hub stays orange and the outcomes amber, so the story is:
@@ -19,9 +19,9 @@ import { motion } from "framer-motion";
 const products = [
   { id: "core", lines: ["Core Banking"], color: "#4a90ff", angleDeg: -90, icon: "bank" },
   { id: "digital", lines: ["Digital Banking"], color: "#3d8bff", angleDeg: -18, icon: "mobile" },
-  { id: "payments", lines: ["Payments & FCM"], color: "#5b9dff", angleDeg: 40, icon: "payment" },
-  { id: "wealth", lines: ["Wealth &", "Islamic Banking"], color: "#2e79f0", angleDeg: 140, icon: "wallet" },
-  { id: "datahub", lines: ["Data Hub &", "Treasury"], color: "#6aa8ff", angleDeg: 198, icon: "database" },
+  { id: "payments", lines: ["Payments"], color: "#5b9dff", angleDeg: 40, icon: "payment" },
+  { id: "wealth", lines: ["Financial Crime", "Mitigation"], color: "#2e79f0", angleDeg: 140, icon: "shield" },
+  { id: "datahub", lines: ["Temenos Data Hub"], color: "#6aa8ff", angleDeg: 198, icon: "database" },
 ] as const;
 
 const FLOW_ICONS: Record<(typeof products)[number]["icon"], string> = {
@@ -37,9 +37,9 @@ const FLOW_ICONS: Record<(typeof products)[number]["icon"], string> = {
   // card with a swipe line and transfer arrows
   payment:
     "M-9,-5.5 L9,-5.5 C9.8,-5.5 10.4,-4.9 10.4,-4.1 L10.4,4.1 C10.4,4.9 9.8,5.5 9,5.5 L-9,5.5 C-9.8,5.5 -10.4,4.9 -10.4,4.1 L-10.4,-4.1 C-10.4,-4.9 -9.8,-5.5 -9,-5.5 Z M-10.4,-1.8 L10.4,-1.8 M-6,2 L-2,2",
-  // wallet with a coin
-  wallet:
-    "M-9,-5 L6,-5 C7.7,-5 9,-3.7 9,-2 L9,5 C9,6.7 7.7,8 6,8 L-9,8 C-9,8 -9,-5 -9,-5 Z M-9,-5 C-9,-6.7 -7.7,-8 -6,-8 L4,-8 M3,1.5 A2,2 0 1 0 3,1.4",
+  // shield with a checkmark — financial crime mitigation
+  shield:
+    "M0,-9 L7,-6.5 L7,0.5 C7,4.5 4,7.5 0,9 C-4,7.5 -7,4.5 -7,0.5 L-7,-6.5 Z M-3.3,0 L-1,2.5 L3.3,-2.5",
 };
 
 const outcomes = [
@@ -152,7 +152,7 @@ export function HeroFlowVisual() {
         viewBox="0 0 628 622"
         className="h-auto w-full overflow-visible"
         role="img"
-        aria-label="Interactive diagram showing five grouped Temenos product areas — Core Banking, Digital Banking and Journey Manager, Payments and Financial Crime Mitigation, Wealth Management and Islamic Banking, and Data Hub and Treasury — flowing into Avenza's services hub and out to delivery outcomes: modernized core, seamless integration, faster time-to-market and regulatory compliance"
+        aria-label="Interactive diagram showing five grouped Temenos product areas — Core Banking, Digital Banking and Journey Manager, Payments, Financial Crime Mitigation, and Temenos Data Hub — flowing into Avenza's SI services and out to delivery outcomes: modernized core, seamless integration, faster time-to-market and regulatory compliance"
       >
         <defs>
           <radialGradient id="hubGlow" cx="50%" cy="50%" r="50%">
@@ -367,7 +367,7 @@ export function HeroFlowVisual() {
             Avenza
           </text>
           <text x={CENTER_X} y={CENTER_Y + 18} textAnchor="middle" fontSize="10.5" fontWeight="700" fill="#06070a" fillOpacity="0.7" fontFamily="var(--font-body)" style={{ pointerEvents: "none" }}>
-            Services Hub
+            SI Services
           </text>
         </motion.g>
 

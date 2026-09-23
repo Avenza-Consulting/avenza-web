@@ -157,7 +157,7 @@ body {
 *,
 *::before,
 *::after {
-  cursor: url("/cursor-avenza.svg") 9 17, auto !important;
+  cursor: url("/cursor-avenza.svg") 39 19, auto !important;
 }
 
 ::selection {

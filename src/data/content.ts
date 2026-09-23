@@ -9,9 +9,6 @@ export const nav = [
       { label: "Temenos Payments", href: "/capabilities/temenos-payments" },
       { label: "Temenos FCM", href: "/capabilities/temenos-fcm" },
       { label: "System Integration", href: "/capabilities/system-integration" },
-      { label: "Cloud Transformation", href: "/capabilities/cloud" },
-      { label: "Data & Analytics", href: "/capabilities/data" },
-      { label: "AI & Automation", href: "/capabilities/ai-automation" },
       { label: "Testing", href: "/capabilities/testing" },
       { label: "Migration", href: "/capabilities/migration" },
       { label: "Upgrades", href: "/capabilities/upgrades" },
@@ -112,7 +109,6 @@ export const trf = {
 export const capabilityGroups = [
   { id: "core-platform", label: "Core Platform" },
   { id: "payments-compliance", label: "Payments & Compliance" },
-  { id: "modernization", label: "Modernization" },
   { id: "delivery-support", label: "Delivery & Support" },
 ] as const;
 
@@ -217,57 +213,6 @@ export const capabilities = [
       "Data silos eliminated across the ecosystem",
       "New microservices and partners plug in without re-architecting",
       "More flexible operations as the integration landscape scales",
-    ],
-  },
-  {
-    id: "cloud",
-    group: "modernization",
-    title: "Cloud Transformation",
-    body: "We run secure, scalable moves to the cloud, with migration and SaaS-ready architecture strategies built specifically for banking infrastructure. That runs from readiness assessment through to deploying Temenos on the major hyperscalers or in a managed SaaS environment. We tune the infrastructure for high availability, disaster recovery and dynamic resource scaling. Banks come out with a much smaller on-premise IT footprint, better-controlled spending and stronger operational resilience.",
-    highlights: ["Cloud readiness assessment", "SaaS-ready architecture", "High availability", "Disaster recovery"],
-    problem:
-      "Banking infrastructure carries regulatory, resilience and data-residency constraints that a generic cloud migration playbook doesn't account for — moves that work for other industries stall or get rejected by risk teams when applied unmodified to a core banking estate.",
-    howItWorks:
-      "We run a readiness assessment specific to banking infrastructure, then design and execute the move — onto major hyperscalers or a managed SaaS environment — with high availability, disaster recovery and dynamic resource scaling tuned in from the start.",
-    benefits: [
-      "A much smaller on-premise IT footprint",
-      "Better-controlled infrastructure spending",
-      "Stronger operational resilience with built-in disaster recovery",
-      "Infrastructure that scales dynamically with demand",
-    ],
-  },
-  {
-    id: "data",
-    group: "modernization",
-    title: "Data & Analytics",
-    body: "Core banking data becomes usable through careful mapping, extraction and transformation. Our accelerators de-risk large data migrations and leave behind a clean, unified data model that analytics can be built on. Connecting Temenos data to enterprise data lakes and BI tools is what lets you dig into customer behavior, sharpen risk models and forecast market trends. The architecture we design handles historical reporting and predictive work, not one at the expense of the other.",
-    highlights: ["Data mapping & extraction", "Unified data model", "Data lake integration", "BI & predictive analytics"],
-    problem:
-      "Core banking data is powerful but rarely analysis-ready — it's scattered across modules, inconsistently modelled, and expensive to migrate cleanly, which is why so many analytics initiatives stall at the data-quality stage.",
-    howItWorks:
-      "We map, extract and transform the data with accelerators built to de-risk large migrations, leaving a clean, unified data model connected to your enterprise data lakes and BI tools rather than a one-off extract that goes stale.",
-    benefits: [
-      "A clean, unified data model analytics can actually be built on",
-      "De-risked large-scale data migration",
-      "Sharper risk models and market forecasting from connected BI tools",
-      "Historical reporting and predictive work supported by the same architecture",
-    ],
-  },
-  {
-    id: "ai-automation",
-    group: "modernization",
-    title: "AI & Automation",
-    body: "AI and intelligent automation go in across the SDLC to speed up Temenos delivery. Automated code conversion, environment provisioning and technical documentation generation take a large share of the manual development work off your team. Mature CI/CD pipelines automate testing and deployment, cutting human error and keeping release cycles short. Streamlining the engineering workflow is what gets you to value faster without letting code quality slip.",
-    highlights: ["Automated code conversion", "Environment provisioning", "Documentation generation", "CI/CD pipelines"],
-    problem:
-      "Temenos delivery has a lot of genuinely repeatable work — code conversion, environment setup, documentation — that eats skilled engineering time without needing a human judgment call every time.",
-    howItWorks:
-      "We apply AI and automation across the SDLC where the work is repeatable — code conversion, environment provisioning, documentation generation — and pair it with mature CI/CD pipelines, always with an expert validating outputs before they land.",
-    benefits: [
-      "Faster Temenos delivery without cutting corners on quality",
-      "Less manual, repeatable work on your engineering team's plate",
-      "Shorter release cycles with fewer human errors",
-      "Engineering time redirected to the work that actually needs judgment",
     ],
   },
   {

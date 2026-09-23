@@ -40,6 +40,37 @@ const groupAccent: Record<string, { color: string; textColor: string; text: stri
   },
 };
 
+// The inner slide layout, shared by the visible (animated) slide and the
+// invisible height "sizer" below — so every capability renders identically and
+// the card can reserve the height of the tallest one.
+function SlideContent({ cap, num }: { cap: (typeof capabilities)[number]; num: number }) {
+  const accent = groupAccent[cap.group];
+  const groupLabel = capabilityGroups.find((g) => g.id === cap.group)?.label;
+  return (
+    <div className="grid grid-cols-1 gap-6 p-8 sm:grid-cols-[auto_1fr] sm:gap-10 sm:p-12">
+      <div className="flex items-center gap-4 sm:flex-col sm:items-start sm:gap-0">
+        <span
+          className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl sm:h-16 sm:w-16"
+          style={{ background: `color-mix(in oklab, ${accent.color} 16%, transparent)`, color: accent.textColor }}
+        >
+          <CapabilityIcon id={cap.id} className="h-6 w-6 sm:h-7 sm:w-7" />
+        </span>
+        <div className="sm:mt-6">
+          <p className={`text-xs font-bold uppercase tracking-widest ${accent.text}`}>{groupLabel}</p>
+          <span className="mt-2 hidden font-display text-6xl font-extrabold text-white/10 sm:block">
+            {String(num).padStart(2, "0")}
+          </span>
+        </div>
+      </div>
+
+      <div className="flex flex-col justify-center">
+        <h3 className="font-display text-2xl font-bold leading-snug text-white sm:text-3xl">{cap.title}</h3>
+        <p className="mt-4 text-base leading-relaxed text-text-muted">{cap.body}</p>
+      </div>
+    </div>
+  );
+}
+
 export function Capabilities() {
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(1);
@@ -215,42 +246,35 @@ export function Capabilities() {
           </div>
 
           <div className="relative mt-6 overflow-hidden rounded-3xl border border-white/10 bg-surface">
-            <AnimatePresence initial={false} mode="popLayout">
-              <motion.div
-                key={active.id}
-                initial={{ opacity: 0, x: direction > 0 ? 60 : -60 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: direction > 0 ? -60 : 60, position: "absolute" }}
-                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                className="grid grid-cols-1 gap-6 p-8 sm:grid-cols-[auto_1fr] sm:gap-10 sm:p-12"
-              >
-                <div className="flex items-center gap-4 sm:flex-col sm:items-start sm:gap-0">
-                  <span
-                    className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl sm:h-16 sm:w-16"
-                    style={{ background: `color-mix(in oklab, ${accent.color} 16%, transparent)`, color: accent.textColor }}
-                  >
-                    <CapabilityIcon id={active.id} className="h-6 w-6 sm:h-7 sm:w-7" />
-                  </span>
-                  <div className="sm:mt-6">
-                    <p className={`text-xs font-bold uppercase tracking-widest ${accent.text}`}>
-                      {capabilityGroups.find((g) => g.id === active.group)?.label}
-                    </p>
-                    <span className="mt-2 hidden font-display text-6xl font-extrabold text-white/10 sm:block">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
+            {/* Card body: a fixed height equal to the tallest slide, so it — and
+                the nav bar below — never jumps as you move left/right. */}
+            <div className="relative">
+              {/* Invisible sizer: every slide overlaid in one grid cell reserves
+                  the height of the tallest capability at any screen width. */}
+              <div aria-hidden="true" className="invisible grid">
+                {capabilities.map((cap, i) => (
+                  <div key={cap.id} style={{ gridArea: "1 / 1" }}>
+                    <SlideContent cap={cap} num={i + 1} />
                   </div>
-                </div>
+                ))}
+              </div>
 
-                <div className="flex flex-col justify-center">
-                  <h3 className="font-display text-2xl font-bold leading-snug text-white sm:text-3xl">
-                    {active.title}
-                  </h3>
-                  <p className="mt-4 text-base leading-relaxed text-text-muted">
-                    {active.body}
-                  </p>
-                </div>
-              </motion.div>
-            </AnimatePresence>
+              {/* The one visible, animated slide, overlaid on the sizer. */}
+              <div className="absolute inset-0">
+                <AnimatePresence initial={false} mode="popLayout">
+                  <motion.div
+                    key={active.id}
+                    initial={{ opacity: 0, x: direction > 0 ? 60 : -60 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: direction > 0 ? -60 : 60, position: "absolute" }}
+                    transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                    className="inset-0"
+                  >
+                    <SlideContent cap={active} num={index + 1} />
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </div>
 
             <div className="relative flex items-center justify-between border-t border-white/10 px-6 py-4 sm:px-12">
               <div className="flex gap-2">

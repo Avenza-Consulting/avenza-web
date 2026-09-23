@@ -6,7 +6,12 @@ type FooterLink = { label: string; href: string };
 
 const footerLinks: FooterLink[] = nav.flatMap((item): FooterLink[] =>
   "items" in item
-    ? [{ label: item.label, href: item.href }, ...item.items.map((sub): FooterLink => ({ label: sub.label, href: sub.href }))]
+    ? [
+        { label: item.label, href: item.href },
+        ...(item.label === "Capabilities"
+          ? []
+          : item.items.map((sub): FooterLink => ({ label: sub.label, href: sub.href }))),
+      ]
     : [{ label: item.label, href: item.href }]
 );
 

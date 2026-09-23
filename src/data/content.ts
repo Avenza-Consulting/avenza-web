@@ -1,5 +1,23 @@
 export const nav = [
-  { label: "Capabilities", href: "/#capabilities" },
+  {
+    label: "Capabilities",
+    href: "/capabilities",
+    items: [
+      { label: "Core Banking Transformation", href: "/capabilities/core-banking" },
+      { label: "Temenos Transact", href: "/capabilities/temenos-transact" },
+      { label: "Digital Banking", href: "/capabilities/digital-banking" },
+      { label: "Temenos Payments", href: "/capabilities/temenos-payments" },
+      { label: "Temenos FCM", href: "/capabilities/temenos-fcm" },
+      { label: "System Integration", href: "/capabilities/system-integration" },
+      { label: "Cloud Transformation", href: "/capabilities/cloud" },
+      { label: "Data & Analytics", href: "/capabilities/data" },
+      { label: "AI & Automation", href: "/capabilities/ai-automation" },
+      { label: "Testing", href: "/capabilities/testing" },
+      { label: "Migration", href: "/capabilities/migration" },
+      { label: "Upgrades", href: "/capabilities/upgrades" },
+      { label: "Application Support", href: "/capabilities/application-support" },
+    ],
+  },
   {
     label: "About",
     href: "/about",
@@ -104,78 +122,221 @@ export const capabilities = [
     group: "core-platform",
     title: "Core Banking Transformation",
     body: "We move financial institutions off legacy cores and onto modern, agile platforms. The engagement covers strategic roadmapping, architecture design, execution and the cutover itself. Two things we hold onto throughout are platform stability and composable architecture, because they are what let the core keep pace with the market instead of locking you into last year's product set. Faster product launches, room to scale, and a lower total cost of ownership all follow from that.",
+    highlights: ["Strategic roadmapping", "Architecture design", "Cutover execution", "Composable architecture"],
+    problem:
+      "A legacy core is hard to change safely, harder to scale, and increasingly expensive to run — but the fear of a failed cutover keeps most banks patching around it instead of replacing it.",
+    howItWorks:
+      "We start with a fact-based roadmap — current-state assessment, target architecture and a sequenced, continuity-first migration path — then execute in controlled phases with rehearsed cutovers, so risk is retired steadily instead of concentrated in one big-bang event.",
+    benefits: [
+      "A platform that keeps pace with the market instead of locking in last year's product set",
+      "Composable architecture that supports faster product launches",
+      "Room to scale without a rebuild",
+      "A lower total cost of ownership over the platform's life",
+    ],
   },
   {
     id: "temenos-transact",
     group: "core-platform",
     title: "Temenos Transact",
     body: "Greenfield implementations, custom configuration, performance optimization: our Transact specialists work across all of it with both technical and functional depth. Aligning the platform's capabilities with your specific product portfolios is what produces high straight-through processing rates and efficient operations. We work with Temenos-approved accelerators and established practice, which cuts time-to-market and keeps execution risk down. Whether you are launching a new digital brand or migrating a complicated legacy portfolio, the aim is to get the full value out of Transact.",
+    highlights: ["Greenfield implementation", "Custom configuration", "Performance optimization", "Temenos-approved accelerators"],
+    problem:
+      "Transact is a deep, configurable platform — teams that don't know it well end up under-using it, over-customising it, or both, which shows up later as slow processing and expensive maintenance.",
+    howItWorks:
+      "Our specialists align Transact's product catalogue and parameterisation with your actual product portfolios rather than defaulting to broad customisation, and lean on Temenos-approved accelerators and established practice wherever the requirement is a known pattern.",
+    benefits: [
+      "High straight-through processing rates from properly aligned configuration",
+      "Faster time-to-market using proven, Temenos-approved accelerators",
+      "Lower execution risk on both greenfield builds and complex re-platforming",
+      "Full value extracted from the platform instead of a thin implementation",
+    ],
   },
   {
     id: "digital-banking",
     group: "core-platform",
     title: "Digital Banking",
     body: "Front-end solutions such as Temenos Infinity get integrated cleanly with the transformed core, which is what makes omnichannel actually work rather than just appear on a slide. We design for hyper-personalized journeys across retail, corporate and wealth management. API-first architecture and microservices keep data moving between layers in real time. Banks use this to lift engagement, push self-service adoption, and put a distinctive digital brand in front of customers in a crowded market.",
+    highlights: ["Temenos Infinity integration", "Omnichannel journeys", "API-first architecture", "Microservices"],
+    problem:
+      "A modern front end bolted onto a core that can't keep up produces the classic symptom of digital banking done badly: channels that look consistent in a demo but drift out of sync the moment real data and real volume hit them.",
+    howItWorks:
+      "We integrate Temenos Infinity (or your chosen front end) directly against the transformed core using API-first, microservices architecture, so retail, corporate and wealth journeys share the same real-time data instead of each channel keeping its own stale copy.",
+    benefits: [
+      "Omnichannel that's actually synchronized, not just visually consistent",
+      "Higher engagement and self-service adoption from journeys built around real customer needs",
+      "A distinctive digital brand that stands out in a crowded market",
+      "Real-time data flow between core and channel layers",
+    ],
   },
   {
     id: "temenos-payments",
     group: "payments-compliance",
     title: "Temenos Payments",
     body: "We deploy the Temenos Payments Hub to streamline global money movement and tighten processing efficiency. Payment scheme integration is handled end to end, with secure real-time processing and readiness for instant payments in the markets you operate in. Automated enrichments, exception handling and ISO 20022 compliance lift straight-through processing rates and bring transaction costs down. The infrastructure scales, and it keeps up with regulatory change without a rebuild each time.",
+    highlights: ["Temenos Payments Hub", "Payment scheme integration", "ISO 20022 compliance", "Instant payments"],
+    problem:
+      "Payment schemes, formats and regulatory requirements keep multiplying, and a payments stack built for yesterday's rails turns every new scheme or instant-payments mandate into a bespoke, high-risk project.",
+    howItWorks:
+      "We deploy and configure the Temenos Payments Hub with end-to-end scheme integration, automated enrichment and exception handling, and ISO 20022 compliance built in from the start rather than retrofitted after go-live.",
+    benefits: [
+      "Higher straight-through processing rates with lower transaction costs",
+      "Readiness for instant payments in the markets you operate in",
+      "Infrastructure that absorbs regulatory change without a rebuild",
+      "Secure, real-time processing across schemes",
+    ],
   },
   {
     id: "temenos-fcm",
     group: "payments-compliance",
     title: "Temenos FCM",
     body: "Financial Crime Mitigation gets configured as part of the transformation, so the platform is compliant by design instead of remediated afterwards. We deploy the full FCM suite: watch-list screening, dynamic KYC risk scoring, AML transaction monitoring, fraud prevention algorithms. The Temenos FCM AI Agent helps compliance teams cut false positives sharply while catching suspicious activity faster, which is the trade-off most screening setups get wrong in one direction or the other. These safeguards run inside the customer lifecycle in real time, protecting your reputation and keeping regulatory penalties off the table.",
+    highlights: ["Watch-list screening", "KYC risk scoring", "AML transaction monitoring", "Temenos FCM AI Agent"],
+    problem:
+      "Most screening setups force a trade-off between catching genuine suspicious activity and drowning compliance teams in false positives — and bolting compliance on after go-live almost always lands on the wrong side of that trade-off.",
+    howItWorks:
+      "We configure the full FCM suite — watch-list screening, dynamic KYC risk scoring, AML transaction monitoring and fraud prevention — as part of the core transformation, with the Temenos FCM AI Agent tuned to cut false positives while keeping genuine risk caught fast.",
+    benefits: [
+      "Compliance built in by design, not remediated after the fact",
+      "Sharply fewer false positives without losing detection coverage",
+      "Real-time safeguards running inside the customer lifecycle",
+      "Regulatory penalties and reputational risk kept off the table",
+    ],
   },
   {
     id: "system-integration",
     group: "payments-compliance",
     title: "System Integration",
     body: "Complex ecosystems need a modular, API-first integration strategy rather than point-to-point patching. Our teams connect Temenos platforms to external gateways, third-party fintech products and legacy enterprise systems, and the result is a unified open-banking architecture. Modern middleware and event-driven design keep core, payments and digital channels synchronized in real time. Data silos go, operations get more flexible, and new microservices plug in as you scale.",
+    highlights: ["API-first integration", "Open-banking architecture", "Event-driven design", "Third-party connectivity"],
+    problem:
+      "Point-to-point integrations solve today's connection but multiply the cost and risk of every future one — a growing ecosystem of fintech partners and legacy systems eventually collapses under its own integration debt.",
+    howItWorks:
+      "We design a modular, API-first integration layer with event-driven middleware, connecting Temenos platforms to external gateways, fintech products and legacy enterprise systems through a unified open-banking architecture rather than bespoke point-to-point links.",
+    benefits: [
+      "Core, payments and digital channels synchronized in real time",
+      "Data silos eliminated across the ecosystem",
+      "New microservices and partners plug in without re-architecting",
+      "More flexible operations as the integration landscape scales",
+    ],
   },
   {
     id: "cloud",
     group: "modernization",
     title: "Cloud Transformation",
     body: "We run secure, scalable moves to the cloud, with migration and SaaS-ready architecture strategies built specifically for banking infrastructure. That runs from readiness assessment through to deploying Temenos on the major hyperscalers or in a managed SaaS environment. We tune the infrastructure for high availability, disaster recovery and dynamic resource scaling. Banks come out with a much smaller on-premise IT footprint, better-controlled spending and stronger operational resilience.",
+    highlights: ["Cloud readiness assessment", "SaaS-ready architecture", "High availability", "Disaster recovery"],
+    problem:
+      "Banking infrastructure carries regulatory, resilience and data-residency constraints that a generic cloud migration playbook doesn't account for — moves that work for other industries stall or get rejected by risk teams when applied unmodified to a core banking estate.",
+    howItWorks:
+      "We run a readiness assessment specific to banking infrastructure, then design and execute the move — onto major hyperscalers or a managed SaaS environment — with high availability, disaster recovery and dynamic resource scaling tuned in from the start.",
+    benefits: [
+      "A much smaller on-premise IT footprint",
+      "Better-controlled infrastructure spending",
+      "Stronger operational resilience with built-in disaster recovery",
+      "Infrastructure that scales dynamically with demand",
+    ],
   },
   {
     id: "data",
     group: "modernization",
     title: "Data & Analytics",
     body: "Core banking data becomes usable through careful mapping, extraction and transformation. Our accelerators de-risk large data migrations and leave behind a clean, unified data model that analytics can be built on. Connecting Temenos data to enterprise data lakes and BI tools is what lets you dig into customer behavior, sharpen risk models and forecast market trends. The architecture we design handles historical reporting and predictive work, not one at the expense of the other.",
+    highlights: ["Data mapping & extraction", "Unified data model", "Data lake integration", "BI & predictive analytics"],
+    problem:
+      "Core banking data is powerful but rarely analysis-ready — it's scattered across modules, inconsistently modelled, and expensive to migrate cleanly, which is why so many analytics initiatives stall at the data-quality stage.",
+    howItWorks:
+      "We map, extract and transform the data with accelerators built to de-risk large migrations, leaving a clean, unified data model connected to your enterprise data lakes and BI tools rather than a one-off extract that goes stale.",
+    benefits: [
+      "A clean, unified data model analytics can actually be built on",
+      "De-risked large-scale data migration",
+      "Sharper risk models and market forecasting from connected BI tools",
+      "Historical reporting and predictive work supported by the same architecture",
+    ],
   },
   {
     id: "ai-automation",
     group: "modernization",
     title: "AI & Automation",
     body: "AI and intelligent automation go in across the SDLC to speed up Temenos delivery. Automated code conversion, environment provisioning and technical documentation generation take a large share of the manual development work off your team. Mature CI/CD pipelines automate testing and deployment, cutting human error and keeping release cycles short. Streamlining the engineering workflow is what gets you to value faster without letting code quality slip.",
+    highlights: ["Automated code conversion", "Environment provisioning", "Documentation generation", "CI/CD pipelines"],
+    problem:
+      "Temenos delivery has a lot of genuinely repeatable work — code conversion, environment setup, documentation — that eats skilled engineering time without needing a human judgment call every time.",
+    howItWorks:
+      "We apply AI and automation across the SDLC where the work is repeatable — code conversion, environment provisioning, documentation generation — and pair it with mature CI/CD pipelines, always with an expert validating outputs before they land.",
+    benefits: [
+      "Faster Temenos delivery without cutting corners on quality",
+      "Less manual, repeatable work on your engineering team's plate",
+      "Shorter release cycles with fewer human errors",
+      "Engineering time redirected to the work that actually needs judgment",
+    ],
   },
   {
     id: "testing",
     group: "delivery-support",
     title: "Testing",
     body: "We deliver a fully managed testing framework built for complex Temenos environments. It covers test strategy end to end, functional and non-functional testing, system integration testing (SIT) and dedicated User Acceptance Testing (UAT) support. Test automation tools validate workflows, APIs and high-volume transaction processing at high coverage. Rigorous QA before go-live is what keeps business risk and platform instability out of your first week.",
+    highlights: ["Functional & non-functional testing", "System integration testing", "UAT support", "Test automation"],
+    problem:
+      "Manual regression testing can't keep pace with a live Temenos transformation programme, and coverage gaps that look minor in a test report tend to show up as production incidents in the first week after go-live.",
+    howItWorks:
+      "We run a fully managed testing framework end to end — test strategy, functional and non-functional testing, system integration testing and dedicated UAT support — backed by automation tools that validate workflows, APIs and high-volume transactions at high coverage.",
+    benefits: [
+      "Business risk and platform instability kept out of the first week",
+      "High test coverage across workflows, APIs and transaction volumes",
+      "A test strategy that scales with a complex Temenos environment",
+      "Dedicated UAT support rather than an afterthought",
+    ],
   },
   {
     id: "migration",
     group: "delivery-support",
     title: "Migration",
     body: "Our migration methodology moves institutions from legacy systems to Temenos without data loss or operational disruption. We manage the whole journey: extraction, profiling and deep data cleansing, then mapping, transformation and loading. Financial reconciliation and multiple dress rehearsals happen before the final cutover, so the process is already tuned by the time it counts. Specialized migration utilities protect data integrity and regulatory compliance through the launch weekend.",
+    highlights: ["Extraction & profiling", "Data cleansing", "Mapping & transformation", "Dress rehearsals & reconciliation"],
+    problem:
+      "A migration that skips straight to cutover is a leap of faith — data quality issues, mapping gaps and reconciliation surprises that would have been caught in rehearsal instead surface live, on launch weekend.",
+    howItWorks:
+      "We manage the whole journey — extraction, profiling, deep data cleansing, mapping, transformation and loading — with financial reconciliation and multiple dress rehearsals completed before the final cutover, using specialised migration utilities throughout.",
+    benefits: [
+      "Legacy-to-Temenos migration without data loss or operational disruption",
+      "A cutover that's already tuned by the time it counts, not a first attempt",
+      "Data integrity and regulatory compliance protected through launch weekend",
+      "Financial reconciliation built into the process, not bolted on after",
+    ],
   },
   {
     id: "upgrades",
     group: "delivery-support",
     title: "Upgrades",
     body: "Temenos upgrades, technical and functional, are complicated enough that most banks defer them. We run them so you stay on the platform's current capabilities. The starting point is an impact assessment that identifies custom code needing refactoring and infrastructure dependencies such as OS or database upgrades. New modules and architectural changes then go in with minimal downtime and historical data preserved. Planned carefully, a mandatory upgrade turns into a chance to improve the business rather than a box to tick.",
+    highlights: ["Impact assessment", "Technical & functional upgrades", "Database & OS upgrades", "Minimal-downtime rollout"],
+    problem:
+      "Upgrades get deferred because the impact on years of accumulated customisation is unknown — and an unplanned upgrade risks breaking exactly the custom code the business has come to rely on.",
+    howItWorks:
+      "We start with an impact assessment that identifies custom code needing refactoring and infrastructure dependencies like OS or database versions, then roll out new modules and architectural changes with minimal downtime and historical data preserved.",
+    benefits: [
+      "Access to the platform's current capabilities instead of staying stuck on an old version",
+      "A known impact on customisations before work begins, not discovered during it",
+      "Minimal-downtime rollout with historical data preserved",
+      "A mandatory upgrade turned into a chance to improve the business",
+    ],
   },
   {
     id: "application-support",
     group: "delivery-support",
     title: "Application Support",
     body: "Our managed services team provides continuous L1, L2 and L3 application support for your Temenos ecosystem. We handle environment management, performance monitoring and proactive incident resolution to keep system availability high. Beyond break-fix, we manage local customizations, regulatory enhancements and minor product configuration changes in line with your roadmap. We work as an extension of your IT operations, so your internal teams can spend their time on growth rather than platform maintenance.",
+    highlights: ["L1/L2/L3 support", "Environment management", "Performance monitoring", "Regulatory enhancements"],
+    problem:
+      "Keeping a live Temenos estate running — environment management, monitoring, incident resolution, the steady stream of regulatory enhancements — is a full-time commitment that pulls internal teams away from the growth work they're actually there to do.",
+    howItWorks:
+      "We run continuous L1, L2 and L3 application support as an extension of your IT operations — environment management, performance monitoring, proactive incident resolution, plus local customisations and regulatory enhancements delivered in line with your roadmap.",
+    benefits: [
+      "High system availability from proactive incident resolution",
+      "Regulatory enhancements and configuration changes handled on your roadmap",
+      "Internal teams freed up to focus on growth, not platform maintenance",
+      "A support team that acts as an extension of your own operations",
+    ],
   },
 ] as const;
 

@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
-import { LifeHero } from "@/components/sections/LifeHero";
-import { YercaudOffsite } from "@/components/sections/YercaudOffsite";
-import { LifeHighlights } from "@/components/sections/LifeHighlights";
+import { YercaudCollage } from "@/components/sections/YercaudCollage";
+import { LifeCarousel } from "@/components/sections/LifeCarousel";
 import { LifeGallery } from "@/components/sections/LifeGallery";
 import { LifeCta } from "@/components/sections/LifeCta";
-import { ContactCta } from "@/components/sections/ContactCta";
 
 export const metadata: Metadata = {
   title: "Life at Avenza | Avenza Consulting",
@@ -38,12 +36,10 @@ export const metadata: Metadata = {
 export default function LifeAtAvenzaPage() {
   return (
     <>
-      <LifeHero />
-      <YercaudOffsite />
-      <LifeHighlights />
+      <YercaudCollage />
+      <LifeCarousel />
       <LifeGallery />
       <LifeCta />
-      <ContactCta />
     </>
   );
 }

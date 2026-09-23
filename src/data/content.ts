@@ -619,6 +619,10 @@ export const contactInfo = {
   address:
     "43/B, 1st Main Road, Sarakki Industrial Layout, 3rd Phase, JP Nagar, Bengaluru - 560 078.",
   email: "info@avenza-consulting.com",
+  mapsUrl:
+    "https://www.google.com/maps/search/?api=1&query=Avenza+Consulting%2C+43%2FB%2C+1st+Main+Road%2C+Sarakki+Industrial+Layout%2C+3rd+Phase%2C+JP+Nagar%2C+Bengaluru+-+560+078",
+  mapsEmbedUrl:
+    "https://maps.google.com/maps?q=Avenza+Consulting%2C+43%2FB%2C+1st+Main+Road%2C+Sarakki+Industrial+Layout%2C+3rd+Phase%2C+JP+Nagar%2C+Bengaluru+-+560+078&z=16&output=embed",
 } as const;
 
 export const insightCategories = ["Core Modernization", "Cloud", "Automation"] as const;

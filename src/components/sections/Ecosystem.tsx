@@ -18,15 +18,21 @@ export function Ecosystem() {
             cloud and banking technology transformation — see how
             Avenza&apos;s services span the entire ecosystem.
           </p>
+          <p className="mt-3 text-sm text-text-dim lg:hidden">Scroll the diagram sideways to read every label &rarr;</p>
         </Reveal>
+      </div>
 
-        <Reveal delay={0.1} className="mt-14 overflow-hidden rounded-2xl border border-white/10 shadow-lg">
+      {/* The diagram is dense, so it renders close to its native size (bigger,
+          legible labels) inside a wider container and scrolls horizontally on
+          narrower screens rather than shrinking every label to fit. */}
+      <div className="relative mx-auto mt-14 max-w-[1600px] px-4 sm:px-6 lg:px-8">
+        <Reveal delay={0.1} className="overflow-x-auto rounded-2xl border border-white/10 shadow-lg">
           <Image
             src="/temenos-ecosystem-diagram.svg"
             alt="Temenos Banking Technology Ecosystem and Avenza Services diagram, showing digital channels connecting through an API integration layer to Temenos core banking, payments, and data products, with Avenza service capabilities mapped around the ecosystem."
             width={1600}
             height={2000}
-            className="h-auto w-full"
+            className="h-auto w-full min-w-[1200px]"
           />
         </Reveal>
       </div>

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { HeroFlowVisual } from "@/components/ui/HeroFlowVisual";
 
-export function Hero() {
+export function Hero({ visual }: { visual?: React.ReactNode }) {
   return (
     <section className="relative overflow-hidden bg-ink pt-12 pb-16 sm:pt-16 sm:pb-24">
       <div className="bg-grid pointer-events-none absolute inset-0 opacity-[0.07]" aria-hidden="true" />
@@ -80,7 +80,7 @@ export function Hero() {
           transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="relative"
         >
-          <HeroFlowVisual />
+          {visual ?? <HeroFlowVisual />}
         </motion.div>
       </div>
     </section>

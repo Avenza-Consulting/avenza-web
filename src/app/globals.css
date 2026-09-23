@@ -228,6 +228,19 @@ body {
   to { stroke-dashoffset: -200; }
 }
 
+@keyframes hub-ripple {
+  0% { r: 46px; opacity: 0.22; }
+  100% { r: 140px; opacity: 0; }
+}
+
+@keyframes orbit-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes orbit-spin-reverse {
+  to { transform: rotate(-360deg); }
+}
+
 @keyframes marquee {
   from { transform: translate3d(0, 0, 0); }
   to { transform: translate3d(-50%, 0, 0); }

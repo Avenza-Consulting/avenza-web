@@ -4,6 +4,7 @@ import { ThemeScript } from "@/components/ui/ThemeScript";
 import { TrfBanner } from "@/components/ui/TrfBanner";
 import { Header } from "@/components/ui/Header";
 import { Footer } from "@/components/ui/Footer";
+import { ChatWidget } from "@/components/ui/ChatWidget";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { contactInfo } from "@/data/content";
 import "./globals.css";
@@ -89,6 +90,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <Footer />
+        <ChatWidget />
       </body>
     </html>
   );

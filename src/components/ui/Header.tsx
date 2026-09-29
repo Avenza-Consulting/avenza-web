@@ -24,13 +24,21 @@ export function Header() {
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const navRef = useRef<HTMLUListElement>(null);
   const pathname = usePathname();
-  const [lastPathname, setLastPathname] = useState(pathname);
 
-  if (pathname !== lastPathname) {
-    setLastPathname(pathname);
+  // On any route change (e.g. tapping a nav item), close the menus, unlock body
+  // scroll, and jump to the top of the destination page. Unlocking scroll here
+  // (and in the tap handler) fixes the mobile bug where the open menu's
+  // `body { overflow: hidden }` swallowed the post-navigation scroll and left
+  // the page stuck near the footer.
+  useEffect(() => {
     setMobileOpen(false);
     setMobileOpenGroup(null);
-  }
+    setOpenGroup(null);
+    document.body.style.overflow = "";
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
+    }
+  }, [pathname]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -105,6 +113,20 @@ export function Header() {
     closeTimeoutRef.current = setTimeout(() => setOpenGroup(null), 150);
   };
 
+  // Every nav-link tap runs this: unlock the scroll the open mobile menu locked
+  // (so the scroll below and Next's post-navigation scroll aren't swallowed),
+  // close both menus, and jump to the top. Covers same-page taps too, where no
+  // route change fires the effect above. `href` is accepted for call-site
+  // clarity but not needed — every menu item goes to the top.
+  const handleNavClick = (_href?: string) => {
+    document.body.style.overflow = "";
+    setMobileOpen(false);
+    setOpenGroup(null);
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
+    }
+  };
+
   return (
     <header className="sticky top-0 z-50">
       <div
@@ -137,7 +159,7 @@ export function Header() {
                       <Link
                         href={item.href}
                         aria-current={item.href === activeHref ? "page" : undefined}
-                        onClick={() => setOpenGroup(null)}
+                        onClick={() => handleNavClick(item.href)}
                         className="transition-colors hover:text-white"
                       >
                         {item.label}
@@ -184,7 +206,7 @@ export function Header() {
                                   <Link
                                     href={sub.href}
                                     aria-current={isSubActive ? "page" : undefined}
-                                    onClick={() => setOpenGroup(null)}
+                                    onClick={() => handleNavClick(sub.href)}
                                     className={`block px-4 py-2.5 text-sm transition-colors ${
                                       isSubActive
                                         ? "bg-amber/10 text-amber-soft"
@@ -210,6 +232,7 @@ export function Header() {
                   <Link
                     href={item.href}
                     aria-current={isActive ? "page" : undefined}
+                    onClick={() => handleNavClick(item.href)}
                     className={`group relative text-sm font-medium transition-colors ${
                       isActive ? "text-white" : "text-text-muted hover:text-white"
                     }`}
@@ -230,6 +253,7 @@ export function Header() {
             <ThemeToggle />
             <Link
               href="/contact"
+              onClick={() => handleNavClick("/contact")}
               className="rounded-full border border-white/15 px-5 py-2 text-sm font-medium text-white transition-colors hover:border-amber/50 hover:text-amber-soft"
             >
               Talk to Avenza
@@ -292,6 +316,7 @@ export function Header() {
                         <Link
                           href={item.href}
                           aria-current={item.href === activeHref ? "page" : undefined}
+                          onClick={() => handleNavClick(item.href)}
                           className="flex-1 px-3 py-3"
                         >
                           {item.label}
@@ -331,7 +356,7 @@ export function Header() {
                                   <Link
                                     href={sub.href}
                                     aria-current={isSubActive ? "page" : undefined}
-                                    onClick={() => setMobileOpen(false)}
+                                    onClick={() => handleNavClick(sub.href)}
                                     className={`block rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
                                       isSubActive
                                         ? "bg-amber/10 text-amber-soft"
@@ -356,6 +381,7 @@ export function Header() {
                     <Link
                       href={item.href}
                       aria-current={isActive ? "page" : undefined}
+                      onClick={() => handleNavClick(item.href)}
                       className={`block rounded-lg px-3 py-3 text-base font-medium transition-colors ${
                         isActive
                           ? "bg-amber/10 text-amber-soft"
@@ -370,6 +396,7 @@ export function Header() {
               <li className="pt-2">
                 <Link
                   href="/contact"
+                  onClick={() => handleNavClick("/contact")}
                   className="block rounded-full bg-amber px-4 py-3 text-center text-sm font-semibold text-on-accent"
                 >
                   Talk to Avenza

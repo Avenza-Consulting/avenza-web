@@ -50,7 +50,7 @@ export function TrfBanner() {
         className="relative z-40 overflow-hidden border-b"
         style={{
           background:
-            "linear-gradient(90deg, #1a1030 0%, #3d1f4a 30%, #7a3a3a 60%, #b8622e 100%)",
+            "linear-gradient(90deg, #0c0804 0%, #5a2a0c 35%, #a8480f 65%, #ff8a2b 100%)",
           borderColor: "rgba(255, 255, 255, 0.1)",
         }}
       >

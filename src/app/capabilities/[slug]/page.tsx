@@ -8,9 +8,9 @@ import { capabilities, capabilityGroups } from "@/data/content";
 
 const groupAccent: Record<string, { color: string; textColor: string; text: string }> = {
   "core-platform": { color: "#ff8a2b", textColor: "var(--color-amber-soft-text)", text: "text-amber-soft-text" },
-  "payments-compliance": { color: "#3d8bff", textColor: "var(--color-azure-text)", text: "text-azure-text" },
-  modernization: { color: "#7c6cff", textColor: "var(--color-violet-text)", text: "text-violet-text" },
-  "delivery-support": { color: "#34e0d9", textColor: "var(--color-cyan-text)", text: "text-cyan-text" },
+  "payments-compliance": { color: "#e0670f", textColor: "var(--color-azure-text)", text: "text-azure-text" },
+  modernization: { color: "#b5531a", textColor: "var(--color-violet-text)", text: "text-violet-text" },
+  "delivery-support": { color: "#ffb84d", textColor: "var(--color-cyan-text)", text: "text-cyan-text" },
 };
 
 export function generateStaticParams() {
@@ -101,8 +101,8 @@ export default async function CapabilityDetailPage({
           </Reveal>
 
           <Reveal delay={0.18} className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <div className="rounded-xl border border-rose-400/20 bg-rose-400/[0.06] p-5">
-              <p className="flex items-center gap-2.5 text-sm font-bold uppercase tracking-widest text-rose-300">
+            <div className="rounded-xl border border-amber/20 bg-amber/[0.06] p-5">
+              <p className="flex items-center gap-2.5 text-sm font-bold uppercase tracking-widest text-amber-soft-text">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path
                     d="M12 9v4m0 4h.01M10.29 3.86l-8.18 14.18A2 2 0 0 0 3.82 21h16.36a2 2 0 0 0 1.71-2.96L13.71 3.86a2 2 0 0 0-3.42 0Z"

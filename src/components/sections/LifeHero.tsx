@@ -31,7 +31,7 @@ export function LifeHero() {
       <div className="bg-grid pointer-events-none absolute inset-0 opacity-[0.06]" aria-hidden="true" />
       <div
         className="animate-drift pointer-events-none absolute -left-32 top-10 h-[440px] w-[440px] rounded-full opacity-25 blur-[120px]"
-        style={{ background: "radial-gradient(circle, #34e0d9, transparent 70%)" }}
+        style={{ background: "radial-gradient(circle, #ffb84d, transparent 70%)" }}
         aria-hidden="true"
       />
       <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">

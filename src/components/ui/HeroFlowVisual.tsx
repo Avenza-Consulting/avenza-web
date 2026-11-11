@@ -17,11 +17,11 @@ import { motion } from "framer-motion";
 // The Avenza hub stays orange and the outcomes amber, so the story is:
 // blue Temenos products flow IN → orange Avenza → amber outcomes flow OUT.
 const products = [
-  { id: "core", lines: ["Core Banking"], color: "#4a90ff", angleDeg: -90, icon: "bank" },
-  { id: "digital", lines: ["Digital Banking"], color: "#3d8bff", angleDeg: -18, icon: "mobile" },
-  { id: "payments", lines: ["Payments"], color: "#5b9dff", angleDeg: 40, icon: "payment" },
-  { id: "wealth", lines: ["Financial Crime", "Mitigation"], color: "#2e79f0", angleDeg: 140, icon: "shield" },
-  { id: "datahub", lines: ["Temenos Data Hub"], color: "#6aa8ff", angleDeg: 198, icon: "database" },
+  { id: "core", lines: ["Core Banking"], color: "#ff8a2b", angleDeg: -90, icon: "bank" },
+  { id: "digital", lines: ["Digital Banking"], color: "#e0670f", angleDeg: -18, icon: "mobile" },
+  { id: "payments", lines: ["Payments"], color: "#ffb84d", angleDeg: 40, icon: "payment" },
+  { id: "wealth", lines: ["Financial Crime", "Mitigation"], color: "#b5531a", angleDeg: 140, icon: "shield" },
+  { id: "datahub", lines: ["Temenos Data Hub"], color: "#c96e00", angleDeg: 198, icon: "database" },
 ] as const;
 
 const FLOW_ICONS: Record<(typeof products)[number]["icon"], string> = {

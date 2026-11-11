@@ -6,7 +6,7 @@ export function InsightsHero() {
       <div className="bg-grid pointer-events-none absolute inset-0 opacity-[0.06]" aria-hidden="true" />
       <div
         className="animate-drift pointer-events-none absolute -right-32 top-10 h-[440px] w-[440px] rounded-full opacity-25 blur-[120px]"
-        style={{ background: "radial-gradient(circle, #7c6cff, transparent 70%)" }}
+        style={{ background: "radial-gradient(circle, #b5531a, transparent 70%)" }}
         aria-hidden="true"
       />
       <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">

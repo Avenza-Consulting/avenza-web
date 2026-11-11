@@ -85,7 +85,7 @@ export default async function InsightDetailPage({
             <div className="bg-grid absolute inset-0 opacity-20" aria-hidden="true" />
             <div
               className="absolute inset-0 opacity-40"
-              style={{ background: "radial-gradient(circle at 30% 30%, #7c6cff, transparent 60%)" }}
+              style={{ background: "radial-gradient(circle at 30% 30%, #b5531a, transparent 60%)" }}
               aria-hidden="true"
             />
             <div className="relative w-2/3">

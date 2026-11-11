@@ -7,9 +7,9 @@ import { capabilities, capabilityGroups } from "@/data/content";
 
 const groupAccent: Record<string, { color: string; textColor: string; text: string }> = {
   "core-platform": { color: "#ff8a2b", textColor: "var(--color-amber-soft-text)", text: "text-amber-soft-text" },
-  "payments-compliance": { color: "#3d8bff", textColor: "var(--color-azure-text)", text: "text-azure-text" },
-  modernization: { color: "#7c6cff", textColor: "var(--color-violet-text)", text: "text-violet-text" },
-  "delivery-support": { color: "#34e0d9", textColor: "var(--color-cyan-text)", text: "text-cyan-text" },
+  "payments-compliance": { color: "#e0670f", textColor: "var(--color-azure-text)", text: "text-azure-text" },
+  modernization: { color: "#b5531a", textColor: "var(--color-violet-text)", text: "text-violet-text" },
+  "delivery-support": { color: "#ffb84d", textColor: "var(--color-cyan-text)", text: "text-cyan-text" },
 };
 
 export function CapabilitiesList() {

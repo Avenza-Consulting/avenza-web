@@ -10,7 +10,7 @@ export function Hero({ visual }: { visual?: React.ReactNode }) {
       <div className="bg-grid pointer-events-none absolute inset-0 opacity-[0.07]" aria-hidden="true" />
       <div
         className="animate-drift pointer-events-none absolute -left-40 top-0 h-[560px] w-[560px] rounded-full opacity-30 blur-[120px]"
-        style={{ background: "radial-gradient(circle, #7c6cff, transparent 70%)" }}
+        style={{ background: "radial-gradient(circle, #b5531a, transparent 70%)" }}
         aria-hidden="true"
       />
       <div

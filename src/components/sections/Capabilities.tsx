@@ -18,25 +18,25 @@ const groupAccent: Record<string, { color: string; textColor: string; text: stri
     glow: "#ff8a2b",
   },
   "payments-compliance": {
-    color: "#3d8bff",
+    color: "#e0670f",
     textColor: "var(--color-azure-text)",
     text: "text-azure-text",
     ring: "ring-azure/40",
-    glow: "#3d8bff",
+    glow: "#e0670f",
   },
   modernization: {
-    color: "#7c6cff",
+    color: "#b5531a",
     textColor: "var(--color-violet-text)",
     text: "text-violet-text",
     ring: "ring-violet/40",
-    glow: "#7c6cff",
+    glow: "#b5531a",
   },
   "delivery-support": {
-    color: "#34e0d9",
+    color: "#ffb84d",
     textColor: "var(--color-cyan-text)",
     text: "text-cyan-text",
     ring: "ring-cyan/40",
-    glow: "#34e0d9",
+    glow: "#ffb84d",
   },
 };
 

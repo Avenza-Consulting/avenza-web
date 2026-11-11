@@ -13,9 +13,12 @@
 
   --color-amber: #ff8a2b;
   --color-amber-soft: #ffb066;
-  --color-cyan: #34e0d9;
-  --color-violet: #7c6cff;
-  --color-azure: #3d8bff;
+  /* Brand is orange + black only. These three tokens keep their legacy names
+     (cyan/violet/azure) so existing utilities keep working, but they are now
+     distinct SHADES OF ORANGE, not cool colors. */
+  --color-cyan: #ffb84d;
+  --color-violet: #b5531a;
+  --color-azure: #e0670f;
 
   /* Text-only variants of the accent colors above — identical to the
      base tokens in dark mode, overridden separately (darker) in light
@@ -37,8 +40,12 @@
      pairs with doesn't flip either. */
   --color-on-accent: #06070a;
 
-  --font-display: var(--font-manrope);
-  --font-body: var(--font-inter);
+  /* Single company typeface — Outfit everywhere (display, body, captions,
+     mono). No other font family is used anywhere in the app. */
+  --font-sans: var(--font-outfit);
+  --font-display: var(--font-outfit);
+  --font-body: var(--font-outfit);
+  --font-mono: var(--font-outfit);
 
   --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
 
@@ -88,9 +95,10 @@
      anything that uses the base token as a background fill. */
   --color-amber-text: #a8560c;
   --color-amber-soft-text: #a8570d;
-  --color-cyan-text: #0d7d78;
-  --color-violet-text: #5445d6;
-  --color-azure-text: #1f63d1;
+  /* Darker orange shades for accent TEXT on the light paper background. */
+  --color-cyan-text: #8a5a06;
+  --color-violet-text: #7f3a0d;
+  --color-azure-text: #9a460b;
 
   color-scheme: light;
 }
@@ -118,8 +126,10 @@
   --color-text-muted: var(--color-text-muted);
   --color-text-dim: var(--color-text-dim);
   --color-on-accent: var(--color-on-accent);
+  --font-sans: var(--font-sans);
   --font-display: var(--font-display);
   --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
 }
 
 html {
@@ -170,11 +180,12 @@ body {
 }
 
 .font-hand {
-  font-family: var(--font-caveat);
+  font-family: var(--font-outfit);
 }
 
+/* Legacy name kept; now an all-orange brand gradient (ember → orange → gold). */
 .text-gradient-cool {
-  background: linear-gradient(90deg, #7c6cff 0%, #3d8bff 50%, #34e0d9 100%);
+  background: linear-gradient(90deg, #b5531a 0%, #e0670f 50%, #ffb84d 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

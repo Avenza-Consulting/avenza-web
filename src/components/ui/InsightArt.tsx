@@ -6,7 +6,7 @@ const artByTag: Record<string, (gradientId: string) => ReactNode> = {
       <defs>
         <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="#ff8a2b" />
-          <stop offset="100%" stopColor="#7c6cff" />
+          <stop offset="100%" stopColor="#b5531a" />
         </linearGradient>
       </defs>
       {[0, 1, 2].map((i) => (
@@ -25,7 +25,7 @@ const artByTag: Record<string, (gradientId: string) => ReactNode> = {
       ))}
       <circle cx={122} cy={50} r={2.5} fill="#ff8a2b" />
       <circle cx={122} cy={78} r={2.5} fill="#ffb066" />
-      <circle cx={122} cy={106} r={2.5} fill="#7c6cff" />
+      <circle cx={122} cy={106} r={2.5} fill="#b5531a" />
       <path d="M60 50H108M60 78H108M60 106H108" stroke="var(--color-white)" strokeOpacity="0.15" strokeWidth="1.2" strokeDasharray="3 4" />
       <circle cx={54} cy={50} r={4} fill="none" stroke="var(--color-white)" strokeOpacity="0.3" />
       <circle cx={54} cy={78} r={4} fill="none" stroke="var(--color-white)" strokeOpacity="0.3" />
@@ -37,8 +37,8 @@ const artByTag: Record<string, (gradientId: string) => ReactNode> = {
     <svg viewBox="0 0 320 160" className="h-full w-full" aria-hidden="true">
       <defs>
         <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#3d8bff" />
-          <stop offset="100%" stopColor="#34e0d9" />
+          <stop offset="0%" stopColor="#e0670f" />
+          <stop offset="100%" stopColor="#ffb84d" />
         </linearGradient>
       </defs>
       <path
@@ -48,25 +48,25 @@ const artByTag: Record<string, (gradientId: string) => ReactNode> = {
         strokeWidth="2"
       />
       <path d="M160 108v28M160 108l-16 16M160 108l16 16" stroke="var(--color-white)" strokeOpacity="0.5" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-      <circle cx={60} cy={40} r={2} fill="#34e0d9" opacity="0.8" />
-      <circle cx={250} cy={50} r={2} fill="#3d8bff" opacity="0.8" />
-      <circle cx={230} cy={120} r={2} fill="#34e0d9" opacity="0.6" />
-      <circle cx={80} cy={120} r={2} fill="#3d8bff" opacity="0.6" />
+      <circle cx={60} cy={40} r={2} fill="#ffb84d" opacity="0.8" />
+      <circle cx={250} cy={50} r={2} fill="#e0670f" opacity="0.8" />
+      <circle cx={230} cy={120} r={2} fill="#ffb84d" opacity="0.6" />
+      <circle cx={80} cy={120} r={2} fill="#e0670f" opacity="0.6" />
     </svg>
   ),
   Automation: (gradientId) => (
     <svg viewBox="0 0 320 160" className="h-full w-full" aria-hidden="true">
       <defs>
         <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#34e0d9" />
+          <stop offset="0%" stopColor="#ffb84d" />
           <stop offset="100%" stopColor="#ff8a2b" />
         </linearGradient>
       </defs>
       <line x1="50" y1="80" x2="270" y2="80" stroke={`url(#${gradientId})`} strokeWidth="1.6" strokeDasharray="5 6" />
       {[50, 120, 190, 260].map((x, i) => (
         <g key={x}>
-          <circle cx={x} cy={80} r={9} fill="var(--color-surface)" stroke={i % 2 === 0 ? "#34e0d9" : "#ff8a2b"} strokeWidth="1.6" />
-          <circle cx={x} cy={80} r={2.5} fill={i % 2 === 0 ? "#34e0d9" : "#ff8a2b"} />
+          <circle cx={x} cy={80} r={9} fill="var(--color-surface)" stroke={i % 2 === 0 ? "#ffb84d" : "#ff8a2b"} strokeWidth="1.6" />
+          <circle cx={x} cy={80} r={2.5} fill={i % 2 === 0 ? "#ffb84d" : "#ff8a2b"} />
         </g>
       ))}
       <path d="M50 80c0-18 12-30 30-30M270 80c0 18-12 30-30 30" stroke="var(--color-white)" strokeOpacity="0.15" strokeWidth="1.2" fill="none" />

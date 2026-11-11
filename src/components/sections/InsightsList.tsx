@@ -96,7 +96,7 @@ export function InsightsList() {
                       <div className="bg-grid absolute inset-0 opacity-20" aria-hidden="true" />
                       <div
                         className="absolute inset-0 opacity-40 transition-opacity duration-500 group-hover:opacity-70"
-                        style={{ background: "radial-gradient(circle at 30% 30%, #7c6cff, transparent 60%)" }}
+                        style={{ background: "radial-gradient(circle at 30% 30%, #b5531a, transparent 60%)" }}
                         aria-hidden="true"
                       />
                       <div className="absolute inset-0 flex items-center justify-center transition-transform duration-500 group-hover:scale-105">

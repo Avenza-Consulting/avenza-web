@@ -82,7 +82,7 @@ export function ContactForm() {
                   href="/careers"
                   className="rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:border-amber/50 hover:text-amber-soft-text"
                 >
-                  Careers CTA
+                  Careers
                 </a>
               </div>
             </div>

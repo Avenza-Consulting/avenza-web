@@ -252,7 +252,7 @@ export function ChatWidget() {
                 </div>
               ))}
 
-              {error && <p className="text-center text-xs text-red-300">{error}</p>}
+              {error && <p className="text-center text-xs text-amber-soft-text">{error}</p>}
             </div>
 
             {/* Composer */}

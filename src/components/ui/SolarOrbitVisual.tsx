@@ -143,8 +143,8 @@ export function SolarOrbitVisual() {
             <stop offset="100%" stopColor="#c96e00" />
           </radialGradient>
           <linearGradient id="solarFlow" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#34e0d9" stopOpacity="0" />
-            <stop offset="50%" stopColor="#34e0d9" stopOpacity="0.9" />
+            <stop offset="0%" stopColor="#ffb84d" stopOpacity="0" />
+            <stop offset="50%" stopColor="#ffb84d" stopOpacity="0.9" />
             <stop offset="100%" stopColor="#ff8a2b" stopOpacity="0" />
           </linearGradient>
         </defs>
@@ -216,7 +216,7 @@ export function SolarOrbitVisual() {
         {/* Outer ring — supporting capabilities, static at the four corners */}
         <g>
           {outer.map((n) => (
-            <circle key={`c-${n.id}`} cx={n.x} cy={n.y} r={5} fill="var(--color-ink)" stroke="#34e0d9" strokeWidth="1.5" strokeOpacity={0.85} />
+            <circle key={`c-${n.id}`} cx={n.x} cy={n.y} r={5} fill="var(--color-ink)" stroke="#ffb84d" strokeWidth="1.5" strokeOpacity={0.85} />
           ))}
           {outer.map((n) => (
             <text

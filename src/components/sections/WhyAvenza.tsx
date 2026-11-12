@@ -4,9 +4,9 @@ import { whyAvenza } from "@/data/content";
 
 const panelAccent: Record<string, { color: string; textColor: string }> = {
   credentials: { color: "#ff8a2b", textColor: "var(--color-amber-soft-text)" },
-  talent: { color: "#3d8bff", textColor: "var(--color-azure-text)" },
-  "thought-leadership": { color: "#7c6cff", textColor: "var(--color-violet-text)" },
-  accelerators: { color: "#34e0d9", textColor: "var(--color-cyan-text)" },
+  talent: { color: "#e0670f", textColor: "var(--color-azure-text)" },
+  "thought-leadership": { color: "#b5531a", textColor: "var(--color-violet-text)" },
+  accelerators: { color: "#ffb84d", textColor: "var(--color-cyan-text)" },
 };
 
 export function WhyAvenza() {
@@ -15,7 +15,7 @@ export function WhyAvenza() {
       <div className="bg-grid pointer-events-none absolute inset-0 opacity-[0.05]" aria-hidden="true" />
       <div
         className="animate-drift pointer-events-none absolute -right-32 top-0 h-[440px] w-[440px] rounded-full opacity-20 blur-[130px]"
-        style={{ background: "radial-gradient(circle, #7c6cff, transparent 70%)" }}
+        style={{ background: "radial-gradient(circle, #b5531a, transparent 70%)" }}
         aria-hidden="true"
       />
 

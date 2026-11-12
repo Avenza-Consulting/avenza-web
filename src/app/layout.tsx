@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Manrope, Caveat } from "next/font/google";
+import { Outfit } from "next/font/google";
 import { ThemeScript } from "@/components/ui/ThemeScript";
 import { TrfBanner } from "@/components/ui/TrfBanner";
 import { Header } from "@/components/ui/Header";
@@ -27,20 +27,9 @@ const organizationSchema = {
   sameAs: ["https://www.linkedin.com/company/avenza-consulting-services/"],
 };
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const manrope = Manrope({
-  variable: "--font-manrope",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const caveat = Caveat({
-  variable: "--font-caveat",
+// Single company typeface used across the whole app.
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
   display: "swap",
 });
@@ -70,7 +59,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${manrope.variable} ${caveat.variable} h-full antialiased`}
+      className={`${outfit.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>

@@ -24,15 +24,15 @@
   </defs>
 
   <rect x="0" y="0" width="1600" height="2000" fill="url(#bgGrad)"/>
-  <rect x="0" y="0" width="1600" height="2000" fill="none" stroke="#1c2029" stroke-width="2"/>
+  <rect x="0" y="0" width="1600" height="2000" fill="none" stroke="#1b1812" stroke-width="2"/>
 
   <!-- ===================== TITLE ===================== -->
-  <text x="800" y="70" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="800" fill="#f4f5f7">Temenos Banking Technology Ecosystem &amp; Avenza Services</text>
-  <text x="800" y="102" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#9aa2b1">Connecting Core Banking, Digital, Payments, Data, Cloud and AI through Avenza&#8217;s Technology Services</text>
+  <text x="800" y="70" text-anchor="middle" font-family="Outfit, sans-serif" font-size="38" font-weight="800" fill="#f4f5f7">Temenos Banking Technology Ecosystem &amp; Avenza Services</text>
+  <text x="800" y="102" text-anchor="middle" font-family="Outfit, sans-serif" font-size="17" fill="#9aa2b1">Connecting Core Banking, Digital, Payments, Data, Cloud and AI through Avenza&#8217;s Technology Services</text>
 
   <!-- legend -->
-  <g font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#9aa2b1">
-    <rect x="500" y="122" width="16" height="16" rx="3" fill="#161a24" stroke="#3d8bff" stroke-width="2"/>
+  <g font-family="Outfit, sans-serif" font-size="13" fill="#9aa2b1">
+    <rect x="500" y="122" width="16" height="16" rx="3" fill="#161a24" stroke="#e0670f" stroke-width="2"/>
     <text x="524" y="134">Temenos Product</text>
     <rect x="680" y="122" width="16" height="16" rx="3" fill="#2a1c10" stroke="#ff8a2b" stroke-width="2"/>
     <text x="704" y="134">Avenza Service</text>
@@ -41,16 +41,16 @@
   </g>
 
   <!-- ===================== LAYER 1: DIGITAL CHANNELS ===================== -->
-  <text x="80" y="178" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#ffb066" letter-spacing="1">01&#160;&#160;DIGITAL CHANNELS</text>
-  <rect x="80" y="190" width="1440" height="90" rx="12" fill="#10131b" stroke="#242938" stroke-width="1.5"/>
-  <g font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="600" fill="#e7e9ee">
+  <text x="80" y="178" font-family="Outfit, sans-serif" font-size="15" font-weight="700" fill="#ffb066" letter-spacing="1">01&#160;&#160;DIGITAL CHANNELS</text>
+  <rect x="80" y="190" width="1440" height="90" rx="12" fill="#10131b" stroke="#211d16" stroke-width="1.5"/>
+  <g font-family="Outfit, sans-serif" font-size="13" font-weight="600" fill="#e7e9ee">
     <!-- 7 channel chips evenly spaced across 1440 width, 12px gutter -->
     <!-- chip width ~ (1440-8*16)/7 = 187 -->
     <g id="channels">
     </g>
   </g>
   <!-- channel chips generated manually -->
-  <g font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="600" fill="#e7e9ee" text-anchor="middle">
+  <g font-family="Outfit, sans-serif" font-size="12.5" font-weight="600" fill="#e7e9ee" text-anchor="middle">
     <rect x="96"  y="212" width="185" height="46" rx="8" fill="#161a24" stroke="#3d3620" stroke-width="1"/>
     <text x="188.5" y="240">Mobile Banking</text>
     <rect x="297" y="212" width="185" height="46" rx="8" fill="#161a24" stroke="#3d3620" stroke-width="1"/>
@@ -72,16 +72,16 @@
   <line x1="800" y1="280" x2="800" y2="320" stroke="#9aa2b1" stroke-width="2.5" marker-end="url(#arrow)"/>
 
   <!-- ===================== LAYER 2: API / INTEGRATION ===================== -->
-  <text x="80" y="345" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#34e0d9" letter-spacing="1">02&#160;&#160;INTEGRATION LAYER</text>
-  <rect x="80" y="357" width="1440" height="86" rx="12" fill="#0e1f1f" stroke="#1f4a48" stroke-width="1.5"/>
-  <g font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#8ff0e8" text-anchor="middle">
+  <text x="80" y="345" font-family="Outfit, sans-serif" font-size="15" font-weight="700" fill="#ffb84d" letter-spacing="1">02&#160;&#160;INTEGRATION LAYER</text>
+  <rect x="80" y="357" width="1440" height="86" rx="12" fill="#0d0a07" stroke="#3a2412" stroke-width="1.5"/>
+  <g font-family="Outfit, sans-serif" font-size="13" font-weight="700" fill="#ffcf99" text-anchor="middle">
     <text x="224" y="406">API Gateway</text>
     <text x="512" y="406">Microservices</text>
     <text x="800" y="406">Integration Services</text>
     <text x="1088" y="406">Event Streaming</text>
     <text x="1376" y="406">Partner APIs</text>
   </g>
-  <g stroke="#1f4a48" stroke-width="1">
+  <g stroke="#3a2412" stroke-width="1">
     <line x1="368" y1="368" x2="368" y2="432"/>
     <line x1="656" y1="368" x2="656" y2="432"/>
     <line x1="944" y1="368" x2="944" y2="432"/>
@@ -91,21 +91,21 @@
   <line x1="800" y1="443" x2="800" y2="483" stroke="#9aa2b1" stroke-width="2.5" marker-end="url(#arrow)"/>
 
   <!-- ===================== LAYER 3: BANKING & CUSTOMER EXPERIENCE ===================== -->
-  <text x="80" y="508" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#3d8bff" letter-spacing="1">03&#160;&#160;BANKING &amp; CUSTOMER EXPERIENCE</text>
-  <g font-family="Arial, Helvetica, sans-serif">
-    <rect x="80" y="522" width="466" height="118" rx="12" fill="#101826" stroke="#3d8bff" stroke-width="2"/>
-    <text x="313" y="558" text-anchor="middle" font-size="16" font-weight="800" fill="#eaf1ff">Digital Banking</text>
+  <text x="80" y="508" font-family="Outfit, sans-serif" font-size="15" font-weight="700" fill="#e0670f" letter-spacing="1">03&#160;&#160;BANKING &amp; CUSTOMER EXPERIENCE</text>
+  <g font-family="Outfit, sans-serif">
+    <rect x="80" y="522" width="466" height="118" rx="12" fill="#141009" stroke="#e0670f" stroke-width="2"/>
+    <text x="313" y="558" text-anchor="middle" font-size="16" font-weight="800" fill="#fff2e6">Digital Banking</text>
     <text x="313" y="580" text-anchor="middle" font-size="11.5" fill="#9aa2b1">Omnichannel retail, corporate</text>
     <text x="313" y="596" text-anchor="middle" font-size="11.5" fill="#9aa2b1">&amp; wealth digital experiences</text>
 
-    <rect x="567" y="522" width="466" height="118" rx="12" fill="#101826" stroke="#3d8bff" stroke-width="2"/>
-    <text x="800" y="558" text-anchor="middle" font-size="16" font-weight="800" fill="#eaf1ff">Temenos Journey Manager</text>
+    <rect x="567" y="522" width="466" height="118" rx="12" fill="#141009" stroke="#e0670f" stroke-width="2"/>
+    <text x="800" y="558" text-anchor="middle" font-size="16" font-weight="800" fill="#fff2e6">Temenos Journey Manager</text>
     <text x="800" y="580" text-anchor="middle" font-size="11.5" fill="#9aa2b1">Low-code orchestration of</text>
     <text x="800" y="596" text-anchor="middle" font-size="11.5" fill="#9aa2b1">customer &amp; product journeys</text>
 
-    <rect x="1054" y="522" width="466" height="118" rx="12" fill="#101826" stroke="#3d8bff" stroke-width="2"/>
-    <text x="1287" y="558" text-anchor="middle" font-size="16" font-weight="800" fill="#eaf1ff">Temenos Lifecycle</text>
-    <text x="1287" y="576" text-anchor="middle" font-size="16" font-weight="800" fill="#eaf1ff">Management Suite</text>
+    <rect x="1054" y="522" width="466" height="118" rx="12" fill="#141009" stroke="#e0670f" stroke-width="2"/>
+    <text x="1287" y="558" text-anchor="middle" font-size="16" font-weight="800" fill="#fff2e6">Temenos Lifecycle</text>
+    <text x="1287" y="576" text-anchor="middle" font-size="16" font-weight="800" fill="#fff2e6">Management Suite</text>
     <text x="1287" y="598" text-anchor="middle" font-size="11.5" fill="#9aa2b1">Onboarding, servicing &amp; product</text>
     <text x="1287" y="613" text-anchor="middle" font-size="11.5" fill="#9aa2b1">lifecycle orchestration</text>
   </g>
@@ -113,8 +113,8 @@
   <line x1="800" y1="640" x2="800" y2="680" stroke="#9aa2b1" stroke-width="2.5" marker-end="url(#arrow)"/>
 
   <!-- ===================== LAYER 4: CORE BANKING & FINANCIAL FOUNDATION ===================== -->
-  <text x="80" y="705" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#ff8a2b" letter-spacing="1">04&#160;&#160;CORE BANKING &amp; FINANCIAL FOUNDATION</text>
-  <g font-family="Arial, Helvetica, sans-serif">
+  <text x="80" y="705" font-family="Outfit, sans-serif" font-size="15" font-weight="700" fill="#ff8a2b" letter-spacing="1">04&#160;&#160;CORE BANKING &amp; FINANCIAL FOUNDATION</text>
+  <g font-family="Outfit, sans-serif">
     <!-- Transact is the anchor - wider + glow -->
     <rect x="80" y="719" width="560" height="150" rx="14" fill="#1a1108" stroke="#ff8a2b" stroke-width="3" filter="url(#softGlow)"/>
     <text x="360" y="762" text-anchor="middle" font-size="20" font-weight="800" fill="#ffd9b3">Core Banking</text>
@@ -123,26 +123,26 @@
     <text x="360" y="828" text-anchor="middle" font-size="12" fill="#c9a06a">lending &amp; product processing</text>
     <text x="360" y="854" text-anchor="middle" font-size="11" fill="#8a6a3f" font-style="italic">The anchor platform every other product connects to</text>
 
-    <rect x="660" y="719" width="278" height="150" rx="12" fill="#101826" stroke="#3d8bff" stroke-width="2"/>
-    <text x="799" y="770" text-anchor="middle" font-size="15" font-weight="800" fill="#eaf1ff">Temenos Treasury</text>
+    <rect x="660" y="719" width="278" height="150" rx="12" fill="#141009" stroke="#e0670f" stroke-width="2"/>
+    <text x="799" y="770" text-anchor="middle" font-size="15" font-weight="800" fill="#fff2e6">Temenos Treasury</text>
     <text x="799" y="792" text-anchor="middle" font-size="11.5" fill="#9aa2b1">Liquidity, trading &amp;</text>
     <text x="799" y="807" text-anchor="middle" font-size="11.5" fill="#9aa2b1">risk management</text>
 
-    <rect x="958" y="719" width="278" height="150" rx="12" fill="#101826" stroke="#3d8bff" stroke-width="2"/>
-    <text x="1097" y="770" text-anchor="middle" font-size="15" font-weight="800" fill="#eaf1ff">Temenos Islamic</text>
-    <text x="1097" y="789" text-anchor="middle" font-size="15" font-weight="800" fill="#eaf1ff">Banking</text>
+    <rect x="958" y="719" width="278" height="150" rx="12" fill="#141009" stroke="#e0670f" stroke-width="2"/>
+    <text x="1097" y="770" text-anchor="middle" font-size="15" font-weight="800" fill="#fff2e6">Temenos Islamic</text>
+    <text x="1097" y="789" text-anchor="middle" font-size="15" font-weight="800" fill="#fff2e6">Banking</text>
     <text x="1097" y="812" text-anchor="middle" font-size="11.5" fill="#9aa2b1">Shari&#8217;ah-compliant core</text>
     <text x="1097" y="827" text-anchor="middle" font-size="11.5" fill="#9aa2b1">banking &amp; products</text>
 
-    <rect x="1256" y="719" width="264" height="150" rx="12" fill="#101826" stroke="#3d8bff" stroke-width="2"/>
-    <text x="1388" y="770" text-anchor="middle" font-size="15" font-weight="800" fill="#eaf1ff">Wealth</text>
-    <text x="1388" y="789" text-anchor="middle" font-size="15" font-weight="800" fill="#eaf1ff">Management</text>
+    <rect x="1256" y="719" width="264" height="150" rx="12" fill="#141009" stroke="#e0670f" stroke-width="2"/>
+    <text x="1388" y="770" text-anchor="middle" font-size="15" font-weight="800" fill="#fff2e6">Wealth</text>
+    <text x="1388" y="789" text-anchor="middle" font-size="15" font-weight="800" fill="#fff2e6">Management</text>
     <text x="1388" y="812" text-anchor="middle" font-size="11.5" fill="#9aa2b1">Advisory, portfolio &amp;</text>
     <text x="1388" y="827" text-anchor="middle" font-size="11.5" fill="#9aa2b1">investment management</text>
   </g>
 
   <!-- connectors from CX layer down into each core box -->
-  <g stroke="#33394a" stroke-width="1.5" fill="none">
+  <g stroke="#322a20" stroke-width="1.5" fill="none">
     <path d="M313,640 L360,719" marker-end="url(#arrow)"/>
     <path d="M800,680 L800,719" marker-end="url(#arrow)"/>
     <path d="M1287,640 L1097,719" marker-end="url(#arrow)"/>
@@ -158,51 +158,51 @@
   <line x1="800" y1="869" x2="800" y2="909" stroke="#9aa2b1" stroke-width="2.5" marker-end="url(#arrow)"/>
 
   <!-- ===================== LAYER 5: PAYMENTS & FINANCIAL CRIME ===================== -->
-  <text x="80" y="934" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#ff6a3d" letter-spacing="1">05&#160;&#160;PAYMENTS &amp; FINANCIAL CRIME</text>
-  <g font-family="Arial, Helvetica, sans-serif">
-    <rect x="80" y="948" width="710" height="118" rx="12" fill="#101826" stroke="#3d8bff" stroke-width="2"/>
-    <text x="435" y="984" text-anchor="middle" font-size="17" font-weight="800" fill="#eaf1ff">Payments</text>
+  <text x="80" y="934" font-family="Outfit, sans-serif" font-size="15" font-weight="700" fill="#ff6a3d" letter-spacing="1">05&#160;&#160;PAYMENTS &amp; FINANCIAL CRIME</text>
+  <g font-family="Outfit, sans-serif">
+    <rect x="80" y="948" width="710" height="118" rx="12" fill="#141009" stroke="#e0670f" stroke-width="2"/>
+    <text x="435" y="984" text-anchor="middle" font-size="17" font-weight="800" fill="#fff2e6">Payments</text>
     <text x="435" y="1006" text-anchor="middle" font-size="11.5" fill="#9aa2b1">Real-time, high-value, cross-border &amp; instant</text>
     <text x="435" y="1022" text-anchor="middle" font-size="11.5" fill="#9aa2b1">payment processing via Temenos Payment Hub</text>
 
-    <rect x="810" y="948" width="710" height="118" rx="12" fill="#101826" stroke="#3d8bff" stroke-width="2"/>
-    <text x="1165" y="978" text-anchor="middle" font-size="17" font-weight="800" fill="#eaf1ff">Temenos Financial</text>
-    <text x="1165" y="998" text-anchor="middle" font-size="17" font-weight="800" fill="#eaf1ff">Crime Mitigation</text>
+    <rect x="810" y="948" width="710" height="118" rx="12" fill="#141009" stroke="#e0670f" stroke-width="2"/>
+    <text x="1165" y="978" text-anchor="middle" font-size="17" font-weight="800" fill="#fff2e6">Temenos Financial</text>
+    <text x="1165" y="998" text-anchor="middle" font-size="17" font-weight="800" fill="#fff2e6">Crime Mitigation</text>
     <text x="1165" y="1020" text-anchor="middle" font-size="11.5" fill="#9aa2b1">AML, fraud &amp; watch-list screening across</text>
     <text x="1165" y="1035" text-anchor="middle" font-size="11.5" fill="#9aa2b1">every banking &amp; payment transaction</text>
   </g>
   <!-- FCM screens transactions from core + payments: bidirectional monitoring arrows -->
   <path d="M800,948 C800,910 1000,910 1165,948" fill="none" stroke="#ff6a3d" stroke-width="1.75" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
   <path d="M1165,948 C1165,900 700,890 435,948" fill="none" stroke="#ff6a3d" stroke-width="1.75" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
-  <text x="985" y="905" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="10.5" fill="#ff9a75" font-style="italic">screens every transaction in real time</text>
+  <text x="985" y="905" text-anchor="middle" font-family="Outfit, sans-serif" font-size="10.5" fill="#ff9a75" font-style="italic">screens every transaction in real time</text>
 
   <line x1="435" y1="1066" x2="435" y2="1106" stroke="#9aa2b1" stroke-width="2.5" marker-end="url(#arrow)"/>
   <line x1="1165" y1="1066" x2="1165" y2="1106" stroke="#9aa2b1" stroke-width="2.5" marker-end="url(#arrow)"/>
 
   <!-- ===================== LAYER 6: DATA & INTELLIGENCE ===================== -->
-  <text x="80" y="1131" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#7c6cff" letter-spacing="1">06&#160;&#160;DATA &amp; INTELLIGENCE</text>
-  <g font-family="Arial, Helvetica, sans-serif">
-    <rect x="80" y="1145" width="345" height="120" rx="12" fill="#161226" stroke="#7c6cff" stroke-width="2.5"/>
-    <text x="252" y="1188" text-anchor="middle" font-size="15" font-weight="800" fill="#e3dfff">Temenos Data Hub</text>
-    <text x="252" y="1210" text-anchor="middle" font-size="11" fill="#a89ce0">Unified data model across</text>
-    <text x="252" y="1225" text-anchor="middle" font-size="11" fill="#a89ce0">every Temenos product</text>
+  <text x="80" y="1131" font-family="Outfit, sans-serif" font-size="15" font-weight="700" fill="#b5531a" letter-spacing="1">06&#160;&#160;DATA &amp; INTELLIGENCE</text>
+  <g font-family="Outfit, sans-serif">
+    <rect x="80" y="1145" width="345" height="120" rx="12" fill="#140f0a" stroke="#b5531a" stroke-width="2.5"/>
+    <text x="252" y="1188" text-anchor="middle" font-size="15" font-weight="800" fill="#f5e6d6">Temenos Data Hub</text>
+    <text x="252" y="1210" text-anchor="middle" font-size="11" fill="#e0b48a">Unified data model across</text>
+    <text x="252" y="1225" text-anchor="middle" font-size="11" fill="#e0b48a">every Temenos product</text>
 
-    <rect x="445" y="1145" width="345" height="120" rx="12" fill="#101826" stroke="#3d8bff" stroke-width="2"/>
-    <text x="617" y="1188" text-anchor="middle" font-size="15" font-weight="800" fill="#eaf1ff">Cloud Data Platform</text>
+    <rect x="445" y="1145" width="345" height="120" rx="12" fill="#141009" stroke="#e0670f" stroke-width="2"/>
+    <text x="617" y="1188" text-anchor="middle" font-size="15" font-weight="800" fill="#fff2e6">Cloud Data Platform</text>
     <text x="617" y="1210" text-anchor="middle" font-size="11" fill="#9aa2b1">Scalable storage &amp; compute</text>
     <text x="617" y="1225" text-anchor="middle" font-size="11" fill="#9aa2b1">for enterprise data</text>
 
-    <rect x="810" y="1145" width="345" height="120" rx="12" fill="#0e1f1f" stroke="#34e0d9" stroke-width="2"/>
-    <text x="982" y="1188" text-anchor="middle" font-size="15" font-weight="800" fill="#c7fbf7">AI / Machine Learning</text>
-    <text x="982" y="1210" text-anchor="middle" font-size="11" fill="#7fd8d1">Predictive, generative &amp;</text>
-    <text x="982" y="1225" text-anchor="middle" font-size="11" fill="#7fd8d1">agentic banking intelligence</text>
+    <rect x="810" y="1145" width="345" height="120" rx="12" fill="#0d0a07" stroke="#ffb84d" stroke-width="2"/>
+    <text x="982" y="1188" text-anchor="middle" font-size="15" font-weight="800" fill="#ffe6cc">AI / Machine Learning</text>
+    <text x="982" y="1210" text-anchor="middle" font-size="11" fill="#e6a269">Predictive, generative &amp;</text>
+    <text x="982" y="1225" text-anchor="middle" font-size="11" fill="#e6a269">agentic banking intelligence</text>
 
-    <rect x="1175" y="1145" width="345" height="120" rx="12" fill="#101826" stroke="#3d8bff" stroke-width="2"/>
-    <text x="1347" y="1188" text-anchor="middle" font-size="15" font-weight="800" fill="#eaf1ff">Analytics &amp; Reporting</text>
+    <rect x="1175" y="1145" width="345" height="120" rx="12" fill="#141009" stroke="#e0670f" stroke-width="2"/>
+    <text x="1347" y="1188" text-anchor="middle" font-size="15" font-weight="800" fill="#fff2e6">Analytics &amp; Reporting</text>
     <text x="1347" y="1210" text-anchor="middle" font-size="11" fill="#9aa2b1">Regulatory, risk &amp;</text>
     <text x="1347" y="1225" text-anchor="middle" font-size="11" fill="#9aa2b1">business intelligence</text>
   </g>
-  <g stroke="#2a2540" stroke-width="1.5" fill="none">
+  <g stroke="#241a10" stroke-width="1.5" fill="none">
     <path d="M425,1205 L445,1205" marker-end="url(#arrow)"/>
     <path d="M790,1205 L810,1205" marker-end="url(#arrow)"/>
     <path d="M1155,1205 L1175,1205" marker-end="url(#arrow)"/>
@@ -212,11 +212,11 @@
   <rect x="0" y="1310" width="1600" height="600" fill="#0a0704"/>
   <rect x="0" y="1310" width="1600" height="6" fill="url(#avenzaBand)"/>
 
-  <text x="800" y="1364" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="800" fill="#ffb066">Avenza Services — Across the Entire Temenos Ecosystem</text>
-  <text x="800" y="1392" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14.5" fill="#c9a06a">Temenos builds the products. Avenza implements, integrates, modernizes, engineers and supports them — end to end.</text>
+  <text x="800" y="1364" text-anchor="middle" font-family="Outfit, sans-serif" font-size="28" font-weight="800" fill="#ffb066">Avenza Services — Across the Entire Temenos Ecosystem</text>
+  <text x="800" y="1392" text-anchor="middle" font-family="Outfit, sans-serif" font-size="14.5" fill="#c9a06a">Temenos builds the products. Avenza implements, integrates, modernizes, engineers and supports them — end to end.</text>
 
   <!-- Avenza service groups mapped to the 6 layers above -->
-  <g font-family="Arial, Helvetica, sans-serif">
+  <g font-family="Outfit, sans-serif">
 
     <!-- group: Channels & Experience -->
     <text x="140" y="1440" font-size="13.5" font-weight="700" fill="#ffb066" letter-spacing="0.5">CHANNELS &amp; CUSTOMER EXPERIENCE</text>
@@ -276,10 +276,10 @@
 
   <!-- ===================== FOOTER STRIP: brand distinction ===================== -->
   <rect x="0" y="1910" width="1600" height="90" fill="#0c0f16"/>
-  <line x1="0" y1="1910" x2="1600" y2="1910" stroke="#242938" stroke-width="1"/>
-  <g font-family="Arial, Helvetica, sans-serif">
-    <rect x="140" y="1935" width="16" height="16" rx="3" fill="#101826" stroke="#3d8bff" stroke-width="2"/>
-    <text x="166" y="1948" font-size="14" fill="#eaf1ff" font-weight="700">TEMENOS</text>
+  <line x1="0" y1="1910" x2="1600" y2="1910" stroke="#211d16" stroke-width="1"/>
+  <g font-family="Outfit, sans-serif">
+    <rect x="140" y="1935" width="16" height="16" rx="3" fill="#141009" stroke="#e0670f" stroke-width="2"/>
+    <text x="166" y="1948" font-size="14" fill="#fff2e6" font-weight="700">TEMENOS</text>
     <text x="166" y="1966" font-size="12" fill="#9aa2b1">Product &amp; technology ecosystem</text>
 
     <rect x="900" y="1935" width="16" height="16" rx="3" fill="#1a1108" stroke="#ff8a2b" stroke-width="2"/>

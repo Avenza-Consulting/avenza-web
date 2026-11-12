@@ -165,11 +165,11 @@ export function ContactForm() {
                       className="w-full rounded-lg border border-white/10 bg-white/5 px-3.5 py-2.5 text-sm text-white placeholder:text-text-dim focus:border-amber/50 focus:outline-none focus:ring-2 focus:ring-amber/20"
                       placeholder="Tell us about your transformation program"
                     />
-                    {errors.message && <p className="mt-1.5 text-xs text-red-400">{errors.message}</p>}
+                    {errors.message && <p className="mt-1.5 text-xs text-amber-soft-text">{errors.message}</p>}
                   </div>
 
                   {submitError && (
-                    <p className="rounded-lg border border-red-400/30 bg-red-400/10 p-3 text-xs text-red-400">
+                    <p className="rounded-lg border border-amber/30 bg-amber/10 p-3 text-xs text-amber-soft-text">
                       {submitError}
                     </p>
                   )}
@@ -218,7 +218,7 @@ function Field({
         aria-invalid={!!error}
         className="w-full rounded-lg border border-white/10 bg-white/5 px-3.5 py-2.5 text-sm text-white placeholder:text-text-dim focus:border-amber/50 focus:outline-none focus:ring-2 focus:ring-amber/20"
       />
-      {error && <p className="mt-1.5 text-xs text-red-400">{error}</p>}
+      {error && <p className="mt-1.5 text-xs text-amber-soft-text">{error}</p>}
     </div>
   );
 }

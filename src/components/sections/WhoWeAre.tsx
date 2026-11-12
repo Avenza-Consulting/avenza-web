@@ -5,9 +5,9 @@ import { stats } from "@/data/content";
 
 const statAccent: Record<string, { color: string; textColor: string }> = {
   experience: { color: "#ff8a2b", textColor: "var(--color-amber-soft-text)" },
-  "service-lines": { color: "#3d8bff", textColor: "var(--color-azure-text)" },
-  "product-lines": { color: "#7c6cff", textColor: "var(--color-violet-text)" },
-  engagement: { color: "#34e0d9", textColor: "var(--color-cyan-text)" },
+  "service-lines": { color: "#e0670f", textColor: "var(--color-azure-text)" },
+  "product-lines": { color: "#b5531a", textColor: "var(--color-violet-text)" },
+  engagement: { color: "#ffb84d", textColor: "var(--color-cyan-text)" },
 };
 
 export function WhoWeAre() {
@@ -21,7 +21,7 @@ export function WhoWeAre() {
       />
       <div
         className="animate-drift pointer-events-none absolute -right-32 bottom-0 h-[420px] w-[420px] rounded-full opacity-20 blur-[130px]"
-        style={{ background: "radial-gradient(circle, #3d8bff, transparent 70%)", animationDelay: "3s" }}
+        style={{ background: "radial-gradient(circle, #e0670f, transparent 70%)", animationDelay: "3s" }}
         aria-hidden="true"
       />
 
